@@ -19,7 +19,6 @@ public class Detail {
 	@Column(name = "id", unique = true, nullable = false)
 	private long id;
 	
-	//wea
 	@Column(name = "id_manufacture", unique = false, nullable = false)
 	private long id_manufacture;
 	
