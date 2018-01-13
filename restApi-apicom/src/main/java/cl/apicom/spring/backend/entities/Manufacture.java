@@ -14,7 +14,7 @@ public class Manufacture {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private long id;
+	private int id;
 	
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
@@ -22,7 +22,7 @@ public class Manufacture {
 	@Column(name = "description", unique = false, nullable = false)
 	private String description;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 

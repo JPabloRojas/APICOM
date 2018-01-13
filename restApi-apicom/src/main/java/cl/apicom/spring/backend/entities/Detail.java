@@ -17,13 +17,13 @@ public class Detail {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private long id;
+	private int id;
 	
 	@Column(name = "id_manufacture", unique = false, nullable = false)
-	private long id_manufacture;
+	private int id_manufacture;
 	
 	@Column(name = "id_pair", unique = false, nullable = false)
-	private long id_pair;
+	private int id_pair;
 	
 	@Column(name = "estate", unique = false, nullable = false)
 	private int estate;
@@ -38,12 +38,88 @@ public class Detail {
 	private Timestamp ingress_date;
 	
 	@Column(name = "id_lista", unique = false, nullable = false)
-	private long id_lista;
+	private int id_lista;
 	
 	@Column(name = "id_base", unique = false, nullable = false)
-	private long id_base;
+	private int id_base;
 	
 	@Column(name = "iata", unique = false, nullable = false)
-	private long iata;
+	private int iata;
+
+	public int getId() {
+		return id;
+	}
+
+	public int getId_manufacture() {
+		return id_manufacture;
+	}
+
+	public void setId_manufacture(int id_manufacture) {
+		this.id_manufacture = id_manufacture;
+	}
+
+	public int getId_pair() {
+		return id_pair;
+	}
+
+	public void setId_pair(int id_pair) {
+		this.id_pair = id_pair;
+	}
+
+	public int getEstate() {
+		return estate;
+	}
+
+	public void setEstate(int estate) {
+		this.estate = estate;
+	}
+
+	public Timestamp getEstate_date() {
+		return estate_date;
+	}
+
+	public void setEstate_date(Timestamp estate_date) {
+		this.estate_date = estate_date;
+	}
+
+	public Timestamp getDespair_date() {
+		return despair_date;
+	}
+
+	public void setDespair_date(Timestamp despair_date) {
+		this.despair_date = despair_date;
+	}
+
+	public Timestamp getIngress_date() {
+		return ingress_date;
+	}
+
+	public void setIngress_date(Timestamp ingress_date) {
+		this.ingress_date = ingress_date;
+	}
+
+	public int getId_lista() {
+		return id_lista;
+	}
+
+	public void setId_lista(int id_lista) {
+		this.id_lista = id_lista;
+	}
+
+	public int getId_base() {
+		return id_base;
+	}
+
+	public void setId_base(int id_base) {
+		this.id_base = id_base;
+	}
+
+	public int getIata() {
+		return iata;
+	}
+
+	public void setIata(int iata) {
+		this.iata = iata;
+	}
 	
 }

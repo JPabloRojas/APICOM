@@ -14,45 +14,45 @@ public class Price_Client_Sector {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private long id;
+	private int id;
 	
 	@Column(name = "id_cliente", unique = false, nullable = false)
-	private long id_cliente;
+	private int id_cliente;
 	
 	@Column(name = "id_product", unique = false, nullable = false)
-	private long id_product;
+	private int id_product;
 	
 	@Column(name = "id_sector", unique = false, nullable = false)
-	private long id_sector;
+	private int id_sector;
 	
 	@Column(name = "price", unique = false, nullable = false)
 	private int price;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	
-	public long getId_cliente() {
+	public int getId_cliente() {
 		return id_cliente;
 	}
 
-	public void setId_cliente(long id_cliente) {
+	public void setId_cliente(int id_cliente) {
 		this.id_cliente = id_cliente;
 	}
 
-	public long getId_product() {
+	public int getId_product() {
 		return id_product;
 	}
 
-	public void setId_product(long id_product) {
+	public void setId_product(int id_product) {
 		this.id_product = id_product;
 	}
 
-	public long getId_sector() {
+	public int getId_sector() {
 		return id_sector;
 	}
 
-	public void setId_sector(long id_sector) {
+	public void setId_sector(int id_sector) {
 		this.id_sector = id_sector;
 	}
 

@@ -17,10 +17,10 @@ public class Logs {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private long id;
+	private int id;
 	
 	@Column(name = "id_user", unique = false, nullable = false)
-	private long id_user;
+	private int id_user;
 	
 	@Column(name = "date", unique = false, nullable = false)
 	private Timestamp date;
@@ -32,15 +32,15 @@ public class Logs {
 	private String ip;
 
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	
-	public long getId_user() {
+	public int getId_user() {
 		return id_user;
 	}
 
-	public void setId_user(long id_user) {
+	public void setId_user(int id_user) {
 		this.id_user = id_user;
 	}
 

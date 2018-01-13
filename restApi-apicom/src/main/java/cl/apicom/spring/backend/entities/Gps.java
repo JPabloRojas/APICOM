@@ -15,7 +15,7 @@ public class Gps {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private long id;
+	private int id;
 
 	@Column(name = "latitude", unique = false, nullable = false)
 	private double latitude;
@@ -24,9 +24,9 @@ public class Gps {
 	private double longitude;
 	
 	@Column(name = "id_user", unique = false, nullable = false)
-	private long id_user;
+	private int id_user;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	public double getLatitude() {
@@ -44,12 +44,11 @@ public class Gps {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-
-	public long getId_usuario() {
+	public int getId_user() {
 		return id_user;
 	}
-
-	public void setId_usuario(long id_usuario) {
-		this.id_user = id_usuario;
+	public void setId_user(int id_user) {
+		this.id_user = id_user;
 	}
+
 }

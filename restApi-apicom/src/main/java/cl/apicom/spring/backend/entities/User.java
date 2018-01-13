@@ -47,10 +47,10 @@ public class User {
 	private Client client;
 	
 	@Column(name = "id_client", unique = false, nullable = false)
-	private long id_client;
+	private int id_client;
 	
 	@Column(name = "profile", unique = false, nullable = false)
-	private long profile;
+	private int profile;
 	
 	@Column(name = "payment_status", unique = false, nullable = false)
 	private int payment_status;
@@ -62,6 +62,8 @@ public class User {
 	@Column(name = "patente_vehiculo", unique = true, nullable = false)
 	private String patente_vehiculo;
 
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -123,19 +125,19 @@ public class User {
 		this.active = active;
 	}
 
-	public long getId_client() {
+	public int getId_client() {
 		return id_client;
 	}
 
-	public void setId_client(long id_client) {
+	public void setId_client(int id_client) {
 		this.id_client = id_client;
 	}
 
-	public long getProfile() {
+	public int getProfile() {
 		return profile;
 	}
 
-	public void setProfile(long profile) {
+	public void setProfile(int profile) {
 		this.profile = profile;
 	}
 
