@@ -50,8 +50,8 @@ public class Lista {
 		this.price = price;
 	}
 
-	public Timestamp getList_date() {
-		return list_date;
+	public String getList_date() {
+		return list_date.toString();
 	}
 
 	public void setList_date(Timestamp list_date) {

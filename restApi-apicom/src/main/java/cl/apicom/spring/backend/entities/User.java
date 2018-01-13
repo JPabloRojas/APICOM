@@ -30,8 +30,6 @@ public class User {
 	@Column(name = "creation_date", unique = false, nullable = false)
 	private Timestamp creation_date;
 	
-	//Propenso a cambios en donde la fecha de ultima modificación sea null,
-	//debido que al momento de crear la acc no tiene sentido en que este la fecha.
 	@Column(name = "last_change_date", unique = false, nullable = true)
 	private Timestamp last_change_date;
 	
@@ -58,7 +56,6 @@ public class User {
 	@Column(name = "payment_type", unique = false, nullable = false)
 	private int payment_type;
 	
-	//Duda con patente vehiculo
 	@Column(name = "patente_vehiculo", unique = true, nullable = false)
 	private String patente_vehiculo;
 
@@ -93,16 +90,24 @@ public class User {
 		this.password = password;
 	}
 	
-	public Timestamp getCreation_date() {
-		return creation_date;
+	public String getCreation_date() {
+		return creation_date.toString();
 	}
 
 	public void setCreation_date(Timestamp creation_date) {
 		this.creation_date = creation_date;
 	}
 
-	public Timestamp getLast_change_date() {
-		return last_change_date;
+	public String getLast_change_date() {
+		String response;
+		if(last_change_date != null){
+			response = last_change_date.toString();
+		}
+		else{
+			response = "null";
+		}
+		
+		return response;
 	}
 
 	public void setLast_change_date(Timestamp last_change_date) {

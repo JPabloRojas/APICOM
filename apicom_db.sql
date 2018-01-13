@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 10-01-2018 a las 16:43:34
+-- Tiempo de generación: 13-01-2018 a las 20:39:49
 -- Versión del servidor: 5.7.20-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -23,15 +23,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `apicom_base`
+--
+
+CREATE TABLE `apicom_base` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `sales_check` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `apicom_base`
+--
+
+INSERT INTO `apicom_base` (`id`, `id_user`, `date`, `name`, `sales_check`) VALUES
+(1, 1, '2018-01-04 00:00:00', 'test_name', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `apicom_client`
 --
 
 CREATE TABLE `apicom_client` (
-  `id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `creation_date` datetime NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `trading_contact` varchar(100) NOT NULL,
+  `contact` varchar(100) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `mail` varchar(100) NOT NULL,
   `rut` varchar(15) NOT NULL,
@@ -42,8 +63,9 @@ CREATE TABLE `apicom_client` (
 -- Volcado de datos para la tabla `apicom_client`
 --
 
-INSERT INTO `apicom_client` (`id`, `name`, `creation_date`, `active`, `trading_contact`, `phone`, `mail`, `rut`, `adress`) VALUES
-(1, 'test', '2018-01-10 05:14:14', 1, 'trading test', '123123', 'test@test.com', '11.111.111-1', 'test adress');
+INSERT INTO `apicom_client` (`id`, `name`, `creation_date`, `active`, `contact`, `phone`, `mail`, `rut`, `adress`) VALUES
+(1, 'test', '2018-01-10 05:14:14', 1, 'trading test', '123123', 'test@test.com', '11.111.111-1', 'test adress'),
+(2, 'client_2', '2018-01-10 00:00:00', 1, '8786453', '12312353', 'client@test2.cl', '19272546-0', 'direccion test');
 
 -- --------------------------------------------------------
 
@@ -54,18 +76,35 @@ INSERT INTO `apicom_client` (`id`, `name`, `creation_date`, `active`, `trading_c
 CREATE TABLE `apicom_detail` (
   `id` bigint(20) NOT NULL,
   `id_manufacture` bigint(20) NOT NULL,
-  `id_list` bigint(20) NOT NULL,
-  `estate` int(11) NOT NULL,
-  `id_par` bigint(20) NOT NULL,
-  `id_barcode` varchar(200) NOT NULL
+  `id_pair` bigint(20) NOT NULL,
+  `estate` tinyint(1) NOT NULL,
+  `estate_date` datetime NOT NULL,
+  `despair_date` datetime NOT NULL,
+  `ingress_date` datetime NOT NULL,
+  `id_lista` bigint(20) NOT NULL,
+  `id_base` bigint(20) NOT NULL,
+  `iata` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `apicom_detail`
 --
 
-INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_list`, `estate`, `id_par`, `id_barcode`) VALUES
-(1, 123123, 123123, 1, 123123, '7373638123662h27132h');
+INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_pair`, `estate`, `estate_date`, `despair_date`, `ingress_date`, `id_lista`, `id_base`, `iata`) VALUES
+(1, 1, 123, 1, '2018-01-04 00:00:00', '2018-01-10 00:00:00', '2018-01-10 00:00:00', 1, 1, 1234);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `apicom_gps`
+--
+
+CREATE TABLE `apicom_gps` (
+  `id` bigint(20) NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  `id_user` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -74,9 +113,8 @@ INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_list`, `estate`, `id_pa
 --
 
 CREATE TABLE `apicom_list` (
-  `id` bigint(20) NOT NULL,
-  `id_client` bigint(20) NOT NULL,
-  `id_user` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `price` bigint(20) NOT NULL,
   `list_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -85,8 +123,29 @@ CREATE TABLE `apicom_list` (
 -- Volcado de datos para la tabla `apicom_list`
 --
 
-INSERT INTO `apicom_list` (`id`, `id_client`, `id_user`, `price`, `list_date`) VALUES
-(1, 123123, 123132, 123123, '2018-01-11 05:29:08');
+INSERT INTO `apicom_list` (`id`, `id_user`, `price`, `list_date`) VALUES
+(2, 1, 123123, '2018-01-18 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `apicom_logs`
+--
+
+CREATE TABLE `apicom_logs` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `action` varchar(20) NOT NULL,
+  `ip` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `apicom_logs`
+--
+
+INSERT INTO `apicom_logs` (`id`, `id_user`, `date`, `action`, `ip`) VALUES
+(1, 1, '2018-01-04 00:00:00', 'test_action', '192.168.0.1');
 
 -- --------------------------------------------------------
 
@@ -97,8 +156,16 @@ INSERT INTO `apicom_list` (`id`, `id_client`, `id_user`, `price`, `list_date`) V
 CREATE TABLE `apicom_manufacture` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` varchar(300) NOT NULL
+  `description` varchar(300) NOT NULL,
+  `id_type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `apicom_manufacture`
+--
+
+INSERT INTO `apicom_manufacture` (`id`, `name`, `description`, `id_type`) VALUES
+(2, 'caja', 'cajatest', 1);
 
 -- --------------------------------------------------------
 
@@ -113,6 +180,13 @@ CREATE TABLE `apicom_price_client_sector` (
   `id_sector` bigint(20) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `apicom_price_client_sector`
+--
+
+INSERT INTO `apicom_price_client_sector` (`id`, `id_cliente`, `id_product`, `id_sector`, `price`) VALUES
+(1, 123123, 123123, 123123, 123123);
 
 -- --------------------------------------------------------
 
@@ -146,27 +220,41 @@ CREATE TABLE `apicom_sectors` (
 --
 
 CREATE TABLE `apicom_users` (
-  `id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL,
   `user_name` varchar(100) NOT NULL,
   `user` varchar(100) NOT NULL,
+  `password` varchar(15) NOT NULL,
   `creation_date` datetime NOT NULL,
   `last_change_date` datetime DEFAULT NULL,
   `mail` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `id_client` bigint(20) NOT NULL,
-  `profile` int(11) NOT NULL
+  `id_client` int(11) NOT NULL,
+  `profile` int(11) NOT NULL,
+  `payment_status` tinyint(1) NOT NULL,
+  `payment_type` int(11) NOT NULL,
+  `patente_vehiculo` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `apicom_users`
 --
 
-INSERT INTO `apicom_users` (`id`, `user_name`, `user`, `creation_date`, `last_change_date`, `mail`, `active`, `id_client`, `profile`) VALUES
-(1, 'test_user_name', 'test_user', '2018-01-17 08:20:10', NULL, 'test@test.com', 1, 1, 5);
+INSERT INTO `apicom_users` (`id`, `user_name`, `user`, `password`, `creation_date`, `last_change_date`, `mail`, `active`, `id_client`, `profile`, `payment_status`, `payment_type`, `patente_vehiculo`) VALUES
+(1, 'test_user_name', 'test_user', 'test_pass', '2018-01-17 08:20:10', NULL, 'test@test.com', 1, 1, 5, 0, 0, ''),
+(2, 'test_username', 'test_user2', 'test_pass2', '2018-01-17 00:00:00', '2018-01-03 00:00:00', 'test@testtest.cl', 1, 1, 2, 1, 5, 'hd-fd-gd'),
+(3, 'nombre cliente2', 'userclien2', 'passclient2', '2018-01-03 00:00:00', '2018-01-01 00:00:00', 'mail@client2.cl1', 1, 2, 5, 5, 6, 'hg-gt-ww'),
+(4, 'nombre user5', 'user5', 'user5pass', '2018-01-03 00:00:00', NULL, 'lient5@test.cl', 1, 2, 5, 1, 4, 'gf-hg-dc');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `apicom_base`
+--
+ALTER TABLE `apicom_base`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `apicom_client`
@@ -181,10 +269,28 @@ ALTER TABLE `apicom_detail`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `apicom_gps`
+--
+ALTER TABLE `apicom_gps`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
+
+--
 -- Indices de la tabla `apicom_list`
 --
 ALTER TABLE `apicom_list`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_user_2` (`id_user`),
+  ADD KEY `id_user_3` (`id_user`),
+  ADD KEY `id_user_4` (`id_user`);
+
+--
+-- Indices de la tabla `apicom_logs`
+--
+ALTER TABLE `apicom_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `apicom_manufacture`
@@ -214,37 +320,53 @@ ALTER TABLE `apicom_sectors`
 -- Indices de la tabla `apicom_users`
 --
 ALTER TABLE `apicom_users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_client` (`id_client`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
+-- AUTO_INCREMENT de la tabla `apicom_base`
+--
+ALTER TABLE `apicom_base`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT de la tabla `apicom_client`
 --
 ALTER TABLE `apicom_client`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `apicom_detail`
 --
 ALTER TABLE `apicom_detail`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT de la tabla `apicom_gps`
+--
+ALTER TABLE `apicom_gps`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `apicom_list`
 --
 ALTER TABLE `apicom_list`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `apicom_logs`
+--
+ALTER TABLE `apicom_logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `apicom_manufacture`
 --
 ALTER TABLE `apicom_manufacture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `apicom_price_client_sector`
 --
 ALTER TABLE `apicom_price_client_sector`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `apicom_price_manuf_sector`
 --
@@ -259,7 +381,7 @@ ALTER TABLE `apicom_sectors`
 -- AUTO_INCREMENT de la tabla `apicom_users`
 --
 ALTER TABLE `apicom_users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

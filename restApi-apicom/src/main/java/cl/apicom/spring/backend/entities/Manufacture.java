@@ -21,6 +21,9 @@ public class Manufacture {
 	
 	@Column(name = "description", unique = false, nullable = false)
 	private String description;
+	
+	@Column(name = "id_type", unique = false, nullable = false)
+	private int id_type;
 
 	public int getId() {
 		return id;
@@ -40,5 +43,13 @@ public class Manufacture {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getId_type() {
+		return id_type;
+	}
+
+	public void setId_type(int id_type) {
+		this.id_type = id_type;
 	}
 }

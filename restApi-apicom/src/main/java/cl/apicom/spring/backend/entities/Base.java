@@ -43,8 +43,8 @@ public class Base {
 		this.id_user = id_user;
 	}
 
-	public Timestamp getDate() {
-		return date;
+	public String getDate() {
+		return date.toString();
 	}
 
 	public void setDate(Timestamp date) {
