@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-01-2018 a las 20:39:49
+-- Tiempo de generación: 14-01-2018 a las 14:43:53
 -- Versión del servidor: 5.7.20-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -74,15 +74,15 @@ INSERT INTO `apicom_client` (`id`, `name`, `creation_date`, `active`, `contact`,
 --
 
 CREATE TABLE `apicom_detail` (
-  `id` bigint(20) NOT NULL,
-  `id_manufacture` bigint(20) NOT NULL,
-  `id_pair` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_manufacture` int(11) NOT NULL,
+  `id_pair` int(11) NOT NULL,
   `estate` tinyint(1) NOT NULL,
   `estate_date` datetime NOT NULL,
   `despair_date` datetime NOT NULL,
   `ingress_date` datetime NOT NULL,
-  `id_lista` bigint(20) NOT NULL,
-  `id_base` bigint(20) NOT NULL,
+  `id_lista` int(11) NOT NULL,
+  `id_base` int(11) NOT NULL,
   `iata` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -91,7 +91,7 @@ CREATE TABLE `apicom_detail` (
 --
 
 INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_pair`, `estate`, `estate_date`, `despair_date`, `ingress_date`, `id_lista`, `id_base`, `iata`) VALUES
-(1, 1, 123, 1, '2018-01-04 00:00:00', '2018-01-10 00:00:00', '2018-01-10 00:00:00', 1, 1, 1234);
+(1, 2, 123, 1, '2018-01-04 00:00:00', '2018-01-10 00:00:00', '2018-01-10 00:00:00', 2, 1, 1234);
 
 -- --------------------------------------------------------
 
@@ -103,8 +103,15 @@ CREATE TABLE `apicom_gps` (
   `id` bigint(20) NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
-  `id_user` bigint(20) NOT NULL
+  `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `apicom_gps`
+--
+
+INSERT INTO `apicom_gps` (`id`, `latitude`, `longitude`, `id_user`) VALUES
+(1, -3322, 343, 1);
 
 -- --------------------------------------------------------
 
@@ -115,7 +122,7 @@ CREATE TABLE `apicom_gps` (
 CREATE TABLE `apicom_list` (
   `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `price` bigint(20) NOT NULL,
+  `price` int(20) NOT NULL,
   `list_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -174,19 +181,20 @@ INSERT INTO `apicom_manufacture` (`id`, `name`, `description`, `id_type`) VALUES
 --
 
 CREATE TABLE `apicom_price_client_sector` (
-  `id` bigint(20) NOT NULL,
-  `id_cliente` bigint(20) NOT NULL,
-  `id_product` bigint(20) NOT NULL,
-  `id_sector` bigint(20) NOT NULL,
-  `price` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `id_manufacture` int(11) NOT NULL,
+  `id_sector` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `apicom_price_client_sector`
 --
 
-INSERT INTO `apicom_price_client_sector` (`id`, `id_cliente`, `id_product`, `id_sector`, `price`) VALUES
-(1, 123123, 123123, 123123, 123123);
+INSERT INTO `apicom_price_client_sector` (`id`, `id_cliente`, `id_manufacture`, `id_sector`, `price`, `active`) VALUES
+(2, 1, 2, 1, 56765, 1);
 
 -- --------------------------------------------------------
 
@@ -195,23 +203,58 @@ INSERT INTO `apicom_price_client_sector` (`id`, `id_cliente`, `id_product`, `id_
 --
 
 CREATE TABLE `apicom_price_manuf_sector` (
-  `id` bigint(20) NOT NULL,
-  `id_sector` bigint(20) NOT NULL,
-  `id_product` bigint(20) NOT NULL,
-  `price` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `id_sector` int(11) NOT NULL,
+  `id_manufacture` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `apicom_price_manuf_sector`
+--
+
+INSERT INTO `apicom_price_manuf_sector` (`id`, `id_sector`, `id_manufacture`, `price`, `active`) VALUES
+(1, 1, 2, 123345, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `apicom_sectors`
+-- Estructura de tabla para la tabla `apicom_sector`
 --
 
-CREATE TABLE `apicom_sectors` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE `apicom_sector` (
+  `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `delimitation` varchar(300) NOT NULL
+  `delimitation` text NOT NULL,
+  `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `apicom_sector`
+--
+
+INSERT INTO `apicom_sector` (`id`, `name`, `delimitation`, `active`) VALUES
+(1, 'nametest', 'description test', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `apicom_type_manufacture`
+--
+
+CREATE TABLE `apicom_type_manufacture` (
+  `id` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `apicom_type_manufacture`
+--
+
+INSERT INTO `apicom_type_manufacture` (`id`, `description`, `active`) VALUES
+(1, 'fragil', 1);
 
 -- --------------------------------------------------------
 
@@ -254,7 +297,8 @@ INSERT INTO `apicom_users` (`id`, `user_name`, `user`, `password`, `creation_dat
 --
 ALTER TABLE `apicom_base`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`);
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_user_2` (`id_user`);
 
 --
 -- Indices de la tabla `apicom_client`
@@ -266,14 +310,19 @@ ALTER TABLE `apicom_client`
 -- Indices de la tabla `apicom_detail`
 --
 ALTER TABLE `apicom_detail`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_manufacture` (`id_manufacture`),
+  ADD KEY `id_lista` (`id_lista`),
+  ADD KEY `id_base` (`id_base`);
 
 --
 -- Indices de la tabla `apicom_gps`
 --
 ALTER TABLE `apicom_gps`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`);
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_user_2` (`id_user`),
+  ADD KEY `id_user_3` (`id_user`);
 
 --
 -- Indices de la tabla `apicom_list`
@@ -283,37 +332,51 @@ ALTER TABLE `apicom_list`
   ADD KEY `id_user` (`id_user`),
   ADD KEY `id_user_2` (`id_user`),
   ADD KEY `id_user_3` (`id_user`),
-  ADD KEY `id_user_4` (`id_user`);
+  ADD KEY `id_user_4` (`id_user`),
+  ADD KEY `id_user_5` (`id_user`);
 
 --
 -- Indices de la tabla `apicom_logs`
 --
 ALTER TABLE `apicom_logs`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`);
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_user_2` (`id_user`);
 
 --
 -- Indices de la tabla `apicom_manufacture`
 --
 ALTER TABLE `apicom_manufacture`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_type` (`id_type`);
 
 --
 -- Indices de la tabla `apicom_price_client_sector`
 --
 ALTER TABLE `apicom_price_client_sector`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cliente` (`id_cliente`),
+  ADD KEY `id_product` (`id_manufacture`),
+  ADD KEY `id_sector` (`id_sector`);
 
 --
 -- Indices de la tabla `apicom_price_manuf_sector`
 --
 ALTER TABLE `apicom_price_manuf_sector`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_sector` (`id_sector`),
+  ADD KEY `id_manufacture` (`id_manufacture`);
+
+--
+-- Indices de la tabla `apicom_sector`
+--
+ALTER TABLE `apicom_sector`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `apicom_sectors`
+-- Indices de la tabla `apicom_type_manufacture`
 --
-ALTER TABLE `apicom_sectors`
+ALTER TABLE `apicom_type_manufacture`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -321,7 +384,8 @@ ALTER TABLE `apicom_sectors`
 --
 ALTER TABLE `apicom_users`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_client` (`id_client`);
+  ADD KEY `id_client` (`id_client`),
+  ADD KEY `id_client_2` (`id_client`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -341,12 +405,12 @@ ALTER TABLE `apicom_client`
 -- AUTO_INCREMENT de la tabla `apicom_detail`
 --
 ALTER TABLE `apicom_detail`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `apicom_gps`
 --
 ALTER TABLE `apicom_gps`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `apicom_list`
 --
@@ -366,22 +430,84 @@ ALTER TABLE `apicom_manufacture`
 -- AUTO_INCREMENT de la tabla `apicom_price_client_sector`
 --
 ALTER TABLE `apicom_price_client_sector`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `apicom_price_manuf_sector`
 --
 ALTER TABLE `apicom_price_manuf_sector`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de la tabla `apicom_sectors`
+-- AUTO_INCREMENT de la tabla `apicom_sector`
 --
-ALTER TABLE `apicom_sectors`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `apicom_sector`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `apicom_type_manufacture`
+--
+ALTER TABLE `apicom_type_manufacture`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `apicom_users`
 --
 ALTER TABLE `apicom_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `apicom_detail`
+--
+ALTER TABLE `apicom_detail`
+  ADD CONSTRAINT `apicom_detail_ibfk_1` FOREIGN KEY (`id_base`) REFERENCES `apicom_base` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `apicom_detail_ibfk_2` FOREIGN KEY (`id_lista`) REFERENCES `apicom_list` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `apicom_detail_ibfk_3` FOREIGN KEY (`id_manufacture`) REFERENCES `apicom_manufacture` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `apicom_gps`
+--
+ALTER TABLE `apicom_gps`
+  ADD CONSTRAINT `apicom_gps_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `apicom_users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `apicom_list`
+--
+ALTER TABLE `apicom_list`
+  ADD CONSTRAINT `apicom_list_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `apicom_users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `apicom_logs`
+--
+ALTER TABLE `apicom_logs`
+  ADD CONSTRAINT `apicom_logs_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `apicom_users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `apicom_manufacture`
+--
+ALTER TABLE `apicom_manufacture`
+  ADD CONSTRAINT `apicom_manufacture_ibfk_1` FOREIGN KEY (`id_type`) REFERENCES `apicom_type_manufacture` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `apicom_price_client_sector`
+--
+ALTER TABLE `apicom_price_client_sector`
+  ADD CONSTRAINT `apicom_price_client_sector_ibfk_1` FOREIGN KEY (`id_sector`) REFERENCES `apicom_sector` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `apicom_price_client_sector_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `apicom_client` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `apicom_price_client_sector_ibfk_3` FOREIGN KEY (`id_manufacture`) REFERENCES `apicom_manufacture` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `apicom_price_manuf_sector`
+--
+ALTER TABLE `apicom_price_manuf_sector`
+  ADD CONSTRAINT `apicom_price_manuf_sector_ibfk_1` FOREIGN KEY (`id_manufacture`) REFERENCES `apicom_manufacture` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `apicom_price_manuf_sector_ibfk_2` FOREIGN KEY (`id_sector`) REFERENCES `apicom_sector` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `apicom_users`
+--
+ALTER TABLE `apicom_users`
+  ADD CONSTRAINT `apicom_users_ibfk_1` FOREIGN KEY (`id_client`) REFERENCES `apicom_client` (`id`) ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
