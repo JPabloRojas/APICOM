@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mysql.fabric.Response;
+
+import cl.apicom.spring.backend.auxentities.LoginModel;
+import cl.apicom.spring.backend.auxentities.LoginResponseModel;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.UserRepository;
 
@@ -35,23 +39,47 @@ public class UserService {
 		return userrepository.findAll();
 	}
 	
+	//Servicio rest de Login
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@ResponseBody
+	public  LoginResponseModel loginUser(@RequestBody LoginModel resource, HttpServletResponse response) throws IOException{
+		User u = null;
+		LoginResponseModel lrm  = null;
+		
+		u = userrepository.findLogin(resource.getUser(), resource.getPassword());
+		if(u == null){
+			response.sendError(400, "Usuario o contraseña incorrecto");
+		}
+		else{
+			lrm = new LoginResponseModel();
+			lrm.setUser_name(u.getUser_name());
+			lrm.setMail(u.getMail());
+			response.setStatus(200);
+		}
+		return lrm;
+	}
+	
+	
+	//Servicio rest de creacion de usuario
 	@RequestMapping(method = RequestMethod.POST)
 	//@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public void create(@RequestBody User resource ,HttpServletResponse response) throws IOException{
+	public Iterable<User> create(@RequestBody User resource ,HttpServletResponse response) throws IOException{
 		//userrepository.save(resource);
+		Iterable<User> us = null;
 		try{
 			userrepository.save(resource);
 			response.setStatus(200);
+			us = userrepository.findAll();
 		}
 		catch(DataIntegrityViolationException e){
 			response.sendError(465, "No se pudo insertar en la BD");
 		}
-		
+		return us;
 	}
 	
 
-	@RequestMapping(value = "test/{num}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "test/{num}", method = RequestMethod.GET)
 	@ResponseBody
 	public void test(@PathVariable("num") Integer num, HttpServletResponse response) throws IOException{
 		//ResponseEntity en;
@@ -71,5 +99,5 @@ public class UserService {
 			response.sendError(669);
 		}
 		
-	}
+	}*/
 }
