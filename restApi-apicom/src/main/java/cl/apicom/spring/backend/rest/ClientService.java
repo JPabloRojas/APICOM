@@ -1,5 +1,6 @@
 package cl.apicom.spring.backend.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,21 @@ public class ClientService {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public Iterable<Client> getAllClients(){
-		return clientrepository.findAll();
+	public List<Client> getAllClients(){
+		return clientrepository.getAllExceptFirst();
 	}
-	
-	@RequestMapping(value = "{id}/users", method = RequestMethod.GET)
+	/*public List<Client> getAllClients(){
+		List listRe = new ArrayList();
+		Iterable<Client> c = clientrepository.findAll();
+		for(Client t: c){
+			if(t.getId() != 0){
+				listRe.add(t);
+			}
+		}
+		return listRe;
+	}
+	*/
+	@RequestMapping(value = "users/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<User> getUsersClient(@PathVariable("id") Integer id){
 		return clientrepository.findOne(id).getUser_list();
