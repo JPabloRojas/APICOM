@@ -37,7 +37,7 @@ public class ListService {
 		return listrepository.findAll();
 	}
 	
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public void addList(@RequestBody RequestUserModel resource, HttpServletResponse response) throws IOException{
 		User u = userrepository.findbyUser(resource.getUser());

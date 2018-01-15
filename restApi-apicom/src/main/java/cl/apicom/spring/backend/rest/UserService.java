@@ -1,6 +1,7 @@
 package cl.apicom.spring.backend.rest;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,6 +24,7 @@ import com.mysql.fabric.Response;
 
 import cl.apicom.spring.backend.auxentities.LoginModel;
 import cl.apicom.spring.backend.auxentities.LoginResponseModel;
+import cl.apicom.spring.backend.entities.Lista;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.UserRepository;
 
@@ -62,17 +64,16 @@ public class UserService {
 	
 	
 	//Servicio rest de creacion de usuario
-	@RequestMapping(method = RequestMethod.POST)
-	//@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public void addUser(@RequestBody User resource ,HttpServletResponse response) throws IOException{
 		User u = userrepository.findbyUser(resource.getUser());
-		if(u != null){
-			response.sendError(460, "Usuario no disponible");
-		}
-		else{
+		if(u == null){
 			userrepository.save(resource);
 			response.setStatus(201);
+		}
+		else{
+			response.sendError(460, "Usuario no disponible");
 		}
 	}
 	
