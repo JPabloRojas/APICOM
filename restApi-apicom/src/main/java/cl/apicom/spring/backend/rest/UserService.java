@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -64,18 +65,15 @@ public class UserService {
 	@RequestMapping(method = RequestMethod.POST)
 	//@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public Iterable<User> create(@RequestBody User resource ,HttpServletResponse response) throws IOException{
-		//userrepository.save(resource);
-		Iterable<User> us = null;
-		try{
+	public void addUser(@RequestBody User resource ,HttpServletResponse response) throws IOException{
+		User u = userrepository.findbyUser(resource.getUser());
+		if(u != null){
+			response.sendError(460, "Usuario no disponible");
+		}
+		else{
 			userrepository.save(resource);
-			response.setStatus(200);
-			us = userrepository.findAll();
+			response.setStatus(201);
 		}
-		catch(DataIntegrityViolationException e){
-			response.sendError(465, "No se pudo insertar en la BD");
-		}
-		return us;
 	}
 	
 

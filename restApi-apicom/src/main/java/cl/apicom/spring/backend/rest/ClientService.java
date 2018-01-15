@@ -44,14 +44,14 @@ public class ClientService {
 		return listRe;
 	}
 	*/
-	@RequestMapping(value = "users/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<User> getUsersClient(@PathVariable("id") Integer id){
 		return clientrepository.findOne(id).getUser_list();
 	}
 	
 	
-	@RequestMapping(value = "data/users/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/data/users/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Client_data getAllClientsData(@PathVariable("id") Integer id){
 		List<User> user_list = clientrepository.findOne(id).getUser_list();
