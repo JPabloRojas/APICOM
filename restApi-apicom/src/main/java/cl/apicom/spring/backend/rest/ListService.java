@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import cl.apicom.spring.backend.auxentities.RequestUserModel;
+import cl.apicom.spring.backend.auxentities.RequestSingleData;
 import cl.apicom.spring.backend.entities.Lista;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.ListRepository;
@@ -39,8 +39,8 @@ public class ListService {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public void addList(@RequestBody RequestUserModel resource, HttpServletResponse response) throws IOException{
-		User u = userrepository.findbyUser(resource.getUser());
+	public void addList(@RequestBody RequestSingleData resource, HttpServletResponse response) throws IOException{
+		User u = userrepository.findbyUser(resource.getData());
 		if(u == null){
 			response.sendError(400);
 		}

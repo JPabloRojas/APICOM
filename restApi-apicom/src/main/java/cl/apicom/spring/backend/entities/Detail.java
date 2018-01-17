@@ -37,6 +37,12 @@ public class Detail {
 	@Column(name = "ingress_date", unique = false, nullable = false)
 	private Timestamp ingress_date;
 	
+	
+	@ManyToOne
+	@JoinColumn(name = "id_lista", insertable = false, updatable = false)
+	@JsonIgnore
+	private Lista lista;
+	
 	@Column(name = "id_lista", unique = false, nullable = false)
 	private int id_lista;
 	
@@ -121,5 +127,13 @@ public class Detail {
 	public void setIata(int iata) {
 		this.iata = iata;
 	}
-	
+
+	public Lista getLista() {
+		return lista;
+	}
+
+	public void setLista(Lista lista) {
+		this.lista = lista;
+	}
+
 }

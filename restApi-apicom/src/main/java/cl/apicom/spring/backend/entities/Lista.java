@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +29,9 @@ public class Lista {
 	
 	@Column(name = "list_date", unique = false, nullable = false)
 	private Timestamp list_date;
-
+	
+	@OneToMany(mappedBy = "lista")
+	private List<Detail> detail_list;
 	
 	public int getId() {
 		return id;
@@ -57,6 +60,15 @@ public class Lista {
 	public void setList_date(Timestamp list_date) {
 		this.list_date = list_date;
 	}
+
+	public List<Detail> getDetail_list() {
+		return detail_list;
+	}
+
+	public void setDetail_list(List<Detail> detail_list) {
+		this.detail_list = detail_list;
+	}
+
 
 
 	

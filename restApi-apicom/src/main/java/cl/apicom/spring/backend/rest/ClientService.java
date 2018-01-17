@@ -33,20 +33,11 @@ public class ClientService {
 	public List<Client> getAllClients(){
 		return clientrepository.getAllExceptFirst();
 	}
-	/*public List<Client> getAllClients(){
-		List listRe = new ArrayList();
-		Iterable<Client> c = clientrepository.findAll();
-		for(Client t: c){
-			if(t.getId() != 0){
-				listRe.add(t);
-			}
-		}
-		return listRe;
-	}
-	*/
+	
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<User> getUsersClient(@PathVariable("id") Integer id){
+		String a = "1";
 		return clientrepository.findOne(id).getUser_list();
 	}
 	
