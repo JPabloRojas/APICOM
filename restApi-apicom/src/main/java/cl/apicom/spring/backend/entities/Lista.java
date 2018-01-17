@@ -7,9 +7,13 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="apicom_list")
@@ -20,6 +24,11 @@ public class Lista {
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
 	private int id;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_user", insertable = false, updatable = false)
+	@JsonIgnore
+	private User user_list;
 	
 	@Column(name = "id_user", unique = false, nullable = false)
 	private int id_user;
@@ -56,7 +65,7 @@ public class Lista {
 	public String getList_date() {
 		return list_date.toString();
 	}
-
+	
 	public void setList_date(Timestamp list_date) {
 		this.list_date = list_date;
 	}
@@ -68,6 +77,17 @@ public class Lista {
 	public void setDetail_list(List<Detail> detail_list) {
 		this.detail_list = detail_list;
 	}
+
+	public User getUser_list() {
+		return user_list;
+	}
+
+	public void setUser_list(User user_list) {
+		this.user_list = user_list;
+	}
+	
+
+
 
 
 

@@ -6,16 +6,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="apicom_gps")
-@NamedQuery(name="Gps.findAll", query="SELECT g FROM Gps g")
-public class Gps {
+@Table(name="apicom_gps_last")
+@NamedQuery(name="Gps_last.findAll", query="SELECT gl FROM Gps_last gl")
+public class Gps_last {
 	
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -30,10 +31,11 @@ public class Gps {
 	@Column(name = "longitude", unique = false, nullable = false)
 	private double longitude;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "id_user", insertable = false, updatable = false)
 	@JsonIgnore
-	private User user_gps;
+	private User user_gps_last;
+	
 	
 	public int getId() {
 		return id;
@@ -42,6 +44,7 @@ public class Gps {
 	public int getId_user() {
 		return id_user;
 	}
+
 	public void setId_user(int id_user) {
 		this.id_user = id_user;
 	}
@@ -62,11 +65,13 @@ public class Gps {
 		this.longitude = longitude;
 	}
 	
-	public User getUser_gps() {
-		return user_gps;
-	}
-	public void setUser_gps(User user_gps) {
-		this.user_gps = user_gps;
+	public User getUser_gps_last() {
+		return user_gps_last;
 	}
 
+	public void setUser_gps_last(User user_gps_last) {
+		this.user_gps_last = user_gps_last;
+	}
+	
+	
 }

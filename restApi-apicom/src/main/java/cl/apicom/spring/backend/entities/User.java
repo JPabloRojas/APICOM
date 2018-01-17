@@ -61,7 +61,14 @@ public class User {
 	@Column(name = "patente_vehiculo", unique = true, nullable = false)
 	private String patente_vehiculo;
 
+	@OneToMany(mappedBy = "user_gps")
+	private List<Gps> gps_user;
 	
+	@OneToMany(mappedBy = "user_list")
+	private List<Lista> list_user;
+	
+	@OneToOne(mappedBy = "user_gps_last")
+	private Gps_last last_gps_user;
 	
 	public int getId() {
 		return id;
@@ -179,6 +186,31 @@ public class User {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+
+	public List<Gps> getGps_user() {
+		return gps_user;
+	}
+
+	public void setGps_user(List<Gps> gps_user) {
+		this.gps_user = gps_user;
+	}
+
+	public List<Lista> getList_user() {
+		return list_user;
+	}
+
+	public void setList_user(List<Lista> list_user) {
+		this.list_user = list_user;
+	}
+
+	public Gps_last getLast_gps_user() {
+		return last_gps_user;
+	}
+
+	public void setLast_gps_user(Gps_last last_gps_user) {
+		this.last_gps_user = last_gps_user;
+	}
+
 	
 	
 	

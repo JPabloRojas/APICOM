@@ -2,6 +2,7 @@ package cl.apicom.spring.backend.auxentities;
 
 public class LoginResponseModel {
 	
+	private int id;
 	private String user_name;
 	private String mail;
 	
@@ -17,5 +18,11 @@ public class LoginResponseModel {
 	}
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }

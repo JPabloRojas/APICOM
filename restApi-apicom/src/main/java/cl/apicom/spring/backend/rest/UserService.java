@@ -50,11 +50,13 @@ public class UserService {
 		LoginResponseModel lrm  = null;
 		
 		u = userrepository.findLogin(resource.getUser(), resource.getPassword());
+		
 		if(u == null){
 			response.sendError(400, "Usuario o contraseña incorrecto");
 		}
 		else{
 			lrm = new LoginResponseModel();
+			lrm.setId(u.getId());
 			lrm.setUser_name(u.getUser_name());
 			lrm.setMail(u.getMail());
 			response.setStatus(200);
@@ -77,26 +79,4 @@ public class UserService {
 		}
 	}
 	
-
-	/*@RequestMapping(value = "test/{num}", method = RequestMethod.GET)
-	@ResponseBody
-	public void test(@PathVariable("num") Integer num, HttpServletResponse response) throws IOException{
-		//ResponseEntity en;
-		if(num == 1){
-			//en =  new ResponseEntity(HttpStatus.ACCEPTED);
-			//response.sendError(666);
-			//response.setStatus(666,"message");
-			response.sendError(666, "hola men");
-		}
-		else if(num == 2){
-			//en =  new ResponseEntity(HttpStatus.BAD_GATEWAY);
-			//response.sendError(668);
-			response.setStatus(200);
-		}
-		else{
-			//en = new ResponseEntity(HttpStatus.);
-			response.sendError(669);
-		}
-		
-	}*/
 }
