@@ -20,6 +20,6 @@ public class LogsService {
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Logs> getAllLogs(){
-		return logsrepository.findAll();
+		return logsrepository.findAll();		
 	}
 }

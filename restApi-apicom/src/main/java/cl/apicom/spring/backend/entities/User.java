@@ -61,8 +61,9 @@ public class User {
 	@Column(name = "patente_vehiculo", unique = true, nullable = false)
 	private String patente_vehiculo;
 
-	@OneToMany(mappedBy = "user_gps")
-	private List<Gps> gps_user;
+	//Relacion posible al usar en un historial, por el momento no se considera.
+	/*@OneToMany(mappedBy = "user_gps")
+	private List<Gps> gps_user;*/
 	
 	@OneToMany(mappedBy = "user_list")
 	private List<Lista> list_user;
@@ -187,13 +188,13 @@ public class User {
 		this.client = client;
 	}
 
-	public List<Gps> getGps_user() {
+	/*public List<Gps> getGps_user() {
 		return gps_user;
 	}
 
 	public void setGps_user(List<Gps> gps_user) {
 		this.gps_user = gps_user;
-	}
+	}*/
 
 	public List<Lista> getList_user() {
 		return list_user;
