@@ -56,7 +56,7 @@ public class User {
 	private int payment_status;
 	
 	@Column(name = "payment_type", unique = false, nullable = false)
-	private int payment_type;
+	private String payment_type;
 	
 	@Column(name = "patente_vehiculo", unique = true, nullable = false)
 	private String patente_vehiculo;
@@ -164,11 +164,11 @@ public class User {
 		this.payment_status = payment_status;
 	}
 
-	public int getPayment_type() {
+	public String getPayment_type() {
 		return payment_type;
 	}
 
-	public void setPayment_type(int payment_type) {
+	public void setPayment_type(String payment_type) {
 		this.payment_type = payment_type;
 	}
 

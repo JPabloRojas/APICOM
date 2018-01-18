@@ -1,7 +1,10 @@
 package cl.apicom.spring.backend.rest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,11 +37,19 @@ public class ClientService {
 		return clientrepository.getAllExceptFirst();
 	}
 	
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<User> getUsersClient(@PathVariable("id") Integer id){
-		String a = "1";
-		return clientrepository.findOne(id).getUser_list();
+	public List<Client> getClient(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException{
+		Client c = clientrepository.findOne(id);
+		if(c == null){
+			response.sendError(400, "Id de cliente no encontrado");
+			return null;
+		}
+		else{
+			List<Client> cl = new ArrayList<Client>();
+			cl.add(c);
+			return cl;
+		}
 	}
 	
 	
@@ -50,6 +61,5 @@ public class ClientService {
 		cwd.setData(user_list);
 		return cwd;
 	}
-	
 	
 }

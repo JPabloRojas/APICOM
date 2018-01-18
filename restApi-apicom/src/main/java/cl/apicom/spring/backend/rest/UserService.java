@@ -2,6 +2,8 @@ package cl.apicom.spring.backend.rest;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,6 +26,7 @@ import com.mysql.fabric.Response;
 
 import cl.apicom.spring.backend.auxentities.LoginModel;
 import cl.apicom.spring.backend.auxentities.LoginResponseModel;
+import cl.apicom.spring.backend.auxentities.UserCreationModel;
 import cl.apicom.spring.backend.entities.Lista;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.UserRepository;
@@ -64,19 +67,55 @@ public class UserService {
 		return lrm;
 	}
 	
-	
-	//Servicio rest de creacion de usuario
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public void addUser(@RequestBody User resource ,HttpServletResponse response) throws IOException{
-		User u = userrepository.findbyUser(resource.getUser());
+	public List<User> getUser(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException{
+		User u = userrepository.findOne(id);
 		if(u == null){
-			userrepository.save(resource);
-			response.setStatus(201);
+			response.sendError(400, "Id de usuario no encontrado");
+			return null;
 		}
 		else{
-			response.sendError(460, "Usuario no disponible");
+			response.setStatus(200);
+			List<User> lu = new ArrayList<User>();
+			lu.add(u);
+			return lu;
 		}
 	}
+	
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	@ResponseBody
+	public void addUser(@RequestBody UserCreationModel ucm, HttpServletResponse response) throws IOException{
+		
+		User u = userrepository.findbyUser(ucm.getUser());
+		if(u != null){
+			response.sendError(400, "El nombre de usuario no se encuentra disponible");
+		}
+		else{
+			User user = new User();
+			user.setUser_name(ucm.getUser_name());
+			user.setUser(ucm.getUser());
+			user.setPassword(ucm.getPassword());
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			user.setCreation_date(timestamp);
+			user.setMail(ucm.getMail());
+			user.setActive(1);
+			user.setId_client(ucm.getId_client());
+			user.setProfile(ucm.getProfile());
+			user.setPayment_status(0);
+			user.setPayment_type(ucm.getPayment_type());
+			user.setPatente_vehiculo(ucm.getPatente_vehiculo());
+			try{
+				userrepository.save(user);
+				response.setStatus(201);
+			}
+			catch(DataIntegrityViolationException e){
+				response.sendError(400, "El cliente asignado no existe");
+			}
+		}
+		
+	}
+	
+
 	
 }
