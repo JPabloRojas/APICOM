@@ -3,6 +3,8 @@ package cl.apicom.spring.backend.rest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +31,10 @@ public class EmergencyService {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public void addEmergency(@RequestBody Emergency resource, HttpServletResponse response){
+	public ResponseEntity<?> addEmergency(@RequestBody Emergency resource, HttpServletResponse response){
 		emergencyrepository.save(resource);
-		response.setStatus(201);
+		String jsonReturn = "{\"response\": 201}";
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonReturn);
 	}
 	
 }

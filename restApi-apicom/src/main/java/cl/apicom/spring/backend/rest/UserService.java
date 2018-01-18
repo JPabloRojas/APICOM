@@ -27,6 +27,7 @@ import com.mysql.fabric.Response;
 import cl.apicom.spring.backend.auxentities.LoginModel;
 import cl.apicom.spring.backend.auxentities.LoginResponseModel;
 import cl.apicom.spring.backend.auxentities.UserCreationModel;
+import cl.apicom.spring.backend.auxentities.UserUpdateModel;
 import cl.apicom.spring.backend.entities.Lista;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.UserRepository;
@@ -83,38 +84,49 @@ public class UserService {
 		}
 	}
 	
-	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/new/{user_name}/{user}/{password}/{mail}/{id_client}/{profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.POST)
 	@ResponseBody
-	public void addUser(@RequestBody UserCreationModel ucm, HttpServletResponse response) throws IOException{
+	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") int id_client, @PathVariable("profile") int profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo) throws IOException{
 		
-		User u = userrepository.findbyUser(ucm.getUser());
+		User u = userrepository.findbyUser(user_l);
 		if(u != null){
-			response.sendError(400, "El nombre de usuario no se encuentra disponible");
+			String jsonReturn = "{\"response\": 258, \"message\": \"El nombre de usuario no se encuentra disponible\"}";
+			return ResponseEntity.status(258).body(jsonReturn);
 		}
 		else{
 			User user = new User();
-			user.setUser_name(ucm.getUser_name());
-			user.setUser(ucm.getUser());
-			user.setPassword(ucm.getPassword());
+			user.setUser_name(user_name);
+			user.setUser(user_l);
+			user.setPassword(password);
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			user.setCreation_date(timestamp);
-			user.setMail(ucm.getMail());
+			user.setMail(mail);
 			user.setActive(1);
-			user.setId_client(ucm.getId_client());
-			user.setProfile(ucm.getProfile());
+			user.setId_client(id_client);
+			user.setProfile(profile);
 			user.setPayment_status(0);
-			user.setPayment_type(ucm.getPayment_type());
-			user.setPatente_vehiculo(ucm.getPatente_vehiculo());
+			user.setPayment_type(payment_type);
+			user.setPatente_vehiculo(patente_vehiculo);
 			try{
 				userrepository.save(user);
-				response.setStatus(201);
+				String jsonReturn = "{\"response\": 201}";
+				return ResponseEntity.status(HttpStatus.CREATED).body(jsonReturn);
 			}
 			catch(DataIntegrityViolationException e){
-				response.sendError(400, "El cliente asignado no existe");
+				String jsonReturn = "{\"response\": 259, \"message\": \"El id del cliente no existe\"}";
+				return ResponseEntity.status(259).body(jsonReturn);
 			}
 		}
 		
 	}
+	
+	/*@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	@ResponseBody
+	public void updateUser(@RequestBody UserUpdateModel ucm, HttpServletResponse response){
+		
+		User
+	}*/
+	
 	
 
 	

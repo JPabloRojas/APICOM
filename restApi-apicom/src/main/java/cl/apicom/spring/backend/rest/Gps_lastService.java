@@ -44,6 +44,7 @@ public class Gps_lastService {
 			gl.setLongitude(resource.getLongitude());
 			gpslrepository.save(gl);
 			response.setStatus(200);
+			
 		}
 	}
 }
