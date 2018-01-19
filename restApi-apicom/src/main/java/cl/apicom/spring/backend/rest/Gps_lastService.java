@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,23 +29,26 @@ public class Gps_lastService {
 	
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	@ResponseBody
-	public void updateGpsLast(@RequestBody Gps_last resource, HttpServletResponse response) throws IOException{
+	public ResponseEntity<?> updateGpsLast(@RequestBody Gps_last resource){
 		Gps_last gl = null;
 		gl = gpslrepository.findGpsUser(resource.getId_user());
 		if(gl == null){
 			try{
 				gpslrepository.save(resource);
-				response.setStatus(201);
+				String jsonResponse = "{\"response\":201}";
+				return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
 			}
 			catch(DataIntegrityViolationException e){
-				response.sendError(400, "El id del usuario no existe");
+				String jsonResponse = "{\"response\":400,\"message\":\"El id del usuario no existe\"}";
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 		}
 		else{
 			gl.setLatitude(resource.getLatitude());
 			gl.setLongitude(resource.getLongitude());
 			gpslrepository.save(gl);
-			response.setStatus(200);
+			String jsonResponse = "{\"response\":200}";
+			return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 			
 		}
 	}

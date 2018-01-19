@@ -3,6 +3,7 @@ package cl.apicom.spring.backend.rest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,10 +32,18 @@ public class EmergencyService {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> addEmergency(@RequestBody Emergency resource, HttpServletResponse response){
-		emergencyrepository.save(resource);
-		String jsonReturn = "{\"response\": 201}";
-		return ResponseEntity.status(HttpStatus.CREATED).body(jsonReturn);
+	public ResponseEntity<?> addEmergency(@RequestBody Emergency resource){
+		
+		try{
+			emergencyrepository.save(resource);
+			String jsonResponse = "{\"response\": 201}";
+			return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
+		}
+		catch(DataIntegrityViolationException e){
+			String jsonResponse = "{\"response\": 400}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		
 	}
 	
 }

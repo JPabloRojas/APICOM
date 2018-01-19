@@ -45,9 +45,6 @@ public class Client {
 	@OneToMany(mappedBy = "client")
 	private List<User> user_list;
 	
-	
-
-	
 	public int getId() {
 		return id;
 	}

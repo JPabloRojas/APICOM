@@ -1,9 +1,10 @@
-package cl.apicom.spring.backend.entities;
+package cl.apicom.spring.backend.auxentities;
 
 import java.util.List;
 
-public class Client_data {
-	private static final long serialVersionUID = 1L;
+import cl.apicom.spring.backend.entities.User;
+
+public class List_data {
 	
 	private List<User> data;
 
