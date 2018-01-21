@@ -31,6 +31,7 @@ import cl.apicom.spring.backend.auxentities.UserUpdateModel;
 import cl.apicom.spring.backend.auxentities.Iterable_data_user;
 import cl.apicom.spring.backend.entities.Lista;
 import cl.apicom.spring.backend.entities.User;
+import cl.apicom.spring.backend.repository.ProfileRepository;
 import cl.apicom.spring.backend.repository.UserRepository;
 
 @CrossOrigin
@@ -40,6 +41,9 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository userrepository;
+	
+	@Autowired
+	private ProfileRepository profilerepository;
 	
 	
 	/*
@@ -70,7 +74,7 @@ public class UserService {
 		u = userrepository.findLogin(resource.getUser(), resource.getPassword());
 		
 		if(u == null){
-			String jsonResponse = "{\"response\":400,\"message\":\"Usuario o contraseña incorrecto\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":\"Usuario o contraseña incorrecto\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
@@ -94,7 +98,7 @@ public class UserService {
 		if(u == null){
 			//response.sendError(400, "Id de usuario no encontrado");
 			//return null;
-			String jsonResponse = "{\"response\":400,\"message\":\"Id de usuario no encontrado\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id de usuario no encontrado\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
@@ -116,7 +120,7 @@ public class UserService {
 		
 		User u = userrepository.findbyUser(user_l);
 		if(u != null){
-			String jsonResponse = "{\"response\":258,\"message\":\"El nombre de usuario no se encuentra disponible\"}";
+			String jsonResponse = "{\"response\":258,\"desc\":\"El nombre de usuario no se encuentra disponible\"}";
 			return ResponseEntity.status(258).body(jsonResponse);
 		}
 		else{
@@ -139,7 +143,7 @@ public class UserService {
 				return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
 			}
 			catch(DataIntegrityViolationException e){
-				String jsonResponse = "{\"response\":400,\"message\":\"El id del cliente no existe\"}";
+				String jsonResponse = "{\"response\":400,\"desc\":\"El id del cliente no existe\"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 		}
@@ -153,38 +157,44 @@ public class UserService {
 	 */
 	@RequestMapping(value = "/update/{id}/{user_name}/{user}/{password}/{mail}/{id_client}/{profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("profile") int profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
+	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("profile") long profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
 		User user = userrepository.findOne(id);
 		if(user == null){
-			String jsonResponse = "{\"response\":400,\"message\":\"Id usuario no existe\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
-			
-			if(userrepository.findbyUser(user_l) != null){
-				String jsonResponse = "{\"response\":400,\"message\":\"El nombre de usuario no se encuentra disponible\"}";
+			String guser = user.getUser();
+			if(!user_l.equals(guser) && userrepository.findbyUser(user_l) != null){
+				String jsonResponse = "{\"response\":400,\"desc\":\"El nombre de usuario no se encuentra disponible\"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 			else{
-				user.setUser_name(user_name);
-				user.setUser(user_l);
-				user.setPassword(password);
-				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-				user.setLast_change_date(timestamp);
-				user.setMail(mail);
-				user.setId_client(id_client);
-				user.setProfile(profile);
-				user.setPayment_type(payment_type);
-				user.setPatente_vehiculo(patente_vehiculo);
-			try{
-				userrepository.save(user);
-				String jsonResponse = "{\"response\":200}";
-				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
-			}
-			catch(DataIntegrityViolationException e){
-				String jsonResponse = "{\"response\":400,\"message\":\"El id del cliente no existe\"}";
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-			}
+				if(profilerepository.findOne(profile) == null){
+					String jsonResponse = "{\"response\":400,\"desc\":\"No existe el perfil\"}";
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+				}
+				else{
+					user.setUser_name(user_name);
+					user.setUser(user_l);
+					user.setPassword(password);
+					Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+					user.setLast_change_date(timestamp);
+					user.setMail(mail);
+					user.setId_client(id_client);
+					user.setProfile(profile);
+					user.setPayment_type(payment_type);
+					user.setPatente_vehiculo(patente_vehiculo);
+					try{
+						userrepository.save(user);
+						String jsonResponse = "{\"response\":200}";
+						return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+					}
+					catch(DataIntegrityViolationException e){
+						String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido actualizar\"}";
+						return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+					}
+				}
 			}
 		}
 	}
@@ -196,10 +206,11 @@ public class UserService {
 	 * 
 	 */
 	@RequestMapping(value = "/inactive/{id}", method = RequestMethod.PUT)
+	@ResponseBody
 	public ResponseEntity<?> inactiveUser(@PathVariable("id") long id){
 		User user = userrepository.findOne(id);
 		if(user == null){
-			String jsonResponse = "{\"response\":400,\"message\":\"Id usuario no existe\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
@@ -212,7 +223,7 @@ public class UserService {
 					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 				}
 				catch(DataIntegrityViolationException e){
-					String jsonResponse = "{\"response\":400,\"message\":\"No se ha podido cambiar el estado\"}";
+					String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido cambiar el estado\"}";
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 				}
 			}
@@ -224,13 +235,37 @@ public class UserService {
 					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 				}
 				catch(DataIntegrityViolationException e){
-					String jsonResponse = "{\"response\":400,\"message\":\"No se ha podido cambiar el estado\"}";
+					String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido cambiar el estado\"}";
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 				}
 			}
 		}
 	}
 	
-
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Obtiene el nombre de un distribuidor
+	 */
 	
+	@RequestMapping(value = "/name/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getUserName(@PathVariable("id") long id){
+		User user = userrepository.findOne(id);
+		if(user == null){
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		else{
+			String name = user.getUser_name();
+			String jsonResponse = "{\"response\":200,\"desc\":"+name+"}";
+			return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+		}
+	}
+	
+	@RequestMapping(value = "/date", method = RequestMethod.GET)
+	@ResponseBody
+	public List<User> getfordate(){
+		return userrepository.findByDate();
+	}
 }

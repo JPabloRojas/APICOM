@@ -39,7 +39,7 @@ public class Gps_lastService {
 				return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
 			}
 			catch(DataIntegrityViolationException e){
-				String jsonResponse = "{\"response\":400,\"message\":\"El id del usuario no existe\"}";
+				String jsonResponse = "{\"response\":400,\"desc\":\"El id del usuario no existe\"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 		}

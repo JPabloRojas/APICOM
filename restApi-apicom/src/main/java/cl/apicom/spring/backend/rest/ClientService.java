@@ -59,7 +59,7 @@ public class ClientService {
 	public ResponseEntity<?> getClient(@PathVariable("id") long id){
 		Client c = clientrepository.findOne(id);
 		if(c == null){
-			String jsonResponse = "{\"response\":400,\"message\":\"Id de cliente no encontrado\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id de cliente no encontrado\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
@@ -84,7 +84,7 @@ public class ClientService {
 			return ResponseEntity.status(HttpStatus.OK).body(cwd);
 		}
 		catch(NullPointerException e){
-			String jsonResponse = "{\"response\":400,\"message\":\"Id de cliente no encontrado\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id de cliente no encontrado\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 	}
@@ -116,7 +116,7 @@ public class ClientService {
 			return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
 		}
 		catch(DataIntegrityViolationException e){
-			String jsonResponse = "{\"response\":400,\"message\":\"No se ha podido crear el cliente\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido crear el cliente\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		
@@ -133,7 +133,7 @@ public class ClientService {
 		
 		Client client = clientrepository.findOne(id);
 		if(client == null){
-			String jsonResponse = "{\"response\":400,\"message\":\"Id cliente no existe\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id cliente no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
@@ -149,7 +149,7 @@ public class ClientService {
 				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 			}
 			catch(DataIntegrityViolationException e){
-				String jsonResponse = "{\"response\":400,\"message\":\"No se ha podido actualizar informacion\"}";
+				String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido actualizar informacion\"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 
@@ -165,7 +165,7 @@ public class ClientService {
 	public ResponseEntity<?> inactiveUser(@PathVariable("id") long id){
 		Client client = clientrepository.findOne(id);
 		if(client == null){
-			String jsonResponse = "{\"response\":400,\"message\":\"Id cliente no existe\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id cliente no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
@@ -178,7 +178,7 @@ public class ClientService {
 					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 				}
 				catch(DataIntegrityViolationException e){
-					String jsonResponse = "{\"response\":400,\"message\":\"No se ha podido cambiar el estado\"}";
+					String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido cambiar el estado\"}";
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 				}
 			}
@@ -190,7 +190,7 @@ public class ClientService {
 					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 				}
 				catch(DataIntegrityViolationException e){
-					String jsonResponse = "{\"response\":400,\"message\":\"No se ha podido cambiar el estado\"}";
+					String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido cambiar el estado\"}";
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 				}
 			}

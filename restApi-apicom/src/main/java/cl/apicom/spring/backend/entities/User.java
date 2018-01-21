@@ -49,8 +49,8 @@ public class User {
 	@Column(name = "id_client", unique = false, nullable = false)
 	private long id_client;
 	
-	@Column(name = "profile", unique = false, nullable = false)
-	private int profile;
+	@Column(name = "id_profile", unique = false, nullable = false)
+	private long id_profile;
 	
 	@Column(name = "payment_status", unique = false, nullable = false)
 	private int payment_status;
@@ -100,24 +100,16 @@ public class User {
 		this.password = password;
 	}
 	
-	public String getCreation_date() {
-		return creation_date.toString();
+	public Timestamp getCreation_date() {
+		return creation_date;
 	}
 
 	public void setCreation_date(Timestamp creation_date) {
 		this.creation_date = creation_date;
 	}
 
-	public String getLast_change_date() {
-		String response;
-		if(last_change_date != null){
-			response = last_change_date.toString();
-		}
-		else{
-			response = "null";
-		}
-		
-		return response;
+	public Timestamp getLast_change_date() {
+		return last_change_date;
 	}
 
 	public void setLast_change_date(Timestamp last_change_date) {
@@ -148,12 +140,12 @@ public class User {
 		this.id_client = id_client;
 	}
 
-	public int getProfile() {
-		return profile;
+	public long getProfile() {
+		return id_profile;
 	}
 
-	public void setProfile(int profile) {
-		this.profile = profile;
+	public void setProfile(long id_profile) {
+		this.id_profile = id_profile;
 	}
 
 	public int getPayment_status() {
