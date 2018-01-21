@@ -18,7 +18,7 @@ public class User {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private long id;
 	
 	@Column(name = "user_name", unique = false, nullable = false)
 	private String user_name;
@@ -47,7 +47,7 @@ public class User {
 	private Client client;
 	
 	@Column(name = "id_client", unique = false, nullable = false)
-	private int id_client;
+	private long id_client;
 	
 	@Column(name = "profile", unique = false, nullable = false)
 	private int profile;
@@ -71,7 +71,7 @@ public class User {
 	@OneToOne(mappedBy = "user_gps_last")
 	private Gps_last last_gps_user;
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
@@ -140,11 +140,11 @@ public class User {
 		this.active = active;
 	}
 
-	public int getId_client() {
+	public long getId_client() {
 		return id_client;
 	}
 
-	public void setId_client(int id_client) {
+	public void setId_client(long id_client) {
 		this.id_client = id_client;
 	}
 

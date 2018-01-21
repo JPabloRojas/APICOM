@@ -14,7 +14,7 @@ public class Type_Manufacture {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private long id;
 	
 	@Column(name = "description", unique = true, nullable = false)
 	private String description;
@@ -22,7 +22,7 @@ public class Type_Manufacture {
 	@Column(name = "active", unique = true, nullable = false)
 	private int active;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	

@@ -4,6 +4,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import cl.apicom.spring.backend.entities.Base;
 
-public interface BaseRepository extends PagingAndSortingRepository<Base, Integer>{
+public interface BaseRepository extends PagingAndSortingRepository<Base, Long>{
 
 }

@@ -14,7 +14,7 @@ public class Manufacture {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private long id;
 	
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
@@ -23,9 +23,9 @@ public class Manufacture {
 	private String description;
 	
 	@Column(name = "id_type", unique = false, nullable = false)
-	private int id_type;
+	private long id_type;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -45,11 +45,11 @@ public class Manufacture {
 		this.description = description;
 	}
 
-	public int getId_type() {
+	public long getId_type() {
 		return id_type;
 	}
 
-	public void setId_type(int id_type) {
+	public void setId_type(long id_type) {
 		this.id_type = id_type;
 	}
 }

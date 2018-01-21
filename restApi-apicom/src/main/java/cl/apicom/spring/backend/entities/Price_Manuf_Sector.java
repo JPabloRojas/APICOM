@@ -14,13 +14,13 @@ public class Price_Manuf_Sector {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private long id;
 	
 	@Column(name = "id_sector", unique = false, nullable = false)
-	private int id_sector;
+	private long id_sector;
 	
 	@Column(name = "id_manufacture", unique = false, nullable = false)
-	private int id_manufacture;
+	private long id_manufacture;
 	
 	@Column(name = "price", unique = false, nullable = false)
 	private int price;
@@ -29,21 +29,21 @@ public class Price_Manuf_Sector {
 	private int active;
 	
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public int getId_sector() {
+	public long getId_sector() {
 		return id_sector;
 	}
 
-	public void setId_sector(int id_sector) {
+	public void setId_sector(long id_sector) {
 		this.id_sector = id_sector;
 	}
 
-	public int getId_manufacture() {
+	public long getId_manufacture() {
 		return id_manufacture;
 	}
-	public void setId_manufacture(int id_manufacture) {
+	public void setId_manufacture(long id_manufacture) {
 		this.id_manufacture = id_manufacture;
 	}
 

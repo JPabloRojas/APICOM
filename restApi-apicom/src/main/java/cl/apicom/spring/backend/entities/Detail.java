@@ -17,13 +17,13 @@ public class Detail {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private long id;
 	
 	@Column(name = "id_manufacture", unique = false, nullable = false)
-	private int id_manufacture;
+	private long id_manufacture;
 	
 	@Column(name = "id_pair", unique = false, nullable = false)
-	private int id_pair;
+	private long id_pair;
 	
 	@Column(name = "estate", unique = false, nullable = false)
 	private int estate;
@@ -44,31 +44,31 @@ public class Detail {
 	private Lista lista;
 	
 	@Column(name = "id_lista", unique = false, nullable = false)
-	private int id_lista;
+	private long id_lista;
 	
 	@Column(name = "id_base", unique = false, nullable = false)
-	private int id_base;
+	private long id_base;
 	
 	@Column(name = "iata", unique = false, nullable = false)
-	private int iata;
+	private long iata;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public int getId_manufacture() {
+	public long getId_manufacture() {
 		return id_manufacture;
 	}
 
-	public void setId_manufacture(int id_manufacture) {
+	public void setId_manufacture(long id_manufacture) {
 		this.id_manufacture = id_manufacture;
 	}
 
-	public int getId_pair() {
+	public long getId_pair() {
 		return id_pair;
 	}
 
-	public void setId_pair(int id_pair) {
+	public void setId_pair(long id_pair) {
 		this.id_pair = id_pair;
 	}
 
@@ -104,27 +104,27 @@ public class Detail {
 		this.ingress_date = ingress_date;
 	}
 
-	public int getId_lista() {
+	public long getId_lista() {
 		return id_lista;
 	}
 
-	public void setId_lista(int id_lista) {
+	public void setId_lista(long id_lista) {
 		this.id_lista = id_lista;
 	}
 
-	public int getId_base() {
+	public long getId_base() {
 		return id_base;
 	}
 
-	public void setId_base(int id_base) {
+	public void setId_base(long id_base) {
 		this.id_base = id_base;
 	}
 
-	public int getIata() {
+	public long getIata() {
 		return iata;
 	}
 
-	public void setIata(int iata) {
+	public void setIata(long iata) {
 		this.iata = iata;
 	}
 

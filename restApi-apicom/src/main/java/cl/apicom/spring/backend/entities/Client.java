@@ -16,7 +16,7 @@ public class Client {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private long id;
 	
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
@@ -45,7 +45,7 @@ public class Client {
 	@OneToMany(mappedBy = "client")
 	private List<User> user_list;
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 

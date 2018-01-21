@@ -14,7 +14,7 @@ public class Sector {
 	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private long id;
 	
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
@@ -25,7 +25,7 @@ public class Sector {
 	@Column(name = "active", unique = false, nullable = false)
 	private String active;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	

@@ -5,6 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import cl.apicom.spring.backend.entities.Type_Manufacture;
 
-public interface Type_ManufactureRepository extends PagingAndSortingRepository<Type_Manufacture, Integer>{
+public interface Type_ManufactureRepository extends PagingAndSortingRepository<Type_Manufacture, Long>{
 	
 }

@@ -35,6 +35,11 @@ public class ClientService {
 	private ClientRepository clientrepository;
 	
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Obtiene todos los clientes del sistema
+	 */
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getAllClients(){
@@ -44,10 +49,14 @@ public class ClientService {
 		return ResponseEntity.status(HttpStatus.OK).body(idc);
 		
 	}
-	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Obtiene los datos de un cliente
+	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> getClient(@PathVariable("id") Integer id){
+	public ResponseEntity<?> getClient(@PathVariable("id") long id){
 		Client c = clientrepository.findOne(id);
 		if(c == null){
 			String jsonResponse = "{\"response\":400,\"message\":\"Id de cliente no encontrado\"}";
@@ -60,10 +69,14 @@ public class ClientService {
 		}
 	}
 	
-	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Obtiene todos los usuarios relacionados con un cliente
+	 */
 	@RequestMapping(value = "/data/users/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> getAllClientsData(@PathVariable("id") Integer id){
+	public ResponseEntity<?> getAllClientsData(@PathVariable("id") long id){
 		try{
 			List<User> user_list = clientrepository.findOne(id).getUser_list();
 			List_data cwd = new List_data();
@@ -77,10 +90,14 @@ public class ClientService {
 	}
 	
 	
-	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: Post
+	 * Descripcion: Crea un cliente, inserta en la BD
+	 */
 	@RequestMapping(value = "/new/{name}/{contact}/{phone}/{mail}/{rut}/{adress}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> addUser(@PathVariable("name") String name,@PathVariable("contact") String contact, @PathVariable("phone") String phone, @PathVariable("mail") String mail, @PathVariable("rut") String rut, @PathVariable("adress") String adress){
+	public ResponseEntity<?> addClient(@PathVariable("name") String name,@PathVariable("contact") String contact, @PathVariable("phone") String phone, @PathVariable("mail") String mail, @PathVariable("rut") String rut, @PathVariable("adress") String adress){
 			
 		
 		Client client = new Client();
@@ -105,27 +122,50 @@ public class ClientService {
 		
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/inactive/{id}")
-	public ResponseEntity<?> inactiveUser(@PathVariable("id") int id){
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: PUT
+	 * Descripcion: Actualiza datos de un lciente
+	 */
+	@RequestMapping(value = "/update/{id}/{name}/{contact}/{phone}/{mail}/{rut}/{adress}", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<?> updateClient(@PathVariable("id") long id, @PathVariable("name") String name,@PathVariable("contact") String contact, @PathVariable("phone") String phone, @PathVariable("mail") String mail, @PathVariable("rut") String rut, @PathVariable("adress") String adress){
+		
 		Client client = clientrepository.findOne(id);
 		if(client == null){
-			String jsonResponse = "{\"response\":400,\"message\":\"Id usuario no existe\"}";
+			String jsonResponse = "{\"response\":400,\"message\":\"Id cliente no existe\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		else{
+			client.setName(name);
+			client.setContact(contact);
+			client.setPhone(phone);
+			client.setMail(mail);
+			client.setRut(rut);
+			client.setAdress(adress);
+			try{
+				clientrepository.save(client);
+				String jsonResponse = "{\"response\":200}";
+				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+			}
+			catch(DataIntegrityViolationException e){
+				String jsonResponse = "{\"response\":400,\"message\":\"No se ha podido actualizar informacion\"}";
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+			}
+
+		}
+	}
+	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: PUT
+	 * Descripcion: Activa/Desactiva un cliente
+	 */
+	@RequestMapping(value = "/inactive/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> inactiveUser(@PathVariable("id") long id){
+		Client client = clientrepository.findOne(id);
+		if(client == null){
+			String jsonResponse = "{\"response\":400,\"message\":\"Id cliente no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{

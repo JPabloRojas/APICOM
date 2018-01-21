@@ -43,7 +43,9 @@ public class UserService {
 	
 	
 	/*
-	 * Obtener todos los usuarios
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Obtiene todos los usuarios del sistema
 	 */
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	@ResponseBody
@@ -55,11 +57,13 @@ public class UserService {
 	}
 	
 	/*
-	 * Login
+	 * Plataforma: Administrador/Android
+	 * Tipo: POST
+	 * Descripcion: Login
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public  ResponseEntity<?> loginUser(@RequestBody LoginModel resource, HttpServletResponse response){
+	public  ResponseEntity<?> loginUser(@RequestBody LoginModel resource){
 		User u = null;
 		LoginResponseModel lrm  = null;
 		
@@ -79,11 +83,13 @@ public class UserService {
 	}
 	
 	/*
-	 * Obtener datos de un usuario
+	 * Plataforma: Administrador/Android
+	 * Tipo: GET
+	 * Descripcion: Obtiene los datos de un usuario
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> getUser(@PathVariable("id") Integer id){
+	public ResponseEntity<?> getUser(@PathVariable("id") long id){
 		User u = userrepository.findOne(id);
 		if(u == null){
 			//response.sendError(400, "Id de usuario no encontrado");
@@ -100,11 +106,13 @@ public class UserService {
 	}
 	
 	/*
-	 * Registrar usuario
+	 * Plataforma: Administrador
+	 * Tipo: POST
+	 * Descripcion: Registro de nuevo usuario, se inserta en la BD
 	 */
 	@RequestMapping(value = "/new/{user_name}/{user}/{password}/{mail}/{id_client}/{profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") int id_client, @PathVariable("profile") int profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
+	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("profile") int profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
 		
 		User u = userrepository.findbyUser(user_l);
 		if(u != null){
@@ -138,9 +146,14 @@ public class UserService {
 		
 	}
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: PUT
+	 * Descripcion: Actualiza los datos de un usuario
+	 */
 	@RequestMapping(value = "/update/{id}/{user_name}/{user}/{password}/{mail}/{id_client}/{profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<?> updateUser(@PathVariable("id") int id, @PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") int id_client, @PathVariable("profile") int profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
+	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("profile") int profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
 		User user = userrepository.findOne(id);
 		if(user == null){
 			String jsonResponse = "{\"response\":400,\"message\":\"Id usuario no existe\"}";
@@ -176,8 +189,14 @@ public class UserService {
 		}
 	}
 	
-	@RequestMapping(value = "/inactive/{id}")
-	public ResponseEntity<?> inactiveUser(@PathVariable("id") int id){
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: PUT
+	 * Descripcion: Activa/desactiva un usuario.
+	 * 
+	 */
+	@RequestMapping(value = "/inactive/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> inactiveUser(@PathVariable("id") long id){
 		User user = userrepository.findOne(id);
 		if(user == null){
 			String jsonResponse = "{\"response\":400,\"message\":\"Id usuario no existe\"}";

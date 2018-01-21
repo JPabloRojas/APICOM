@@ -5,6 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import cl.apicom.spring.backend.entities.Logs;
 
-public interface LogsRepository extends PagingAndSortingRepository<Logs, Integer>{
+public interface LogsRepository extends PagingAndSortingRepository<Logs, Long>{
 
 }

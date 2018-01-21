@@ -4,6 +4,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import cl.apicom.spring.backend.entities.Detail;
 
-public interface DetailRepository extends PagingAndSortingRepository<Detail, Integer>{
+public interface DetailRepository extends PagingAndSortingRepository<Detail, Long>{
 
 }

@@ -4,6 +4,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import cl.apicom.spring.backend.entities.Emergency;
 
-public interface EmergencyRepository extends PagingAndSortingRepository<Emergency, Integer>{
+public interface EmergencyRepository extends PagingAndSortingRepository<Emergency, Long>{
 
 }

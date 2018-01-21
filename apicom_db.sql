@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-01-2018 a las 15:41:01
+-- Tiempo de generación: 20-01-2018 a las 21:44:51
 -- Versión del servidor: 5.7.20-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -27,8 +27,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `apicom_base` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `id_user` bigint(20) NOT NULL,
   `date` datetime NOT NULL,
   `name` varchar(50) NOT NULL,
   `sales_check` tinyint(1) NOT NULL
@@ -48,7 +48,7 @@ INSERT INTO `apicom_base` (`id`, `id_user`, `date`, `name`, `sales_check`) VALUE
 --
 
 CREATE TABLE `apicom_client` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(100) NOT NULL,
   `creation_date` datetime NOT NULL,
   `active` tinyint(1) NOT NULL,
@@ -64,9 +64,11 @@ CREATE TABLE `apicom_client` (
 --
 
 INSERT INTO `apicom_client` (`id`, `name`, `creation_date`, `active`, `contact`, `phone`, `mail`, `rut`, `adress`) VALUES
-(0, 'default', '2018-01-01 00:00:00', 0, '0', '0', '0', '0', '0'),
-(1, 'test', '2018-01-10 05:14:14', 1, 'trading test', '123123', 'test@test.com', '11.111.111-1', 'test adress'),
-(2, 'client_2', '2018-01-10 00:00:00', 1, '8786453', '12312353', 'client@test2.cl', '19272546-0', 'direccion test');
+(1, 'test', '2018-01-10 05:14:14', 0, 'trading test', '123123', 'test@test.com', '11.111.111-1', 'test adress'),
+(2, 'client_2', '2018-01-10 00:00:00', 1, '8786453', '12312353', 'client@test2.cl', '19272546-0', 'direccion test'),
+(3, 'test', '2018-01-19 16:54:19', 1, 'contacttest', '+5693737', 'mail@mail.cl', '19237546-0', 'adresstest'),
+(4, 'test', '2018-01-20 22:07:10', 1, 'contacttest', '+5693737', 'mail@mail.cl', '19237546-0', 'adresstest'),
+(5, 'test12', '2018-01-20 22:07:14', 1, 'contacttest', '+5693737', 'mail@mail.cl', '19237546-0', 'adresstest');
 
 -- --------------------------------------------------------
 
@@ -75,15 +77,15 @@ INSERT INTO `apicom_client` (`id`, `name`, `creation_date`, `active`, `contact`,
 --
 
 CREATE TABLE `apicom_detail` (
-  `id` int(11) NOT NULL,
-  `id_manufacture` int(11) NOT NULL,
-  `id_pair` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `id_manufacture` bigint(20) NOT NULL,
+  `id_pair` bigint(20) NOT NULL,
   `estate` tinyint(1) NOT NULL,
   `estate_date` datetime NOT NULL,
   `despair_date` datetime NOT NULL,
   `ingress_date` datetime NOT NULL,
-  `id_lista` int(11) NOT NULL,
-  `id_base` int(11) NOT NULL,
+  `id_lista` bigint(20) NOT NULL,
+  `id_base` bigint(20) NOT NULL,
   `iata` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -103,8 +105,8 @@ INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_pair`, `estate`, `estat
 --
 
 CREATE TABLE `apicom_emergency` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `id_user` bigint(20) NOT NULL,
   `type` varchar(20) NOT NULL,
   `description` text NOT NULL,
   `date` datetime NOT NULL
@@ -115,9 +117,9 @@ CREATE TABLE `apicom_emergency` (
 --
 
 INSERT INTO `apicom_emergency` (`id`, `id_user`, `type`, `description`, `date`) VALUES
-(1, 2, '', 'choque', '2018-01-03 00:00:00'),
-(2, 2, 'Choque', 'Descripcion', '2018-05-14 20:00:00'),
-(3, 2, 'Choque', 'Descripcion', '2018-01-17 14:42:45');
+(8, 105, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:11:47'),
+(9, 105, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:11:48'),
+(12, 1, 'choque', 'bla', '2018-12-11 21:00:00');
 
 -- --------------------------------------------------------
 
@@ -126,10 +128,10 @@ INSERT INTO `apicom_emergency` (`id`, `id_user`, `type`, `description`, `date`) 
 --
 
 CREATE TABLE `apicom_gps` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
-  `id_user` int(11) NOT NULL
+  `id_user` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -149,10 +151,10 @@ INSERT INTO `apicom_gps` (`id`, `latitude`, `longitude`, `id_user`) VALUES
 --
 
 CREATE TABLE `apicom_gps_last` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
-  `id_user` int(11) NOT NULL
+  `id_user` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -160,7 +162,10 @@ CREATE TABLE `apicom_gps_last` (
 --
 
 INSERT INTO `apicom_gps_last` (`id`, `latitude`, `longitude`, `id_user`) VALUES
-(1, -54.123, 76.231, 1);
+(1, -75.123, 65.213, 1),
+(3, -75.123, 65.213, 95),
+(5, 34.1786998, -86.6154153, 105),
+(7, -75.123, 65.213, 20);
 
 -- --------------------------------------------------------
 
@@ -169,8 +174,8 @@ INSERT INTO `apicom_gps_last` (`id`, `latitude`, `longitude`, `id_user`) VALUES
 --
 
 CREATE TABLE `apicom_list` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `id_user` bigint(20) NOT NULL,
   `price` int(20) NOT NULL,
   `list_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -182,7 +187,6 @@ CREATE TABLE `apicom_list` (
 INSERT INTO `apicom_list` (`id`, `id_user`, `price`, `list_date`) VALUES
 (2, 1, 123123, '2018-01-18 00:00:00'),
 (3, 95, 0, '2018-01-15 19:12:13'),
-(4, 76, 0, '2018-01-15 20:24:05'),
 (5, 99, 0, '2018-01-15 20:24:25'),
 (6, 99, 0, '2018-01-15 20:24:29'),
 (7, 99, 0, '2018-01-15 20:24:30'),
@@ -200,8 +204,8 @@ INSERT INTO `apicom_list` (`id`, `id_user`, `price`, `list_date`) VALUES
 --
 
 CREATE TABLE `apicom_logs` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `id_user` bigint(20) NOT NULL,
   `date` datetime NOT NULL,
   `action` varchar(20) NOT NULL,
   `ip` varchar(15) NOT NULL
@@ -221,10 +225,10 @@ INSERT INTO `apicom_logs` (`id`, `id_user`, `date`, `action`, `ip`) VALUES
 --
 
 CREATE TABLE `apicom_manufacture` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` varchar(300) NOT NULL,
-  `id_type` int(11) NOT NULL
+  `id_type` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -242,10 +246,10 @@ INSERT INTO `apicom_manufacture` (`id`, `name`, `description`, `id_type`) VALUES
 --
 
 CREATE TABLE `apicom_price_client_sector` (
-  `id` int(11) NOT NULL,
-  `id_cliente` int(11) NOT NULL,
-  `id_manufacture` int(11) NOT NULL,
-  `id_sector` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `id_cliente` bigint(20) NOT NULL,
+  `id_manufacture` bigint(20) NOT NULL,
+  `id_sector` bigint(20) NOT NULL,
   `price` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -264,9 +268,9 @@ INSERT INTO `apicom_price_client_sector` (`id`, `id_cliente`, `id_manufacture`, 
 --
 
 CREATE TABLE `apicom_price_manuf_sector` (
-  `id` int(11) NOT NULL,
-  `id_sector` int(11) NOT NULL,
-  `id_manufacture` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `id_sector` bigint(20) NOT NULL,
+  `id_manufacture` bigint(20) NOT NULL,
   `price` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -285,7 +289,7 @@ INSERT INTO `apicom_price_manuf_sector` (`id`, `id_sector`, `id_manufacture`, `p
 --
 
 CREATE TABLE `apicom_sector` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `delimitation` text NOT NULL,
   `active` tinyint(1) NOT NULL
@@ -305,7 +309,7 @@ INSERT INTO `apicom_sector` (`id`, `name`, `delimitation`, `active`) VALUES
 --
 
 CREATE TABLE `apicom_type_manufacture` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `description` text NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -326,7 +330,7 @@ INSERT INTO `apicom_type_manufacture` (`id`, `description`, `active`) VALUES
 --
 
 CREATE TABLE `apicom_users` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `user_name` varchar(100) NOT NULL,
   `user` varchar(100) NOT NULL,
   `password` varchar(15) NOT NULL,
@@ -334,10 +338,10 @@ CREATE TABLE `apicom_users` (
   `last_change_date` datetime DEFAULT NULL,
   `mail` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `id_client` int(11) NOT NULL,
+  `id_client` bigint(20) NOT NULL,
   `profile` int(11) NOT NULL,
   `payment_status` tinyint(1) NOT NULL,
-  `payment_type` int(11) NOT NULL,
+  `payment_type` varchar(20) NOT NULL,
   `patente_vehiculo` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -346,19 +350,24 @@ CREATE TABLE `apicom_users` (
 --
 
 INSERT INTO `apicom_users` (`id`, `user_name`, `user`, `password`, `creation_date`, `last_change_date`, `mail`, `active`, `id_client`, `profile`, `payment_status`, `payment_type`, `patente_vehiculo`) VALUES
-(1, 'a', 'test_user', 'test_pass', '2018-01-17 08:20:10', NULL, 'test@test.com', 1, 1, 5, 0, 0, ''),
-(20, 'Juan Pablo Rojas', 'juan1234', 'pass1235', '2018-12-11 21:00:00', '2018-12-11 21:00:00', 'mailjuan@mail.mail', 1, 1, 9, 0, 5, 'npantente'),
-(28, 'Juan Pablo Rojas', 'juansdf1234', 'passdfs1235', '2018-12-11 21:00:00', '2018-12-11 21:00:00', 'mailjuan@mail.mail', 1, 2, 9, 0, 5, 'npantente'),
-(60, 'Juan Pablo Rojas', 'j1a2u394', 'p1a223as1935', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 0, 0, 5, 'npantente'),
-(64, 'Juan Pablo Rojas', 'zxc', 'pzxc', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 0, 9, 0, 5, 'npantente'),
-(66, 'Juan Pablo Rojas', 'zx123c', 'pz123xc', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 0, 9, 0, 5, 'npantente'),
-(68, 'Juan Pablo Rojas', 'zax1a23c', 'paza123xc', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 0, 9, 0, 5, 'npantente'),
-(72, 'Juan Pablo Rojas', 'zaac', '12356', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 0, 9, 0, 5, 'npantente'),
-(76, 'Juan Pablo Rojas', 'pass1', 'pass2', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 0, 9, 0, 5, 'npantente'),
-(95, 'Juan Pablo Rojas', 'user8', 'pass8', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 0, 9, 0, 5, 'npantente'),
-(99, 'Juan Pablo Rojas', 'user9', 'pass9', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 0, 9, 0, 5, 'npantente'),
-(105, 'Juan Pablo Rojas', 'user10', 'pass10', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 0, 9, 0, 5, 'npantente'),
-(109, 'Juan Pablo Rojas', 'user13', 'pass13', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 0, 9, 0, 5, 'npantente');
+(1, 'a', 'test_user', 'test_pass', '2018-01-17 08:20:10', NULL, 'test@test.com', 1, 1, 5, 0, '0', ''),
+(20, 'Juan Pablo Rojas', 'juan1234', 'pass1235', '2018-12-11 21:00:00', '2018-12-11 21:00:00', 'mailjuan@mail.mail', 1, 1, 9, 0, '5', 'npantente'),
+(28, 'Juan Pablo Rojas', 'juansdf1234', 'passdfs1235', '2018-12-11 21:00:00', '2018-12-11 21:00:00', 'mailjuan@mail.mail', 1, 2, 9, 0, '5', 'npantente'),
+(76, 'Juan Pablo Rojas', 'pass1', 'pass2', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 9, 0, '5', 'npantente'),
+(95, 'Juan Pablo Rojas', 'user8', 'pass8', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 9, 0, '5', 'npantente'),
+(99, 'Juan Pablo Rojas', 'user9', 'pass9', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 9, 0, '5', 'npantente'),
+(105, 'Juan Pablo Rojas', 'user10', 'pass10', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 9, 0, '5', 'npantente'),
+(109, 'Juan Pablo Rojas', 'user13', 'pass13', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 9, 0, '5', 'npantente'),
+(111, 'Juan Pablo Rojas', 'user106', 'pass106', '2018-01-18 14:48:39', NULL, 'asdasd', 1, 2, 9, 0, 'chequera', 'npantente'),
+(118, 'Sebastian Venegas', 'svenegas', 'svenegas', '2018-01-18 15:46:07', NULL, 'test@gmail.com', 1, 1, 9, 0, 'chequera', 'AA-BB-CC'),
+(130, 'SebastianVenegas4', 'svenegas4', 'svenegas4', '2018-01-18 16:31:58', NULL, 'tesgmail.com', 1, 1, 9, 0, 'chequera', 'AA-BB-CC'),
+(131, '"hola"', '"svenegaas2"', '"svenegas2"', '2018-01-18 16:33:26', NULL, '"tesgmail.com"', 1, 1, 9, 0, '"chequera"', '"AA-BB-CC"'),
+(132, 'SebastianVenegas5', 'svenegas5', 'svenegas5', '2018-01-18 16:42:19', NULL, 'tesgmail.com', 1, 1, 9, 0, 'chequera', 'AA-BB-CC'),
+(133, '"hola"', '"svenegaaas2"', '"svenegas2"', '2018-01-18 17:01:58', NULL, '"tesgmail.com"', 1, 1, 9, 0, '"chequera"', '"AA-BB-CC"'),
+(134, '"hola"', '"svenegas7"', '"svenegas7"', '2018-01-18 17:05:33', NULL, '"tesgmail.com"', 1, 1, 9, 0, '"chequera"', '"AA-BB-CC"'),
+(135, 'SebastianVenegas6', 'svenegas6', 'svenegas6', '2018-01-18 17:06:15', NULL, 'tesgmail.com', 1, 1, 9, 0, 'chequera', 'AA-BB-CC'),
+(136, 'SebastianVenegas7', 'svenegas7', 'svenegas7', '2018-01-18 17:06:58', '2018-01-20 22:10:51', 'testchange@gmail.com', 1, 1, 9, 0, 'boleta', 'AA-BB-CC'),
+(137, 'Juan Pablo Rojas', 'jpablo1', 'jpablo1', '2018-01-20 22:14:10', NULL, 'mail@mail1.com', 1, 1, 5, 0, 'cheque', 'AA-BB-CC');
 
 --
 -- Índices para tablas volcadas
@@ -391,7 +400,8 @@ ALTER TABLE `apicom_detail`
 -- Indices de la tabla `apicom_emergency`
 --
 ALTER TABLE `apicom_emergency`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `apicom_gps`
@@ -406,7 +416,8 @@ ALTER TABLE `apicom_gps`
 -- Indices de la tabla `apicom_gps_last`
 --
 ALTER TABLE `apicom_gps_last`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `apicom_list`
@@ -480,72 +491,72 @@ ALTER TABLE `apicom_users`
 -- AUTO_INCREMENT de la tabla `apicom_base`
 --
 ALTER TABLE `apicom_base`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `apicom_client`
 --
 ALTER TABLE `apicom_client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `apicom_detail`
 --
 ALTER TABLE `apicom_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `apicom_emergency`
 --
 ALTER TABLE `apicom_emergency`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `apicom_gps`
 --
 ALTER TABLE `apicom_gps`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `apicom_gps_last`
 --
 ALTER TABLE `apicom_gps_last`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `apicom_list`
 --
 ALTER TABLE `apicom_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `apicom_logs`
 --
 ALTER TABLE `apicom_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `apicom_manufacture`
 --
 ALTER TABLE `apicom_manufacture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `apicom_price_client_sector`
 --
 ALTER TABLE `apicom_price_client_sector`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `apicom_price_manuf_sector`
 --
 ALTER TABLE `apicom_price_manuf_sector`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `apicom_sector`
 --
 ALTER TABLE `apicom_sector`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `apicom_type_manufacture`
 --
 ALTER TABLE `apicom_type_manufacture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `apicom_users`
 --
 ALTER TABLE `apicom_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 --
 -- Restricciones para tablas volcadas
 --
@@ -554,15 +565,25 @@ ALTER TABLE `apicom_users`
 -- Filtros para la tabla `apicom_detail`
 --
 ALTER TABLE `apicom_detail`
-  ADD CONSTRAINT `apicom_detail_ibfk_1` FOREIGN KEY (`id_base`) REFERENCES `apicom_base` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `apicom_detail_ibfk_2` FOREIGN KEY (`id_lista`) REFERENCES `apicom_list` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `apicom_detail_ibfk_3` FOREIGN KEY (`id_manufacture`) REFERENCES `apicom_manufacture` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `apicom_detail_ibfk_1` FOREIGN KEY (`id_lista`) REFERENCES `apicom_list` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `apicom_emergency`
+--
+ALTER TABLE `apicom_emergency`
+  ADD CONSTRAINT `apicom_emergency_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `apicom_users` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `apicom_gps`
 --
 ALTER TABLE `apicom_gps`
   ADD CONSTRAINT `apicom_gps_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `apicom_users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `apicom_gps_last`
+--
+ALTER TABLE `apicom_gps_last`
+  ADD CONSTRAINT `apicom_gps_last_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `apicom_users` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `apicom_list`
@@ -575,27 +596,6 @@ ALTER TABLE `apicom_list`
 --
 ALTER TABLE `apicom_logs`
   ADD CONSTRAINT `apicom_logs_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `apicom_users` (`id`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `apicom_manufacture`
---
-ALTER TABLE `apicom_manufacture`
-  ADD CONSTRAINT `apicom_manufacture_ibfk_1` FOREIGN KEY (`id_type`) REFERENCES `apicom_type_manufacture` (`id`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `apicom_price_client_sector`
---
-ALTER TABLE `apicom_price_client_sector`
-  ADD CONSTRAINT `apicom_price_client_sector_ibfk_1` FOREIGN KEY (`id_sector`) REFERENCES `apicom_sector` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `apicom_price_client_sector_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `apicom_client` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `apicom_price_client_sector_ibfk_3` FOREIGN KEY (`id_manufacture`) REFERENCES `apicom_manufacture` (`id`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `apicom_price_manuf_sector`
---
-ALTER TABLE `apicom_price_manuf_sector`
-  ADD CONSTRAINT `apicom_price_manuf_sector_ibfk_1` FOREIGN KEY (`id_manufacture`) REFERENCES `apicom_manufacture` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `apicom_price_manuf_sector_ibfk_2` FOREIGN KEY (`id_sector`) REFERENCES `apicom_sector` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `apicom_users`

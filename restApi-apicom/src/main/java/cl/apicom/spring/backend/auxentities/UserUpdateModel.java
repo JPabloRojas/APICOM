@@ -2,21 +2,21 @@ package cl.apicom.spring.backend.auxentities;
 
 public class UserUpdateModel {
 	
-	private String id;
+	private long id;
 	private String user_name;
 	private String user;
 	private String password;
 	private String mail;
-	private int id_client;
+	private long id_client;
 	private int profile;
 	private String payment_type;
 	private String patente_vehiculo;
 	
 	
-	public String getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getUser_name() {
@@ -43,10 +43,10 @@ public class UserUpdateModel {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public int getId_client() {
+	public long getId_client() {
 		return id_client;
 	}
-	public void setId_client(int id_client) {
+	public void setId_client(long id_client) {
 		this.id_client = id_client;
 	}
 	public int getProfile() {
