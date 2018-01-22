@@ -8,7 +8,7 @@ public class UserUpdateModel {
 	private String password;
 	private String mail;
 	private long id_client;
-	private int profile;
+	private long profile;
 	private String payment_type;
 	private String patente_vehiculo;
 	
@@ -49,10 +49,10 @@ public class UserUpdateModel {
 	public void setId_client(long id_client) {
 		this.id_client = id_client;
 	}
-	public int getProfile() {
+	public long getProfile() {
 		return profile;
 	}
-	public void setProfile(int profile) {
+	public void setProfile(long profile) {
 		this.profile = profile;
 	}
 	public String getPayment_type() {

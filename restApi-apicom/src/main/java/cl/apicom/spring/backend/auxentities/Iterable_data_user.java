@@ -1,16 +1,18 @@
 package cl.apicom.spring.backend.auxentities;
 
+import java.util.List;
+
 import cl.apicom.spring.backend.entities.User;
 
 public class Iterable_data_user {
 	
-	private Iterable<User> data;
+	private List<UserModel> data;
 
-	public Iterable<User> getData() {
+	public List<UserModel> getData() {
 		return data;
 	}
 
-	public void setData(Iterable<User> data) {
+	public void setData(List<UserModel> data) {
 		this.data = data;
 	}
 	

@@ -71,6 +71,11 @@ public class User {
 	@OneToOne(mappedBy = "user_gps_last")
 	private Gps_last last_gps_user;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_profile", insertable = false, updatable = false)
+	@JsonIgnore
+	private Profile profile;
+	
 	public long getId() {
 		return id;
 	}
@@ -140,14 +145,14 @@ public class User {
 		this.id_client = id_client;
 	}
 
-	public long getProfile() {
+	public long getId_profile() {
 		return id_profile;
 	}
 
-	public void setProfile(long id_profile) {
+	public void setId_profile(long id_profile) {
 		this.id_profile = id_profile;
 	}
-
+	
 	public int getPayment_status() {
 		return payment_status;
 	}
@@ -202,6 +207,14 @@ public class User {
 
 	public void setLast_gps_user(Gps_last last_gps_user) {
 		this.last_gps_user = last_gps_user;
+	}
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 
 	

@@ -16,6 +16,4 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>{
 	@Query("SELECT u FROM User u WHERE u.user = :user")
 	User findbyUser(@Param("user") String user);
 	
-	@Query("SELECT u FROM User u WHERE creation_date BETWEEN '2018-01-20 22:14:09' and '2018-01-21 00:00:00'")
-	List<User> findByDate();
 }

@@ -27,7 +27,9 @@ import com.mysql.fabric.Response;
 import cl.apicom.spring.backend.auxentities.LoginModel;
 import cl.apicom.spring.backend.auxentities.LoginResponseModel;
 import cl.apicom.spring.backend.auxentities.UserCreationModel;
+import cl.apicom.spring.backend.auxentities.UserModel;
 import cl.apicom.spring.backend.auxentities.UserUpdateModel;
+import cl.apicom.spring.backend.auxentities.Id_user_model;
 import cl.apicom.spring.backend.auxentities.Iterable_data_user;
 import cl.apicom.spring.backend.entities.Lista;
 import cl.apicom.spring.backend.entities.User;
@@ -56,7 +58,27 @@ public class UserService {
 	public ResponseEntity<?> getAllUsers(){
 		Iterable_data_user ud = new Iterable_data_user();
 		Iterable<User> users = userrepository.findAll();
-		ud.setData(users);
+		List<UserModel>  umList = new ArrayList<>();
+		for(User u: users){
+			UserModel umAux = new UserModel();
+			umAux.setId(u.getId());
+			umAux.setUser_name(u.getUser_name());
+			umAux.setUser(u.getUser());
+			umAux.setPassword(u.getPassword());
+			umAux.setCreation_date(u.getCreation_date());
+			umAux.setLast_change_date(u.getLast_change_date());
+			umAux.setMail(u.getMail());
+			umAux.setActive(u.getActive());
+			umAux.setClient_name(u.getClient().getName());
+			umAux.setId_client(u.getId_client());
+			umAux.setId_profile(u.getId_profile());
+			umAux.setPayment_status(u.getPayment_status());
+			umAux.setPayment_type(u.getPayment_type());
+			umAux.setPatente_vehiculo(u.getPatente_vehiculo());
+			umList.add(umAux);
+			
+		}
+		ud.setData(umList);
 		return ResponseEntity.status(HttpStatus.OK).body(ud);
 	}
 	
@@ -103,8 +125,23 @@ public class UserService {
 		}
 		else{
 			//response.setStatus(200);
-			List<User> lu = new ArrayList<User>();
-			lu.add(u);
+			List<UserModel> lu = new ArrayList<UserModel>();
+			UserModel umAux = new UserModel();
+			umAux.setId(u.getId());
+			umAux.setUser_name(u.getUser_name());
+			umAux.setUser(u.getUser());
+			umAux.setPassword(u.getPassword());
+			umAux.setCreation_date(u.getCreation_date());
+			umAux.setLast_change_date(u.getLast_change_date());
+			umAux.setMail(u.getMail());
+			umAux.setActive(u.getActive());
+			umAux.setClient_name(u.getClient().getName());
+			umAux.setId_client(u.getId_client());
+			umAux.setId_profile(u.getId_profile());
+			umAux.setPayment_status(u.getPayment_status());
+			umAux.setPayment_type(u.getPayment_type());
+			umAux.setPatente_vehiculo(u.getPatente_vehiculo());
+			lu.add(umAux);
 			return ResponseEntity.status(HttpStatus.OK).body(lu);
 		}
 	}
@@ -133,7 +170,7 @@ public class UserService {
 			user.setMail(mail);
 			user.setActive(1);
 			user.setId_client(id_client);
-			user.setProfile(profile);
+			user.setId_profile(profile);
 			user.setPayment_status(0);
 			user.setPayment_type(payment_type);
 			user.setPatente_vehiculo(patente_vehiculo);
@@ -182,7 +219,7 @@ public class UserService {
 					user.setLast_change_date(timestamp);
 					user.setMail(mail);
 					user.setId_client(id_client);
-					user.setProfile(profile);
+					user.setId_profile(profile);
 					user.setPayment_type(payment_type);
 					user.setPatente_vehiculo(patente_vehiculo);
 					try{
@@ -263,9 +300,19 @@ public class UserService {
 		}
 	}
 	
-	@RequestMapping(value = "/date", method = RequestMethod.GET)
+	@RequestMapping(value = "/IdName", method = RequestMethod.GET)
 	@ResponseBody
-	public List<User> getfordate(){
-		return userrepository.findByDate();
+	public ResponseEntity<?> getIdName(){
+		Iterable<User> users = userrepository.findAll();
+		List<Id_user_model> ium_list = new ArrayList<>();
+		for(User u: users){
+			Id_user_model ium = new Id_user_model();
+			ium.setId(u.getId());
+			ium.setNombre(u.getUser_name());
+			ium_list.add(ium);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(ium_list);
+		
 	}
+	
 }

@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.apicom.spring.backend.auxentities.Id_client_model;
 import cl.apicom.spring.backend.auxentities.Iterable_data_client;
 import cl.apicom.spring.backend.auxentities.List_data;
+import cl.apicom.spring.backend.auxentities.UserModel;
 import cl.apicom.spring.backend.entities.Client;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.ClientRepository;
@@ -43,10 +45,15 @@ public class ClientService {
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getAllClients(){
-		
-		Iterable_data_client  idc = new Iterable_data_client();
-		idc.setData(clientrepository.findAll());
-		return ResponseEntity.status(HttpStatus.OK).body(idc);
+		try{
+			Iterable_data_client  idc = new Iterable_data_client();
+			idc.setData(clientrepository.findAll());
+			return ResponseEntity.status(HttpStatus.OK).body(idc);
+		}
+		catch(Exception e){
+			String jsonResponse = "{\"response\":400,\"desc\":\"No se han podido obtener los clientes\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
 		
 	}
 	/*
@@ -79,9 +86,27 @@ public class ClientService {
 	public ResponseEntity<?> getAllClientsData(@PathVariable("id") long id){
 		try{
 			List<User> user_list = clientrepository.findOne(id).getUser_list();
-			List_data cwd = new List_data();
-			cwd.setData(user_list);
-			return ResponseEntity.status(HttpStatus.OK).body(cwd);
+			List<UserModel> lu = new ArrayList<UserModel>();
+			for(User u: user_list){
+				UserModel umAux = new UserModel();
+				umAux.setId(u.getId());
+				umAux.setUser_name(u.getUser_name());
+				umAux.setUser(u.getUser());
+				umAux.setPassword(u.getPassword());
+				umAux.setCreation_date(u.getCreation_date());
+				umAux.setLast_change_date(u.getLast_change_date());
+				umAux.setMail(u.getMail());
+				umAux.setActive(u.getActive());
+				umAux.setClient_name(u.getClient().getName());
+				umAux.setId_client(u.getId_client());
+				umAux.setId_profile(u.getId_profile());
+				umAux.setPayment_status(u.getPayment_status());
+				umAux.setPayment_type(u.getPayment_type());
+				umAux.setPatente_vehiculo(u.getPatente_vehiculo());
+				lu.add(umAux);
+			}
+			
+			return ResponseEntity.status(HttpStatus.OK).body(lu);
 		}
 		catch(NullPointerException e){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id de cliente no encontrado\"}";
@@ -162,6 +187,7 @@ public class ClientService {
 	 * Descripcion: Activa/Desactiva un cliente
 	 */
 	@RequestMapping(value = "/inactive/{id}", method = RequestMethod.PUT)
+	@ResponseBody
 	public ResponseEntity<?> inactiveUser(@PathVariable("id") long id){
 		Client client = clientrepository.findOne(id);
 		if(client == null){
@@ -196,5 +222,41 @@ public class ClientService {
 			}
 		}
 	}
+	
+	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Obtiene modelo id - nombre cliente
+	 */
+	@RequestMapping(value = "/IdName", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getIdName(){
+		try{
+			List<Id_client_model> icm = new ArrayList<>();
+			Iterable<Client> clients = clientrepository.findAll();
+			for(Client c: clients){
+				Id_client_model icmAux = new Id_client_model();
+				icmAux.setId(c.getId());
+				icmAux.setNombre(c.getName());
+				icm.add(icmAux);
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(icm);
+		}
+		catch(Exception e){
+			String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido obtener la lista de clientes\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
