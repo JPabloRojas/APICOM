@@ -28,10 +28,12 @@ import cl.apicom.spring.backend.auxentities.LoginModel;
 import cl.apicom.spring.backend.auxentities.LoginResponseModel;
 import cl.apicom.spring.backend.auxentities.UserCreationModel;
 import cl.apicom.spring.backend.auxentities.UserModel;
+import cl.apicom.spring.backend.auxentities.UserProfileModel;
 import cl.apicom.spring.backend.auxentities.UserUpdateModel;
 import cl.apicom.spring.backend.auxentities.Id_user_model;
 import cl.apicom.spring.backend.auxentities.Iterable_data_user;
 import cl.apicom.spring.backend.entities.Lista;
+import cl.apicom.spring.backend.entities.Profile;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.ProfileRepository;
 import cl.apicom.spring.backend.repository.UserRepository;
@@ -300,6 +302,11 @@ public class UserService {
 		}
 	}
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Obtiene usuarios en formato id-nombre
+	 */
 	@RequestMapping(value = "/IdName", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getIdName(){
@@ -312,7 +319,33 @@ public class UserService {
 			ium_list.add(ium);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(ium_list);
-		
+	}
+	
+	@RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getProfile(@PathVariable("id") long id){
+		User user = userrepository.findOne(id);
+		if(user == null){
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		else{
+			Iterable<Profile> profiles = profilerepository.findAll();
+			List<UserProfileModel> upm_list = new ArrayList<>(); 
+			for(Profile u: profiles){
+				UserProfileModel upm = new UserProfileModel();
+				upm.setId(u.getId());
+				upm.setName(u.getDescription());
+				if(user.getId_profile() == u.getId()){
+					upm.setActive(1);
+				}
+				else{
+					upm.setActive(0);
+				}
+				upm_list.add(upm);
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(upm_list);
+		}
 	}
 	
 }
