@@ -1,5 +1,6 @@
 package cl.apicom.spring.backend.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -14,8 +15,9 @@ public interface DetailRepository extends PagingAndSortingRepository<Detail, Lon
 	@Query("SELECT d FROM Detail d WHERE DATE(despair_date) = CURDATE()")
 	Iterable<Detail> getDetailDay();
 	
-	@Query("SELECT d FROM Detail d WHERE DATE(despair_date) = \":date\"")
-	Iterable<Detail> getDetailDate(@Param("date") String date);
+	//por arreglar
+	@Query("SELECT d FROM Detail d WHERE DATE(despair_date) = :date")
+	Iterable<Detail> getDetailDate(@Param("date") Date date);
 	
 	@Query("SELECT d FROM Detail d WHERE d.id_base = :id_base")
 	Iterable<Detail> getDetailFromBase(@Param("id_base") long id_base);

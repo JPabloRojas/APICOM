@@ -16,4 +16,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>{
 	@Query("SELECT u FROM User u WHERE u.user = :user")
 	User findbyUser(@Param("user") String user);
 	
+	@Query("SELECT u FROM User u, Base b, Detail d WHERE d.id = :id_detail and d.id_base = b.id and b.id_user = u.id")
+	User finUserDetail(@Param("id_detail") long id_detail);
 }

@@ -47,6 +47,12 @@ public class UserService {
 	 * Tipo: POST
 	 * Descripcion: Login
 	 */
+	@RequestMapping(method = RequestMethod.GET)
+	@ResponseBody
+	public Iterable<User> getAllUser(){
+		return userrepository.findAll();
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public  ResponseEntity<?> loginUser(@RequestBody LoginModel resource){

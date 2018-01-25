@@ -1,5 +1,7 @@
 package cl.apicom.spring.backend.rest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,16 +51,19 @@ public class DetailService {
 		}
 	}
 	
+	//POR ARREGLAR
 	@RequestMapping(value = "/date/{date}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getDetailDate(@PathVariable String date){
 		try{
 			Iterable_data_details idd = new Iterable_data_details();
-			idd.setData(detailrepository.getDetailDate(date));
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date date_d = formatter.parse(date);
+			idd.setData(detailrepository.getDetailDate(date_d));
 			return ResponseEntity.status(HttpStatus.OK).body(idd);
 		}
 		catch(Exception e){
-			String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido obtener detalles de la fecha\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 	}

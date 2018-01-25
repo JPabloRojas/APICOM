@@ -30,20 +30,4 @@ public class EmergencyService {
 		return emergencyrepository.findAll();
 	}
 	
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<?> addEmergency(@RequestBody Emergency resource){
-		
-		try{
-			emergencyrepository.save(resource);
-			String jsonResponse = "{\"response\": 201}";
-			return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
-		}
-		catch(DataIntegrityViolationException e){
-			String jsonResponse = "{\"response\": 400}";
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-		}
-		
-	}
-	
 }

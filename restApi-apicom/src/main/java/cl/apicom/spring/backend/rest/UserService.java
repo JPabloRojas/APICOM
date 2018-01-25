@@ -159,7 +159,7 @@ public class UserService {
 	 */
 	@RequestMapping(value = "/new/{user_name}/{user}/{password}/{mail}/{id_client}/{profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("profile") int profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
+	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("profile") long profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
 		
 		User u = userrepository.findbyUser(user_l);
 		if(u != null){
@@ -167,27 +167,34 @@ public class UserService {
 			return ResponseEntity.status(258).body(jsonResponse);
 		}
 		else{
-			User user = new User();
-			user.setUser_name(user_name);
-			user.setUser(user_l);
-			user.setPassword(password);
-			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			user.setCreation_date(timestamp);
-			user.setMail(mail);
-			user.setActive(1);
-			user.setId_client(id_client);
-			user.setId_profile(profile);
-			user.setPayment_status(0);
-			user.setPayment_type(payment_type);
-			user.setPatente_vehiculo(patente_vehiculo);
-			try{
-				userrepository.save(user);
-				String jsonResponse = "{\"response\":201}";
-				return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
-			}
-			catch(DataIntegrityViolationException e){
-				String jsonResponse = "{\"response\":400,\"desc\":\"El id del cliente no existe\"}";
+			Profile prof = profilerepository.findOne(profile);
+			if(prof == null){
+				String jsonResponse = "{\"response\":258,\"desc\":\"El perfil no se encuentra disponible\"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+			}
+			else{
+				User user = new User();
+				user.setUser_name(user_name);
+				user.setUser(user_l);
+				user.setPassword(password);
+				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+				user.setCreation_date(timestamp);
+				user.setMail(mail);
+				user.setActive(1);
+				user.setId_client(id_client);
+				user.setId_profile(profile);
+				user.setPayment_status(0);
+				user.setPayment_type(payment_type);
+				user.setPatente_vehiculo(patente_vehiculo);
+				try{
+					userrepository.save(user);
+					String jsonResponse = "{\"response\":201}";
+					return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
+				}
+				catch(DataIntegrityViolationException e){
+					String jsonResponse = "{\"response\":400,\"desc\":\"El id del cliente no existe\"}";
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+				}
 			}
 		}
 		

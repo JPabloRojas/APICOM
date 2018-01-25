@@ -39,6 +39,9 @@ public class Lista {
 	@Column(name = "list_date", unique = false, nullable = false)
 	private Timestamp list_date;
 	
+	@Column(name = "active", unique = false, nullable = false)
+	private int active;
+	
 	@OneToMany(mappedBy = "lista")
 	private List<Detail> detail_list;
 	
@@ -84,6 +87,14 @@ public class Lista {
 
 	public void setUser_list(User user_list) {
 		this.user_list = user_list;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
 	}
 	
 

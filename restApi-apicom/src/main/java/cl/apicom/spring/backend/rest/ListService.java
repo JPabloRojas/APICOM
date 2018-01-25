@@ -37,26 +37,4 @@ public class ListService {
 		return listrepository.findAll();
 	}
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	@ResponseBody
-	public void addList(@RequestBody RequestSingleData resource, HttpServletResponse response) throws IOException{
-		User u = userrepository.findbyUser(resource.getData());
-		if(u == null){
-			response.sendError(400);
-		}
-		else{
-			Lista list = new Lista();
-			list.setId_user(u.getId());
-			 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			list.setList_date(timestamp);
-			list.setPrice(0);
-			try{
-				listrepository.save(list);
-				response.setStatus(201);
-			}
-			catch(DataIntegrityViolationException e){
-				response.sendError(400);
-			}
-		}
-	}
 }

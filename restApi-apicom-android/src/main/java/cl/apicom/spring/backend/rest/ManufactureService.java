@@ -25,9 +25,9 @@ public class ManufactureService {
 		return manufacturerepository.findAll();
 	}
 	
-	@RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
+	/*@RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Manufacture> getAllManufUser(@PathVariable("id") long id){
 		return manufacturerepository.getAllManufUser(id);
-	}
+	}*/
 }
