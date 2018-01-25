@@ -63,6 +63,7 @@ public class UserService {
 		List<UserModel>  umList = new ArrayList<>();
 		for(User u: users){
 			UserModel umAux = new UserModel();
+			Profile profile = profilerepository.findOne(u.getId_profile());
 			umAux.setId(u.getId());
 			umAux.setUser_name(u.getUser_name());
 			umAux.setUser(u.getUser());
@@ -73,6 +74,7 @@ public class UserService {
 			umAux.setActive(u.getActive());
 			umAux.setClient_name(u.getClient().getName());
 			umAux.setId_client(u.getId_client());
+			umAux.setProfile_name(profile.getDescription());
 			umAux.setId_profile(u.getId_profile());
 			umAux.setPayment_status(u.getPayment_status());
 			umAux.setPayment_type(u.getPayment_type());
@@ -128,6 +130,7 @@ public class UserService {
 		else{
 			//response.setStatus(200);
 			List<UserModel> lu = new ArrayList<UserModel>();
+			Profile profile = profilerepository.findOne(u.getId_profile());
 			UserModel umAux = new UserModel();
 			umAux.setId(u.getId());
 			umAux.setUser_name(u.getUser_name());
@@ -138,6 +141,7 @@ public class UserService {
 			umAux.setMail(u.getMail());
 			umAux.setActive(u.getActive());
 			umAux.setClient_name(u.getClient().getName());
+			umAux.setProfile_name(profile.getDescription());
 			umAux.setId_client(u.getId_client());
 			umAux.setId_profile(u.getId_profile());
 			umAux.setPayment_status(u.getPayment_status());

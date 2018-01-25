@@ -2,6 +2,7 @@ package cl.apicom.spring.backend.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,5 +23,11 @@ public class ManufactureService {
 	@ResponseBody
 	public Iterable<Manufacture> getAllManu(){
 		return manufacturerepository.findAll();
+	}
+	
+	@RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
+	@ResponseBody
+	public Iterable<Manufacture> getAllManufUser(@PathVariable("id") long id){
+		return manufacturerepository.getAllManufUser(id);
 	}
 }

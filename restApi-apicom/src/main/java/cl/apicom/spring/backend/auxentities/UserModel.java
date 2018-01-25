@@ -15,6 +15,7 @@ public class UserModel {
 	private int active;
 	private String client_name;
 	private Long id_client;
+	private String profile_name;
 	private long id_profile;
 	private int payment_status;
 	private String payment_type;
@@ -82,6 +83,14 @@ public class UserModel {
 	public void setId_client(Long id_client) {
 		this.id_client = id_client;
 	}
+	
+	public String getProfile_name() {
+		return profile_name;
+	}
+	public void setProfile_name(String profile_name) {
+		this.profile_name = profile_name;
+	}
+	
 	public long getId_profile() {
 		return id_profile;
 	}

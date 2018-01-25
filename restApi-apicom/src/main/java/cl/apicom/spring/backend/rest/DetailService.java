@@ -49,6 +49,20 @@ public class DetailService {
 		}
 	}
 	
+	@RequestMapping(value = "/date/{date}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getDetailDate(@PathVariable String date){
+		try{
+			Iterable_data_details idd = new Iterable_data_details();
+			idd.setData(detailrepository.getDetailDate(date));
+			return ResponseEntity.status(HttpStatus.OK).body(idd);
+		}
+		catch(Exception e){
+			String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido obtener detalles de la fecha\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+	}
+	
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
@@ -138,6 +152,7 @@ public class DetailService {
 			return ResponseEntity.status(HttpStatus.OK).body(details);
 		}
 	}
+	
 	
 	
 	

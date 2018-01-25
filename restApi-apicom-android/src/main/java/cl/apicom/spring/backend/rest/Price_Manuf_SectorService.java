@@ -1,7 +1,10 @@
 package cl.apicom.spring.backend.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,4 +26,11 @@ public class Price_Manuf_SectorService {
 	public Iterable<Price_Manuf_Sector> getAllpms(){
 		return price_manuf_sectorrepository.findAll();
 	}
+	
+	/*@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getPMSUser(@PathVariable("id") long id){
+		Iterable<Price_Manuf_Sector> pms = price_manuf_sectorrepository.getPMSUser(id);
+		return ResponseEntity.status(HttpStatus.OK).body(pms);
+	}*/
 }

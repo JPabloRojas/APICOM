@@ -14,6 +14,9 @@ public interface DetailRepository extends PagingAndSortingRepository<Detail, Lon
 	@Query("SELECT d FROM Detail d WHERE DATE(despair_date) = CURDATE()")
 	Iterable<Detail> getDetailDay();
 	
+	@Query("SELECT d FROM Detail d WHERE DATE(despair_date) = \":date\"")
+	Iterable<Detail> getDetailDate(@Param("date") String date);
+	
 	@Query("SELECT d FROM Detail d WHERE d.id_base = :id_base")
 	Iterable<Detail> getDetailFromBase(@Param("id_base") long id_base);
 	
@@ -23,4 +26,5 @@ public interface DetailRepository extends PagingAndSortingRepository<Detail, Lon
 	//nomina
 	@Query("SELECT d FROM Detail d, Lista l, User u, Base b WHERE l.id_user = u.id and u.id = b.id_user and b.id = d.id_base and l.id = :id")
 	Iterable<Detail> getDetailFromLista(@Param("id") long id);
+	
 }

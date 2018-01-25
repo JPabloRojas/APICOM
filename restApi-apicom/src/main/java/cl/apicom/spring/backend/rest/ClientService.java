@@ -24,9 +24,12 @@ import cl.apicom.spring.backend.auxentities.Id_client_model;
 import cl.apicom.spring.backend.auxentities.Iterable_data_client;
 import cl.apicom.spring.backend.auxentities.List_data;
 import cl.apicom.spring.backend.auxentities.UserModel;
+import cl.apicom.spring.backend.auxentities.UserModel_data;
 import cl.apicom.spring.backend.entities.Client;
+import cl.apicom.spring.backend.entities.Profile;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.ClientRepository;
+import cl.apicom.spring.backend.repository.ProfileRepository;
 
 @CrossOrigin
 @RestController
@@ -36,13 +39,16 @@ public class ClientService {
 	@Autowired
 	private ClientRepository clientrepository;
 	
+	@Autowired
+	private ProfileRepository profilerepository;
+	
 	
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
 	 * Descripcion: Obtiene todos los clientes del sistema
 	 */
-	@RequestMapping(value = "/data", method = RequestMethod.GET)
+	@RequestMapping(value = "/data/", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getAllClients(){
 		try{
@@ -89,6 +95,7 @@ public class ClientService {
 			List<UserModel> lu = new ArrayList<UserModel>();
 			for(User u: user_list){
 				UserModel umAux = new UserModel();
+				Profile profile = profilerepository.findOne(u.getId_profile());
 				umAux.setId(u.getId());
 				umAux.setUser_name(u.getUser_name());
 				umAux.setUser(u.getUser());
@@ -99,14 +106,16 @@ public class ClientService {
 				umAux.setActive(u.getActive());
 				umAux.setClient_name(u.getClient().getName());
 				umAux.setId_client(u.getId_client());
+				umAux.setProfile_name(profile.getDescription());
 				umAux.setId_profile(u.getId_profile());
 				umAux.setPayment_status(u.getPayment_status());
 				umAux.setPayment_type(u.getPayment_type());
 				umAux.setPatente_vehiculo(u.getPatente_vehiculo());
 				lu.add(umAux);
 			}
-			
-			return ResponseEntity.status(HttpStatus.OK).body(lu);
+			UserModel_data umd = new UserModel_data();
+			umd.setData(lu);
+			return ResponseEntity.status(HttpStatus.OK).body(umd);
 		}
 		catch(NullPointerException e){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id de cliente no encontrado\"}";

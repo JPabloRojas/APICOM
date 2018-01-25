@@ -7,13 +7,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.apicom.spring.backend.auxentities.RequestID;
 import cl.apicom.spring.backend.auxentities.RequestSingleData;
 import cl.apicom.spring.backend.entities.Lista;
 import cl.apicom.spring.backend.entities.User;
@@ -37,7 +41,8 @@ public class ListService {
 		return listrepository.findAll();
 	}
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	
+	/*@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public void addList(@RequestBody RequestSingleData resource, HttpServletResponse response) throws IOException{
 		User u = userrepository.findbyUser(resource.getData());
@@ -58,5 +63,28 @@ public class ListService {
 				response.sendError(400);
 			}
 		}
+	}*/
+	
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getListUser(@PathVariable("id") long id){
+		User user = userrepository.findOne(id);
+		if(user == null){
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		else{
+			try{
+				Iterable<Lista> listas = listrepository.getListUser(id);
+				return ResponseEntity.status(HttpStatus.OK).body(listas);
+			}
+			catch(Exception e){
+				String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+			}
+		}
 	}
+	
+	
+	
 }
