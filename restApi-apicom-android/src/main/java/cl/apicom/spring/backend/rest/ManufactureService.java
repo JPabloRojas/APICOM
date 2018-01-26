@@ -30,4 +30,6 @@ public class ManufactureService {
 	public Iterable<Manufacture> getAllManufUser(@PathVariable("id") long id){
 		return manufacturerepository.getAllManufUser(id);
 	}*/
+	
+	
 }

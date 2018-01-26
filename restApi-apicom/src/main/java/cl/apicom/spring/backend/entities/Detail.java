@@ -37,7 +37,6 @@ public class Detail {
 	@Column(name = "ingress_date", unique = false, nullable = false)
 	private Timestamp ingress_date;
 	
-	
 	@ManyToOne
 	@JoinColumn(name = "id_lista", insertable = false, updatable = false)
 	@JsonIgnore
@@ -51,6 +50,24 @@ public class Detail {
 	
 	@Column(name = "iata", unique = false, nullable = false)
 	private long iata;
+	
+	@Column(name = "id_sector", unique = false, nullable = false)
+	private long id_sector;
+	
+	@Column(name = "adress", unique = false, nullable = false)
+	private String adress;
+	
+	@Column(name = "latitude", unique = false, nullable = false)
+	private double latitude;
+	
+	@Column(name = "longitude", unique = false, nullable = false)
+	private double longitude;
+	
+	@Column(name = "comment", unique = false, nullable = false)
+	private String comment;
+	
+	@Column(name = "receptor", unique = false, nullable = false)
+	private String receptor;
 
 	public long getId() {
 		return id;
@@ -127,7 +144,15 @@ public class Detail {
 	public void setIata(long iata) {
 		this.iata = iata;
 	}
+	
+	public long getId_sector() {
+		return id_sector;
+	}
 
+	public void setId_sector(long id_sector) {
+		this.id_sector = id_sector;
+	}
+	
 	public Lista getLista() {
 		return lista;
 	}
@@ -135,5 +160,46 @@ public class Detail {
 	public void setLista(Lista lista) {
 		this.lista = lista;
 	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+	
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public String getReceptor() {
+		return receptor;
+	}
+
+	public void setReceptor(String receptor) {
+		this.receptor = receptor;
+	}
+
 
 }

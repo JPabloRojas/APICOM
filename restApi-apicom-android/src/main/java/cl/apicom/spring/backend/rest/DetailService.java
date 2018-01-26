@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.apicom.spring.backend.auxentities.RequestID;
+import cl.apicom.spring.backend.auxentities.UpdateDetailModel;
 import cl.apicom.spring.backend.entities.Detail;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.DetailRepository;
@@ -54,9 +55,27 @@ public class DetailService {
 		
 	}
 	
-	/*@RequestMapping(value = "/update/estate", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update/state", method = RequestMethod.PUT)
 	@ResponseBody
-	public  updateState(){
+	public ResponseEntity<?> updateState(@RequestBody UpdateDetailModel resource){
 		
-	}*/
+		Detail detail = detailrepository.findOne(resource.getId());
+		if(detail == null){
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id detalle no existe\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		else{
+			detail.setEstate(resource.getState());
+			detail.setComment(resource.getComment());
+			try{
+				detailrepository.save(detail);
+				String jsonResponse = "{\"response\":400}";
+				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+			}
+			catch(Exception e){
+				String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+			}
+		}
+	}
 }

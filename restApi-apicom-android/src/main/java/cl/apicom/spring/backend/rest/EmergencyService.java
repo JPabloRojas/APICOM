@@ -53,15 +53,21 @@ public class EmergencyService {
 			emergencyrepository.save(emergency);
 			
 			
+			
 			String phone = resource.getPhone();
 			Iterable<Long> ids_details = resource.getIds_detalles();
-			//List<User> users = new ArrayList<>();
+			List<Long> id_repeated = new ArrayList<>();
 			for(Long id: ids_details){
 				User u = userrepository.finUserDetail(id);
-				String number = u.getMail();
+				if(!id_repeated.contains(u.getId()))
+				{
+					String number = u.getMail();
+					id_repeated.add(u.getId());
+					//Codigo mensaje texto y correo
+				}		
 			}
 			String jsonResponse = "{\"response\":400}";
-			return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+			return ResponseEntity.status(HttpStatus.OK).body(id_repeated);
 			
 		}
 		catch(Exception e){

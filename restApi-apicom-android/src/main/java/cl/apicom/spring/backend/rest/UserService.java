@@ -26,8 +26,13 @@ import com.mysql.fabric.Response;
 
 import cl.apicom.spring.backend.auxentities.LoginModel;
 import cl.apicom.spring.backend.auxentities.LoginResponseModel;
+import cl.apicom.spring.backend.auxentities.RequestID;
+import cl.apicom.spring.backend.entities.Detail;
 import cl.apicom.spring.backend.entities.Lista;
+import cl.apicom.spring.backend.entities.Price_Manuf_Sector;
 import cl.apicom.spring.backend.entities.User;
+import cl.apicom.spring.backend.repository.DetailRepository;
+import cl.apicom.spring.backend.repository.Price_Manuf_SectorRepository;
 import cl.apicom.spring.backend.repository.ProfileRepository;
 import cl.apicom.spring.backend.repository.UserRepository;
 
@@ -41,6 +46,12 @@ public class UserService {
 	
 	@Autowired
 	private ProfileRepository profilerepository;
+	
+	@Autowired
+	private DetailRepository detailrepository;
+	
+	@Autowired
+	private Price_Manuf_SectorRepository price_manuf_sectorrepository;
 	
 	/*
 	 * Plataforma: Administrador/Android
@@ -95,6 +106,34 @@ public class UserService {
 		}
 	}
 	
-	
+	@RequestMapping(value = "/salary", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<?> getSalary(@RequestBody RequestID resource){
+		
+		if(userrepository.exists(resource.getId())){
+			Iterable<Detail> details = detailrepository.getDetailUser(resource.getId());
+			int count = 0;
+			for(Detail d: details){count++;break;}
+			if(count == 0){
+				String jsonResponse = "{\"salary\":0}";
+				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+			}
+			else{
+				int salary = 0;
+				for(Detail d: details){
+					long id_sector = d.getId_sector();
+					long id_manuf = d.getId_manufacture();
+					Price_Manuf_Sector pms = price_manuf_sectorrepository.getPMSsectormanuf(id_sector, id_manuf);
+					salary = salary + pms.getPrice();
+				} 
+				String jsonResponse = "{\"salary\":"+salary+"}";
+				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+			}
+		}
+		else{
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id de usuario no encontrado\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+	}
 	
 }

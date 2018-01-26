@@ -5,11 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.apicom.spring.backend.auxentities.RequestID;
 import cl.apicom.spring.backend.entities.Price_Manuf_Sector;
 import cl.apicom.spring.backend.repository.Price_Manuf_SectorRepository;
 
@@ -27,10 +29,6 @@ public class Price_Manuf_SectorService {
 		return price_manuf_sectorrepository.findAll();
 	}
 	
-	/*@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<?> getPMSUser(@PathVariable("id") long id){
-		Iterable<Price_Manuf_Sector> pms = price_manuf_sectorrepository.getPMSUser(id);
-		return ResponseEntity.status(HttpStatus.OK).body(pms);
-	}*/
+	
+	
 }
