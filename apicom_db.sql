@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 26-01-2018 a las 15:38:47
+-- Tiempo de generación: 27-01-2018 a las 15:41:36
 -- Versión del servidor: 5.7.20-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -92,6 +92,7 @@ CREATE TABLE `apicom_detail` (
   `id_base` bigint(20) NOT NULL,
   `iata` bigint(20) NOT NULL,
   `id_sector` bigint(20) NOT NULL,
+  `id_repeat` int(11) NOT NULL,
   `adress` text NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
@@ -103,12 +104,12 @@ CREATE TABLE `apicom_detail` (
 -- Volcado de datos para la tabla `apicom_detail`
 --
 
-INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_pair`, `estate`, `estate_date`, `despair_date`, `ingress_date`, `id_lista`, `id_base`, `iata`, `id_sector`, `adress`, `latitude`, `longitude`, `comment`, `receptor`) VALUES
-(1, 2, 123, 5, '2018-01-04 00:00:00', '2018-01-10 00:00:00', '2018-01-10 00:00:00', 2, 1, 1234, 1, '', 0, 0, 'Casa azul, reja blanca', ''),
-(2, 2, 1, 1, '2018-01-10 00:00:00', '2018-01-12 00:00:00', '2018-01-17 00:00:00', 2, 2, 1234, 1, '', 0, 0, 'asdasd', ''),
-(3, 2, 1, 1, '2018-01-17 00:00:00', '2018-01-04 00:00:00', '2018-01-03 00:00:00', 2, 3, 1, 2, '', 0, 0, 'asdasd', ''),
-(4, 2, 123, 1, '2018-01-15 00:00:00', '2018-01-24 00:00:00', '2018-01-21 00:00:00', 3, 4, 123123, 1, '', 0, 0, 'asdasds', ''),
-(5, 3, 123123, 1, '2018-01-24 00:00:00', '2018-01-24 11:00:00', '2018-01-24 06:00:00', 2, 5, 123123, 2, '', 0, 0, 'asdasda', '');
+INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_pair`, `estate`, `estate_date`, `despair_date`, `ingress_date`, `id_lista`, `id_base`, `iata`, `id_sector`, `id_repeat`, `adress`, `latitude`, `longitude`, `comment`, `receptor`) VALUES
+(1, 2, 123, 5, '2018-01-04 00:00:00', '2018-01-10 00:00:00', '2018-01-10 00:00:00', 2, 1, 1234, 1, 1, 'mi casa', 0, 0, 'Casa azul, reja blanca', ''),
+(2, 2, 1, 1, '2018-01-10 00:00:00', '2018-01-12 00:00:00', '2018-01-17 00:00:00', 2, 2, 1234, 1, 1, 'mi casa', 0, 0, 'asdasd', ''),
+(3, 2, 1, 1, '2018-01-17 00:00:00', '2018-01-04 00:00:00', '2018-01-03 00:00:00', 2, 3, 1, 2, 2, 'su casa', 0, 0, 'asdasd', ''),
+(4, 2, 123, 1, '2018-01-15 00:00:00', '2018-01-24 00:00:00', '2018-01-21 00:00:00', 3, 4, 123123, 1, 0, '', 0, 0, 'asdasds', ''),
+(5, 3, 123123, 1, '2018-01-24 00:00:00', '2018-01-24 11:00:00', '2018-01-24 06:00:00', 2, 5, 123123, 2, 2, 'su casa', 0, 0, 'asdasda', '');
 
 -- --------------------------------------------------------
 

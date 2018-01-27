@@ -54,6 +54,9 @@ public class Detail {
 	@Column(name = "id_sector", unique = false, nullable = false)
 	private long id_sector;
 	
+	@Column(name = "id_repeat", unique = false, nullable = false)
+	private int id_repeat;
+	
 	@Column(name = "adress", unique = false, nullable = false)
 	private String adress;
 	
@@ -153,6 +156,14 @@ public class Detail {
 		this.id_sector = id_sector;
 	}
 	
+	public int getId_repeat() {
+		return id_repeat;
+	}
+
+	public void setId_repeat(int id_repeat) {
+		this.id_repeat = id_repeat;
+	}
+	
 	public Lista getLista() {
 		return lista;
 	}
@@ -200,6 +211,7 @@ public class Detail {
 	public void setReceptor(String receptor) {
 		this.receptor = receptor;
 	}
+
 
 
 }

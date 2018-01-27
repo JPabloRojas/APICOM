@@ -1,5 +1,8 @@
 package cl.apicom.spring.backend.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +49,32 @@ public class DetailService {
 		else{
 			try{
 				Iterable<Detail> details = detailrepository.getDetailUser(resource.getId());
+				List<String> direcciones = new ArrayList<>();
+				for(Detail d: details){
+					if(d.getId_repeat() == 0){
+						String dir = d.getAdress();
+						if(direcciones.contains(dir)){
+							int count = 1;
+							for(String dAux: direcciones){
+								if(dAux.equals(dir)){
+									d.setId_repeat(count);
+								}
+								else{
+									count++;
+								}
+							}
+						}
+						else{
+							direcciones.add(dir);
+							int length = direcciones.size();
+							d.setId_repeat(length);
+						}
+						detailrepository.save(d);
+					}
+					else{
+						break;
+					}
+				}			
 				return ResponseEntity.status(HttpStatus.OK).body(details);
 			}
 			catch(Exception e){
