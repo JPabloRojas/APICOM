@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cl.apicom.spring.backend.auxentities.Iterable_data_details;
 import cl.apicom.spring.backend.entities.Detail;
+import cl.apicom.spring.backend.repository.BaseRepository;
+import cl.apicom.spring.backend.repository.ClientRepository;
 import cl.apicom.spring.backend.repository.DetailRepository;
+import cl.apicom.spring.backend.repository.ListRepository;
 
 @CrossOrigin
 @RestController
@@ -25,6 +28,15 @@ public class DetailService {
 	
 	@Autowired
 	private DetailRepository detailrepository;
+	
+	@Autowired
+	private ClientRepository clientrepository;
+	
+	@Autowired
+	private BaseRepository baserepository;
+	
+	@Autowired
+	private ListRepository listrepository;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
@@ -35,7 +47,7 @@ public class DetailService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene todos los detalles correspondientes a un dia
+	 * Descripcion: Obtiene todos los detalles correspondientes al dia
 	 */
 	@RequestMapping(value = "/day", method = RequestMethod.GET)
 	@ResponseBody
@@ -51,7 +63,11 @@ public class DetailService {
 		}
 	}
 	
-	//POR ARREGLAR
+	/*
+	 * Plataforma: Administrador
+	 * Tipo:GET
+	 * Descripcion: Obtiene todos los detalles correspsondientes a una fecha en especifico
+	 */
 	@RequestMapping(value = "/date/{date}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getDetailDate(@PathVariable String date){
@@ -77,14 +93,12 @@ public class DetailService {
 	@ResponseBody
 	public ResponseEntity<?> getDetailsFromClient(@PathVariable("id") long id){
 		try{
-			Iterable<Detail> details = detailrepository.getDetailFromClient(id);
-			int count = 0;
-			for(Detail d: details){count++;break;}
-			if(count == 0){
+			if(!clientrepository.exists(id)){
 				String jsonResponse = "{\"response\":400,\"desc\":\"Id de cliente no existe\"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 			else{
+				Iterable<Detail> details = detailrepository.getDetailFromClient(id);
 				return ResponseEntity.status(HttpStatus.OK).body(details);
 			}
 		}
@@ -103,14 +117,12 @@ public class DetailService {
 	@ResponseBody
 	public ResponseEntity<?> getAllOSforOT(@PathVariable("id") long id){
 		try{
-			Iterable<Detail> details = detailrepository.getDetailFromBase(id);
-			int count = 0;
-			for(Detail d: details){count++;break;}
-			if(count == 0){
+			if(!detailrepository.exists(id)){
 				String jsonResponse = "{\"response\":400,\"desc\":\"Id de OT no existe\"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 			else{
+				Iterable<Detail> details = detailrepository.getDetailFromBase(id);
 				return ResponseEntity.status(HttpStatus.OK).body(details);
 			}
 		}
@@ -128,12 +140,12 @@ public class DetailService {
 	@ResponseBody
 	public ResponseEntity<?> getOS(@PathVariable("id") long id){
 		try{
-			Detail detail = detailrepository.findOne(id);
-			if(detail == null){
+			if(!detailrepository.exists(id)){
 				String jsonResponse = "{\"response\":400,\"desc\":\"Id de OS no existe\"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 			else{
+				Detail detail = detailrepository.findOne(id);
 				return ResponseEntity.status(HttpStatus.OK).body(detail);
 			}
 		}
@@ -143,17 +155,20 @@ public class DetailService {
 		}
 	}
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Obtiene los detalles de una lista
+	 */
 	@RequestMapping(value = "os/nomina/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getOsNomina(@PathVariable("id") long id){
-		Iterable<Detail> details = detailrepository.getDetailFromLista(id);
-		int count = 0;
-		for(Detail d: details){count++;break;}
-		if(count == 0){
+		if(!listrepository.exists(id)){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id de nomina no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
+			Iterable<Detail> details = detailrepository.getDetailFromLista(id);
 			return ResponseEntity.status(HttpStatus.OK).body(details);
 		}
 	}

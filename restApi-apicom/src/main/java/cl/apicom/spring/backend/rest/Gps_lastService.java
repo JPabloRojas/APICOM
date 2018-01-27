@@ -66,7 +66,7 @@ public class Gps_lastService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Toma una direccion y devuelce las coordenadas
+	 * Descripcion: Toma una direccion y devuelve las coordenadas
 	 */
 	
 	@RequestMapping(value = "/adress/{direccion}", method = RequestMethod.GET)

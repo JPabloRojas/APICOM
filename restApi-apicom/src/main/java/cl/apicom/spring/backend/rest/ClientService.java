@@ -48,7 +48,7 @@ public class ClientService {
 	 * Tipo: GET
 	 * Descripcion: Obtiene todos los clientes del sistema
 	 */
-	@RequestMapping(value = "/data/", method = RequestMethod.GET)
+	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getAllClients(){
 		try{

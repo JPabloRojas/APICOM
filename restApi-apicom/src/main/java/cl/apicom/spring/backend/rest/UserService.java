@@ -35,6 +35,7 @@ import cl.apicom.spring.backend.auxentities.Iterable_data_user;
 import cl.apicom.spring.backend.entities.Lista;
 import cl.apicom.spring.backend.entities.Profile;
 import cl.apicom.spring.backend.entities.User;
+import cl.apicom.spring.backend.repository.ClientRepository;
 import cl.apicom.spring.backend.repository.ProfileRepository;
 import cl.apicom.spring.backend.repository.UserRepository;
 
@@ -49,6 +50,9 @@ public class UserService {
 	@Autowired
 	private ProfileRepository profilerepository;
 	
+	@Autowired
+	private ClientRepository clientrepository;
+	
 	
 	/*
 	 * Plataforma: Administrador
@@ -58,32 +62,38 @@ public class UserService {
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getAllUsers(){
-		Iterable_data_user ud = new Iterable_data_user();
-		Iterable<User> users = userrepository.findAll();
-		List<UserModel>  umList = new ArrayList<>();
-		for(User u: users){
-			UserModel umAux = new UserModel();
-			Profile profile = profilerepository.findOne(u.getId_profile());
-			umAux.setId(u.getId());
-			umAux.setUser_name(u.getUser_name());
-			umAux.setUser(u.getUser());
-			umAux.setPassword(u.getPassword());
-			umAux.setCreation_date(u.getCreation_date());
-			umAux.setLast_change_date(u.getLast_change_date());
-			umAux.setMail(u.getMail());
-			umAux.setActive(u.getActive());
-			umAux.setClient_name(u.getClient().getName());
-			umAux.setId_client(u.getId_client());
-			umAux.setProfile_name(profile.getDescription());
-			umAux.setId_profile(u.getId_profile());
-			umAux.setPayment_status(u.getPayment_status());
-			umAux.setPayment_type(u.getPayment_type());
-			umAux.setPatente_vehiculo(u.getPatente_vehiculo());
-			umList.add(umAux);
-			
-		}
+		try{
+			Iterable_data_user ud = new Iterable_data_user();
+			Iterable<User> users = userrepository.findAll();
+			List<UserModel>  umList = new ArrayList<>();
+			for(User u: users){
+				UserModel umAux = new UserModel();
+				Profile profile = profilerepository.findOne(u.getId_profile());
+				umAux.setId(u.getId());
+				umAux.setUser_name(u.getUser_name());
+				umAux.setUser(u.getUser());
+				umAux.setPassword(u.getPassword());
+				umAux.setCreation_date(u.getCreation_date());
+				umAux.setLast_change_date(u.getLast_change_date());
+				umAux.setMail(u.getMail());
+				umAux.setActive(u.getActive());
+				umAux.setClient_name(u.getClient().getName());
+				umAux.setId_client(u.getId_client());
+				umAux.setProfile_name(profile.getDescription());
+				umAux.setId_profile(u.getId_profile());
+				umAux.setPayment_status(u.getPayment_status());
+				umAux.setPayment_type(u.getPayment_type());
+				umAux.setPatente_vehiculo(u.getPatente_vehiculo());
+				umList.add(umAux);
+				
+			}
 		ud.setData(umList);
 		return ResponseEntity.status(HttpStatus.OK).body(ud);
+		}
+		catch(Exception e){
+			String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
 	}
 	
 	/*
@@ -120,15 +130,12 @@ public class UserService {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getUser(@PathVariable("id") long id){
-		User u = userrepository.findOne(id);
-		if(u == null){
-			//response.sendError(400, "Id de usuario no encontrado");
-			//return null;
+		if(!userrepository.exists(id)){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id de usuario no encontrado\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
-			//response.setStatus(200);
+			User u = userrepository.findOne(id);
 			List<UserModel> lu = new ArrayList<UserModel>();
 			Profile profile = profilerepository.findOne(u.getId_profile());
 			UserModel umAux = new UserModel();
@@ -157,47 +164,48 @@ public class UserService {
 	 * Tipo: POST
 	 * Descripcion: Registro de nuevo usuario, se inserta en la BD
 	 */
-	@RequestMapping(value = "/new/{user_name}/{user}/{password}/{mail}/{id_client}/{profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/new/{user_name}/{user}/{password}/{mail}/{id_client}/{id_profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("profile") long profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
+	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("id_profile") long id_profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
 		
 		User u = userrepository.findbyUser(user_l);
 		if(u != null){
 			String jsonResponse = "{\"response\":258,\"desc\":\"El nombre de usuario no se encuentra disponible\"}";
 			return ResponseEntity.status(258).body(jsonResponse);
 		}
-		else{
-			Profile prof = profilerepository.findOne(profile);
-			if(prof == null){
-				String jsonResponse = "{\"response\":258,\"desc\":\"El perfil no se encuentra disponible\"}";
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-			}
-			else{
-				User user = new User();
-				user.setUser_name(user_name);
-				user.setUser(user_l);
-				user.setPassword(password);
-				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-				user.setCreation_date(timestamp);
-				user.setMail(mail);
-				user.setActive(1);
-				user.setId_client(id_client);
-				user.setId_profile(profile);
-				user.setPayment_status(0);
-				user.setPayment_type(payment_type);
-				user.setPatente_vehiculo(patente_vehiculo);
-				try{
-					userrepository.save(user);
-					String jsonResponse = "{\"response\":201}";
-					return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
-				}
-				catch(DataIntegrityViolationException e){
-					String jsonResponse = "{\"response\":400,\"desc\":\"El id del cliente no existe\"}";
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-				}
-			}
+		else if(!profilerepository.exists(id_profile)){
+			String jsonResponse = "{\"response\":258,\"desc\":\"El perfil no se encuentra disponible\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
-		
+		else if(!clientrepository.exists(id_client)){
+			String jsonResponse = "{\"response\":400,\"desc\":\"El id del cliente no existe\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		else{
+			User user = new User();
+			user.setUser_name(user_name);
+			user.setUser(user_l);
+			user.setPassword(password);
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			user.setCreation_date(timestamp);
+			user.setMail(mail);
+			user.setActive(1);
+			user.setId_client(id_client);
+			user.setId_profile(id_profile);
+			user.setPayment_status(0);
+			user.setPayment_type(payment_type);
+			user.setPatente_vehiculo(patente_vehiculo);
+			try{
+				userrepository.save(user);
+				String jsonResponse = "{\"response\":201}";
+				return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
+			}
+			catch(Exception e){
+				String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+			}	
+		}			
 	}
 	
 	/*
@@ -205,48 +213,49 @@ public class UserService {
 	 * Tipo: PUT
 	 * Descripcion: Actualiza los datos de un usuario
 	 */
-	@RequestMapping(value = "/update/{id}/{user_name}/{user}/{password}/{mail}/{id_client}/{profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update/{id}/{user_name}/{user}/{password}/{mail}/{id_client}/{id_profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("profile") long profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
-		User user = userrepository.findOne(id);
-		if(user == null){
+	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("id_profile") long id_profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
+		if(!userrepository.exists(id)){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
+		else if(!user_l.equals(userrepository.findOne(id).getUser()) && userrepository.findbyUser(user_l) != null){
+			String jsonResponse = "{\"response\":400,\"desc\":\"El nombre de usuario no se encuentra disponible\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		
+		else if(!profilerepository.exists(id_profile)){
+			String jsonResponse = "{\"response\":258,\"desc\":\"El perfil no se encuentra disponible\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		else if(!clientrepository.exists(id_client)){
+			String jsonResponse = "{\"response\":400,\"desc\":\"El id del cliente no existe\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
 		else{
-			String guser = user.getUser();
-			if(!user_l.equals(guser) && userrepository.findbyUser(user_l) != null){
-				String jsonResponse = "{\"response\":400,\"desc\":\"El nombre de usuario no se encuentra disponible\"}";
+			User user = userrepository.findOne(id);
+			user.setUser_name(user_name);
+			user.setUser(user_l);
+			user.setPassword(password);
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			user.setLast_change_date(timestamp);
+			user.setMail(mail);
+			user.setId_client(id_client);
+			user.setId_profile(id_profile);
+			user.setPayment_type(payment_type);
+			user.setPatente_vehiculo(patente_vehiculo);
+			try{
+				userrepository.save(user);
+				String jsonResponse = "{\"response\":200}";
+				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+			}
+			catch(DataIntegrityViolationException e){
+				String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido actualizar\"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
-			else{
-				if(profilerepository.findOne(profile) == null){
-					String jsonResponse = "{\"response\":400,\"desc\":\"No existe el perfil\"}";
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-				}
-				else{
-					user.setUser_name(user_name);
-					user.setUser(user_l);
-					user.setPassword(password);
-					Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-					user.setLast_change_date(timestamp);
-					user.setMail(mail);
-					user.setId_client(id_client);
-					user.setId_profile(profile);
-					user.setPayment_type(payment_type);
-					user.setPatente_vehiculo(patente_vehiculo);
-					try{
-						userrepository.save(user);
-						String jsonResponse = "{\"response\":200}";
-						return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
-					}
-					catch(DataIntegrityViolationException e){
-						String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido actualizar\"}";
-						return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-					}
-				}
-			}
 		}
+				
 	}
 	
 	/*
@@ -258,12 +267,12 @@ public class UserService {
 	@RequestMapping(value = "/inactive/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<?> inactiveUser(@PathVariable("id") long id){
-		User user = userrepository.findOne(id);
-		if(user == null){
+		if(!userrepository.exists(id)){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
+			User user = userrepository.findOne(id);
 			int active = user.getActive();
 			if(active == 1){
 				try{
@@ -301,12 +310,13 @@ public class UserService {
 	@RequestMapping(value = "/name/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getUserName(@PathVariable("id") long id){
-		User user = userrepository.findOne(id);
-		if(user == null){
+		
+		if(!userrepository.exists(id)){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
+			User user = userrepository.findOne(id);
 			String name = user.getUser_name();
 			String jsonResponse = "{\"response\":200,\"desc\":"+name+"}";
 			return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
@@ -321,26 +331,39 @@ public class UserService {
 	@RequestMapping(value = "/IdName", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getIdName(){
-		Iterable<User> users = userrepository.findAll();
-		List<Id_user_model> ium_list = new ArrayList<>();
-		for(User u: users){
-			Id_user_model ium = new Id_user_model();
-			ium.setId(u.getId());
-			ium.setNombre(u.getUser_name());
-			ium_list.add(ium);
+		try{
+			Iterable<User> users = userrepository.findAll();
+			List<Id_user_model> ium_list = new ArrayList<>();
+			for(User u: users){
+				Id_user_model ium = new Id_user_model();
+				ium.setId(u.getId());
+				ium.setNombre(u.getUser_name());
+				ium_list.add(ium);
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(ium_list);
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(ium_list);
+		catch(Exception e){
+			String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
 	}
 	
+	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Obtiene los perfiles de usuario con un indicador si el usuario pertenece a este perfil.
+	 */
 	@RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getProfile(@PathVariable("id") long id){
-		User user = userrepository.findOne(id);
-		if(user == null){
+		
+		if(!userrepository.exists(id)){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
+			User user = userrepository.findOne(id);
 			Iterable<Profile> profiles = profilerepository.findAll();
 			List<UserProfileModel> upm_list = new ArrayList<>(); 
 			for(Profile u: profiles){
