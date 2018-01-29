@@ -179,8 +179,8 @@ public class ClientService {
 			client.setAdress(adress);
 			try{
 				clientrepository.save(client);
-				String jsonResponse = "{\"response\":200}";
-				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+				String jsonResponse = "{\"response\":201}";
+				return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
 			}
 			catch(DataIntegrityViolationException e){
 				String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido actualizar informacion\"}";
@@ -209,8 +209,8 @@ public class ClientService {
 				try{
 					client.setActive(0);
 					clientrepository.save(client);
-					String jsonResponse = "{\"response\":200}";
-					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+					String jsonResponse = "{\"response\":201}";
+					return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
 				}
 				catch(DataIntegrityViolationException e){
 					String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido cambiar el estado\"}";
@@ -221,8 +221,8 @@ public class ClientService {
 				try{
 					client.setActive(1);
 					clientrepository.save(client);
-					String jsonResponse = "{\"response\":200}";
-					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+					String jsonResponse = "{\"response\":201}";
+					return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
 				}
 				catch(DataIntegrityViolationException e){
 					String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido cambiar el estado\"}";

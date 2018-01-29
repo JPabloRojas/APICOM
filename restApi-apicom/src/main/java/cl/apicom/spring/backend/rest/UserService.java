@@ -167,18 +167,18 @@ public class UserService {
 	
 	@RequestMapping(value = "/new/{user_name}/{user}/{password}/{mail}/{id_client}/{id_profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("id_profile") long id_profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
+	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") String id_client, @PathVariable("id_profile") String id_profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
 		
 		User u = userrepository.findbyUser(user_l);
 		if(u != null){
 			String jsonResponse = "{\"response\":258,\"desc\":\"El nombre de usuario no se encuentra disponible\"}";
 			return ResponseEntity.status(258).body(jsonResponse);
 		}
-		else if(!profilerepository.exists(id_profile)){
+		else if(!profilerepository.exists(Long.parseLong(id_profile))){
 			String jsonResponse = "{\"response\":258,\"desc\":\"El perfil no se encuentra disponible\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
-		else if(!clientrepository.exists(id_client)){
+		else if(!clientrepository.exists(Long.parseLong(id_client))){
 			String jsonResponse = "{\"response\":400,\"desc\":\"El id del cliente no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
@@ -191,8 +191,8 @@ public class UserService {
 			user.setCreation_date(timestamp);
 			user.setMail(mail);
 			user.setActive(1);
-			user.setId_client(id_client);
-			user.setId_profile(id_profile);
+			user.setId_client(Long.parseLong(id_client));
+			user.setId_profile(Long.parseLong(id_profile));
 			user.setPayment_status(0);
 			user.setPayment_type(payment_type);
 			user.setPatente_vehiculo(patente_vehiculo);
@@ -215,7 +215,7 @@ public class UserService {
 	 */
 	@RequestMapping(value = "/update/{id}/{user_name}/{user}/{password}/{mail}/{id_client}/{id_profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") long id_client, @PathVariable("id_profile") long id_profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
+	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") String id_client, @PathVariable("id_profile") String id_profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
 		if(!userrepository.exists(id)){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
@@ -225,11 +225,11 @@ public class UserService {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		
-		else if(!profilerepository.exists(id_profile)){
+		else if(!profilerepository.exists(Long.parseLong(id_profile))){
 			String jsonResponse = "{\"response\":258,\"desc\":\"El perfil no se encuentra disponible\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
-		else if(!clientrepository.exists(id_client)){
+		else if(!clientrepository.exists(Long.parseLong(id_client))){
 			String jsonResponse = "{\"response\":400,\"desc\":\"El id del cliente no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
@@ -241,17 +241,17 @@ public class UserService {
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			user.setLast_change_date(timestamp);
 			user.setMail(mail);
-			user.setId_client(id_client);
-			user.setId_profile(id_profile);
+			user.setId_client(Long.parseLong(id_client));
+			user.setId_profile(Long.parseLong(id_profile));
 			user.setPayment_type(payment_type);
 			user.setPatente_vehiculo(patente_vehiculo);
 			try{
 				userrepository.save(user);
-				String jsonResponse = "{\"response\":200}";
-				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+				String jsonResponse = "{\"response\":201}";
+				return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
 			}
-			catch(DataIntegrityViolationException e){
-				String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido actualizar\"}";
+			catch(Exception e){
+				String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 		}
@@ -278,10 +278,10 @@ public class UserService {
 				try{
 					user.setActive(0);
 					userrepository.save(user);
-					String jsonResponse = "{\"response\":200}";
-					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+					String jsonResponse = "{\"response\":201}";
+					return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
 				}
-				catch(DataIntegrityViolationException e){
+				catch(Exception e){
 					String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido cambiar el estado\"}";
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 				}
@@ -290,10 +290,10 @@ public class UserService {
 				try{
 					user.setActive(1);
 					userrepository.save(user);
-					String jsonResponse = "{\"response\":200}";
-					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+					String jsonResponse = "{\"response\":201}";
+					return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
 				}
-				catch(DataIntegrityViolationException e){
+				catch(Exception e){
 					String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido cambiar el estado\"}";
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 				}
@@ -312,7 +312,7 @@ public class UserService {
 	public ResponseEntity<?> getUserName(@PathVariable("id") long id){
 		
 		if(!userrepository.exists(id)){
-			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
+			String jsonResponse = "{\"response\":400,\"name\":\"Id usuario no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{

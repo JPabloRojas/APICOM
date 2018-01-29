@@ -109,11 +109,38 @@ public class DetailService {
 	}
 	
 	/*
+	 * Plataforma:Administrador
+	 * Tipo: GET
+	 * Descripcion: Ontiene todos los detalles de un cliente entre fechas especificadas
+	 */
+	@RequestMapping(value = "/client/date/{id}/{date_init}/{date_end}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getDetailFromClientDate(@PathVariable("id") long id, @PathVariable("date_init") String date_init, @PathVariable String date_end){
+		try{
+			if(!clientrepository.exists(id)){
+				String jsonResponse = "{\"response\":400,\"desc\":\"Id de cliente no existe\"}";
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+			}
+			else{
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				Date date_i = formatter.parse(date_init);
+				Date date_e = formatter.parse(date_end);
+				Iterable<Detail> details = detailrepository.getDetailFromClientDate(date_i, date_e, id);
+				return ResponseEntity.status(HttpStatus.OK).body(details);
+			}
+		}
+		catch(Exception e){
+			String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+	}
+	
+	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
 	 * Descripcion: Obtiene todos los detalles correspondientes a una OS.
 	 */
-	@RequestMapping(value = "ot/{id}", method= RequestMethod.GET)
+	@RequestMapping(value = "/ot/{id}", method= RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getAllOSforOT(@PathVariable("id") long id){
 		try{
@@ -136,7 +163,7 @@ public class DetailService {
 	 * Tipo: GET
 	 * Descripcion: Obtiene datos de una repectiva os
 	 */
-	@RequestMapping(value = "os/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/os/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getOS(@PathVariable("id") long id){
 		try{
@@ -160,7 +187,7 @@ public class DetailService {
 	 * Tipo: GET
 	 * Descripcion: Obtiene los detalles de una lista
 	 */
-	@RequestMapping(value = "os/nomina/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/os/nomina/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getOsNomina(@PathVariable("id") long id){
 		if(!listrepository.exists(id)){

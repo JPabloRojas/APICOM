@@ -67,7 +67,7 @@ public class EmergencyService {
 				}		
 			}
 			String jsonResponse = "{\"response\":400}";
-			return ResponseEntity.status(HttpStatus.OK).body(id_repeated);
+			return ResponseEntity.status(HttpStatus.OK).body(null);
 			
 		}
 		catch(Exception e){
