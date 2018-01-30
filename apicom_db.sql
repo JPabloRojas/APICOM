@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 27-01-2018 a las 15:41:36
+-- Tiempo de generación: 30-01-2018 a las 15:11:15
 -- Versión del servidor: 5.7.20-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -68,11 +68,15 @@ CREATE TABLE `apicom_client` (
 --
 
 INSERT INTO `apicom_client` (`id`, `name`, `creation_date`, `active`, `contact`, `phone`, `mail`, `rut`, `adress`) VALUES
-(1, 'test', '2018-01-10 05:14:14', 0, 'trading test', '123123', 'test@test.com', '11.111.111-1', 'test adress'),
+(1, 'testEditarCliente2Test', '2018-01-10 05:14:14', 1, 'trading test', '123123123', 'test@test.com', '11111111-1', 'test adress 546'),
 (2, 'client_2', '2018-01-10 00:00:00', 1, '8786453', '12312353', 'client@test2.cl', '19272546-0', 'direccion test'),
 (3, 'test', '2018-01-19 16:54:19', 1, 'contacttest', '+5693737', 'mail@mail.cl', '19237546-0', 'adresstest'),
 (4, 'test', '2018-01-20 22:07:10', 1, 'contacttest', '+5693737', 'mail@mail.cl', '19237546-0', 'adresstest'),
-(5, 'test12', '2018-01-20 22:07:14', 1, 'contacttest', '+5693737', 'mail@mail.cl', '19237546-0', 'adresstest');
+(5, 'test12', '2018-01-20 22:07:14', 1, 'newcontact}', 'phone', 'newmail', 'newrut', 'newadress'),
+(6, 'jp', '2018-01-28 15:09:25', 1, 'contact', '123456', 'mailqmail.cl', '19237546-0', 'adress'),
+(7, 'TestCliente1', '2018-01-29 20:25:35', 1, 'TestCliente1', '123456789', 'TestCliente1@gmail.com', '17692114-5', 'TestCliente1 direccion'),
+(8, 'TestCliente2', '2018-01-29 20:26:24', 1, 'TestCliente2', '123456780', 'TestCliente1@gmail.com', '17692114-5', 'TestCliente23 direccion'),
+(9, 'TestCliente234', '2018-01-29 20:26:47', 1, 'TestCliente234', '123456789', 'TestCliente234@gmail.com', '17692114-5', 'TestCliente234 direccion');
 
 -- --------------------------------------------------------
 
@@ -105,11 +109,12 @@ CREATE TABLE `apicom_detail` (
 --
 
 INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_pair`, `estate`, `estate_date`, `despair_date`, `ingress_date`, `id_lista`, `id_base`, `iata`, `id_sector`, `id_repeat`, `adress`, `latitude`, `longitude`, `comment`, `receptor`) VALUES
-(1, 2, 123, 5, '2018-01-04 00:00:00', '2018-01-10 00:00:00', '2018-01-10 00:00:00', 2, 1, 1234, 1, 1, 'mi casa', 0, 0, 'Casa azul, reja blanca', ''),
-(2, 2, 1, 1, '2018-01-10 00:00:00', '2018-01-12 00:00:00', '2018-01-17 00:00:00', 2, 2, 1234, 1, 1, 'mi casa', 0, 0, 'asdasd', ''),
-(3, 2, 1, 1, '2018-01-17 00:00:00', '2018-01-04 00:00:00', '2018-01-03 00:00:00', 2, 3, 1, 2, 2, 'su casa', 0, 0, 'asdasd', ''),
-(4, 2, 123, 1, '2018-01-15 00:00:00', '2018-01-24 00:00:00', '2018-01-21 00:00:00', 3, 4, 123123, 1, 0, '', 0, 0, 'asdasds', ''),
-(5, 3, 123123, 1, '2018-01-24 00:00:00', '2018-01-24 11:00:00', '2018-01-24 06:00:00', 2, 5, 123123, 2, 2, 'su casa', 0, 0, 'asdasda', '');
+(1, 3, 123, 0, '2018-01-04 00:00:00', '2018-01-10 00:00:00', '2018-01-10 00:00:00', 2, 1, 1234, 1, 1, 'Julio Prado 1095, Providencia', -33.442729, -70.622134, 'Casa azul, reja blanca', 'José Cáceres'),
+(2, 2, 1, 0, '2018-01-10 00:00:00', '2018-01-12 00:00:00', '2018-01-17 00:00:00', 2, 2, 1234, 1, 2, 'Av. Providencia 222, Providencia', -33.436656, -70.632885, '', 'Pedro Astorga'),
+(3, 3, 1, 1, '2018-01-17 00:00:00', '2018-01-04 00:00:00', '2018-01-03 00:00:00', 3, 3, 1, 2, 3, 'Alberto Baines 1152, Ñuñoa', -33.450436, -70.619546, '', 'Pedro Palma'),
+(4, 2, 123, 1, '2018-01-15 00:00:00', '2018-01-24 00:00:00', '2018-01-21 00:00:00', 2, 4, 123123, 1, 4, 'Argomedo 349, Santiago', -33.449747, -70.636468, '', 'Aurelio González'),
+(6, 2, 8572902, 0, '2018-01-29 00:00:00', '2018-01-29 00:00:00', '2018-01-29 00:00:00', 2, 5, 1832992, 0, 4, 'Argomedo 349, Santiago', -33.449747, -70.636468, '', 'Aurelio González'),
+(7, 3, 8572902, 0, '2018-01-29 00:00:00', '2018-01-29 00:00:00', '2018-01-29 00:00:00', 2, 89132, 1832992, 0, 4, 'Argomedo 349, Santiago', -33.449747, -70.636468, '', 'Aurelio González Ramirez');
 
 -- --------------------------------------------------------
 
@@ -136,19 +141,29 @@ INSERT INTO `apicom_emergency` (`id`, `id_user`, `type`, `description`, `date`) 
 (15, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
 (16, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
 (17, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(18, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(19, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(20, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(21, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(22, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(23, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(24, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(25, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(26, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(27, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(28, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(29, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(30, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45');
+(31, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based adssad', '1970-01-18 10:27:46'),
+(36, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(37, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(38, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:55'),
+(39, 1, 'choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:55'),
+(40, 1, 'choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:55'),
+(41, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:56'),
+(42, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:57'),
+(43, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:57'),
+(44, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:57'),
+(45, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(46, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(47, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(48, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(49, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(50, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(51, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(52, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(53, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:58'),
+(54, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(55, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
+(56, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:59'),
+(57, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:59');
 
 -- --------------------------------------------------------
 
@@ -192,9 +207,9 @@ CREATE TABLE `apicom_gps_last` (
 
 INSERT INTO `apicom_gps_last` (`id`, `latitude`, `longitude`, `id_user`) VALUES
 (1, -34.7868114, -55.2337042, 1),
-(3, -75.123, 65.213, 95),
-(5, -34.7868114, -55.2337042, 105),
-(7, -75.123, 65.213, 20);
+(2, -75.123, 65.213, 95),
+(3, -34.7868114, -55.2337042, 99),
+(4, -75.123, 65.213, 105);
 
 -- --------------------------------------------------------
 
@@ -267,7 +282,7 @@ CREATE TABLE `apicom_manufacture` (
 --
 
 INSERT INTO `apicom_manufacture` (`id`, `name`, `description`, `id_type`) VALUES
-(2, 'caja', 'cajatest', 1),
+(2, 'carta', 'cajatest', 1),
 (3, 'paquete', 'test', 1);
 
 -- --------------------------------------------------------
@@ -405,15 +420,15 @@ CREATE TABLE `apicom_users` (
 --
 
 INSERT INTO `apicom_users` (`id`, `user_name`, `user`, `password`, `creation_date`, `last_change_date`, `mail`, `active`, `id_client`, `id_profile`, `payment_status`, `payment_type`, `patente_vehiculo`) VALUES
-(1, 'a', 'test_user', 'test_pass', '2018-01-17 08:20:10', NULL, 'test@test.com', 1, 1, 1, 0, '0', ''),
+(1, 'Juan Pablo Rojas', 'test_user', 'test_pass', '2018-01-17 08:20:10', NULL, 'juanpablo.14@gmail.com', 1, 1, 1, 0, '0', 'XG-FX-13'),
 (20, 'Juan Pablo Rojas', 'juan1234', 'pass1235', '2018-12-11 21:00:00', '2018-12-11 21:00:00', 'mailjuan@mail.mail', 1, 1, 1, 0, '5', 'npantente'),
-(28, 'Juan Pablo Rojas', 'juansdf1234', 'passdfs1235', '2018-12-11 21:00:00', '2018-12-11 21:00:00', 'mailjuan@mail.mail', 1, 2, 2, 0, '5', 'npantente'),
+(28, 'Juan Pablo Rojas', 'juansdf1234', 'passdfs1235', '2018-12-11 21:00:00', '2018-12-11 21:00:00', 'mailjuan@mail.mail', 1, 1, 2, 0, '5', 'npantente'),
 (76, 'Juan Pablo Rojas', 'pass1', 'pass2', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 3, 0, '5', 'npantente'),
 (95, 'Juan Pablo Rojas', 'user8', 'pass8', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 3, 0, '5', 'npantente'),
 (99, 'Juan Pablo Rojas', 'user9', 'pass9', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 1, 0, '5', 'npantente'),
 (105, 'Juan Pablo Rojas', 'user10', 'pass10', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 1, 0, '5', 'npantente'),
 (109, 'Juan Pablo Rojas', 'user13', 'pass13', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 1, 0, '5', 'npantente'),
-(111, 'Juan Pablo Rojas', 'user106', 'pass106', '2018-01-18 14:48:39', NULL, 'asdasd', 1, 2, 2, 0, 'chequera', 'npantente'),
+(111, 'Juan Pablo Rojas', 'user106', 'pass106', '2018-01-18 14:48:39', NULL, 'asdasd', 0, 2, 2, 0, 'chequera', 'npantente'),
 (118, 'Sebastian Venegas', 'svenegas', 'svenegas', '2018-01-18 15:46:07', NULL, 'test@gmail.com', 1, 1, 1, 0, 'chequera', 'AA-BB-CC'),
 (130, 'SebastianVenegas4', 'svenegas4', 'svenegas4', '2018-01-18 16:31:58', NULL, 'tesgmail.com', 1, 1, 3, 0, 'chequera', 'AA-BB-CC'),
 (131, '"hola"', '"svenegaas2"', '"svenegas2"', '2018-01-18 16:33:26', NULL, '"tesgmail.com"', 1, 1, 3, 0, '"chequera"', '"AA-BB-CC"'),
@@ -421,9 +436,15 @@ INSERT INTO `apicom_users` (`id`, `user_name`, `user`, `password`, `creation_dat
 (133, '"hola"', '"svenegaaas2"', '"svenegas2"', '2018-01-18 17:01:58', NULL, '"tesgmail.com"', 1, 1, 1, 0, '"chequera"', '"AA-BB-CC"'),
 (134, '"hola"', '"svenegas7"', '"svenegas7"', '2018-01-18 17:05:33', NULL, '"tesgmail.com"', 1, 1, 1, 0, '"chequera"', '"AA-BB-CC"'),
 (135, 'SebastianVenegass', 'svenegas6', 'svenegas6', '2018-01-18 17:06:15', '2018-01-21 17:42:20', 'testchange@gmail.com', 1, 2, 3, 0, 'boleta', 'AA-BB-C6'),
-(136, 'SebastianVenegas7', 'svenegas7', 'svenegas7', '2018-01-18 17:06:58', '2018-01-20 22:10:51', 'testchange@gmail.com', 1, 1, 1, 0, 'boleta', 'AA-BB-CC'),
+(136, 'SebastianVenegas7', 'svenegas7', 'svenegas7', '2018-01-18 17:06:58', '2018-01-29 19:15:56', 'testchange@gmail.com', 1, 1, 3, 0, 'boleta', 'AA-BB-CC'),
 (137, 'Juan Pablo Rojas', 'jpablo1', 'jpablo1', '2018-01-20 22:14:10', NULL, 'mail@mail1.com', 1, 1, 1, 0, 'cheque', 'AA-BB-CC'),
-(143, 'Sebastian Venegas', 'test', 'testtest', '2018-01-22 20:51:43', NULL, 'sebastianvenegas.t@gmail.com', 1, 1, 2, 0, 'Transferencia', 'AA-AA-00');
+(143, 'Sebastian Venegas', 'test', 'testtest', '2018-01-22 20:51:43', NULL, 'sebastianvenegas.t@gmail.com', 1, 1, 2, 0, 'Transferencia', 'AA-AA-00'),
+(146, 'Juan Pablo Rojas', 'jpablo111', 'jpablo1', '2018-01-29 18:59:21', NULL, 'mail@mail1.com', 1, 1, 1, 0, 'cheque', 'AA-BB-CC'),
+(147, 'Juan Pablo Rojas', 'jpablo1111', 'jpablo1', '2018-01-29 19:03:16', NULL, 'mail@mail1.com', 1, 1, 1, 0, 'cheque', 'AA-BB-CC'),
+(148, 'SebaTest123', 'SebaTest123', 'SebaTest123', '2018-01-29 19:08:44', NULL, 'SebaTest123@dfg.cl', 1, 1, 1, 0, 'Transferencia', 'YY-99-oo'),
+(149, 'TestSeba1234', 'TestSeba1234', 'TestSeba1234', '2018-01-29 19:10:30', NULL, 'TestSeba1234@sdf.cl', 1, 1, 1, 0, 'Transferencia', 'yy-77-88'),
+(150, 'TestSeba1238', 'TestSeba1238', 'TestSeba1234', '2018-01-29 19:10:45', '2018-01-29 19:53:57', 'TestSeba12345@sdf.es', 1, 2, 1, 0, 'Transferencia', 'yy-77-79'),
+(151, 'TestTest123', 'TestTest123', 'TestTest123', '2018-01-29 19:48:48', NULL, 'TestTest123@sdfsdf.com', 1, 1, 1, 0, 'Transferencia', 'yy-oo-90');
 
 --
 -- Índices para tablas volcadas
@@ -559,17 +580,17 @@ ALTER TABLE `apicom_base`
 -- AUTO_INCREMENT de la tabla `apicom_client`
 --
 ALTER TABLE `apicom_client`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `apicom_detail`
 --
 ALTER TABLE `apicom_detail`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `apicom_emergency`
 --
 ALTER TABLE `apicom_emergency`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 --
 -- AUTO_INCREMENT de la tabla `apicom_gps`
 --
@@ -624,7 +645,7 @@ ALTER TABLE `apicom_type_manufacture`
 -- AUTO_INCREMENT de la tabla `apicom_users`
 --
 ALTER TABLE `apicom_users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 --
 -- Restricciones para tablas volcadas
 --

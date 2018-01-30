@@ -1,9 +1,12 @@
 package cl.apicom.spring.backend.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,7 +27,10 @@ public class Manufacture {
 	
 	@Column(name = "id_type", unique = false, nullable = false)
 	private long id_type;
-
+	
+	@OneToMany(mappedBy = "manufacture")
+	private List<Detail> details;
+	
 	public long getId() {
 		return id;
 	}
@@ -51,5 +57,13 @@ public class Manufacture {
 
 	public void setId_type(long id_type) {
 		this.id_type = id_type;
+	}
+
+	public List<Detail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<Detail> details) {
+		this.details = details;
 	}
 }

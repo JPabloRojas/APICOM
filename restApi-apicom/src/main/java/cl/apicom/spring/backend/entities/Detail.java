@@ -22,6 +22,11 @@ public class Detail {
 	@Column(name = "id_manufacture", unique = false, nullable = false)
 	private long id_manufacture;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_manufacture", insertable = false, updatable = false)
+	@JsonIgnore
+	private Manufacture manufacture;
+	
 	@Column(name = "id_pair", unique = false, nullable = false)
 	private long id_pair;
 	
@@ -210,6 +215,14 @@ public class Detail {
 
 	public void setReceptor(String receptor) {
 		this.receptor = receptor;
+	}
+
+	public Manufacture getManufacture() {
+		return manufacture;
+	}
+
+	public void setManufacture(Manufacture manufacture) {
+		this.manufacture = manufacture;
 	}
 
 

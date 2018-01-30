@@ -7,7 +7,6 @@ public class EmergencyModel {
 	private String type;
 	private String description;
 	private Timestamp date;
-	private String phone;
 	private Iterable<Long> ids_detalles;
 	public long getId_user() {
 		return id_user;
@@ -32,12 +31,6 @@ public class EmergencyModel {
 	}
 	public void setDate(Timestamp date) {
 		this.date = date;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 	public Iterable<Long> getIds_detalles() {
 		return ids_detalles;

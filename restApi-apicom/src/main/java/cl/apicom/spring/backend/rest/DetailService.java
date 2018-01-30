@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cl.apicom.spring.backend.auxentities.Iterable_data_details;
 import cl.apicom.spring.backend.entities.Detail;
+import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.BaseRepository;
 import cl.apicom.spring.backend.repository.ClientRepository;
 import cl.apicom.spring.backend.repository.DetailRepository;
 import cl.apicom.spring.backend.repository.ListRepository;
+import cl.apicom.spring.backend.repository.UserRepository;
 
 @CrossOrigin
 @RestController
@@ -33,10 +35,9 @@ public class DetailService {
 	private ClientRepository clientrepository;
 	
 	@Autowired
-	private BaseRepository baserepository;
-	
-	@Autowired
 	private ListRepository listrepository;
+	
+	
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
@@ -62,6 +63,7 @@ public class DetailService {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 	}
+		
 	
 	/*
 	 * Plataforma: Administrador
@@ -195,7 +197,7 @@ public class DetailService {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 		else{
-			Iterable<Detail> details = detailrepository.getDetailFromLista(id);
+			List<Detail> details = listrepository.findOne(id).getDetail_list();
 			return ResponseEntity.status(HttpStatus.OK).body(details);
 		}
 	}

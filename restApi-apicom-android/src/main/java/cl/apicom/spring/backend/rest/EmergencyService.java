@@ -44,34 +44,37 @@ public class EmergencyService {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> addEmergency(@RequestBody EmergencyModel resource){
-		try{
-			Emergency emergency = new Emergency();
-			emergency.setId_user(resource.getId_user());
-			emergency.setType(resource.getType());
-			emergency.setDescription(resource.getDescription());
-			emergency.setDate(resource.getDate());
-			emergencyrepository.save(emergency);
-			
-			
-			
-			String phone = resource.getPhone();
-			Iterable<Long> ids_details = resource.getIds_detalles();
-			List<Long> id_repeated = new ArrayList<>();
-			for(Long id: ids_details){
-				User u = userrepository.finUserDetail(id);
-				if(!id_repeated.contains(u.getId()))
-				{
-					String number = u.getMail();
-					id_repeated.add(u.getId());
-					//Codigo mensaje texto y correo
-				}		
-			}
-			String jsonResponse = "{\"response\":400}";
-			return ResponseEntity.status(HttpStatus.OK).body(null);
-			
+		if(!userrepository.exists(resource.getId_user()))
+		{
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
+			return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 		}
-		catch(Exception e){
-			return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString());
+		else{
+			try{
+				Emergency emergency = new Emergency();
+				emergency.setId_user(resource.getId_user());
+				emergency.setType(resource.getType());
+				emergency.setDescription(resource.getDescription());
+				emergency.setDate(resource.getDate());
+				emergencyrepository.save(emergency);	
+				Iterable<Long> ids_details = resource.getIds_detalles();
+				List<Long> id_repeated = new ArrayList<>();
+				for(Long id: ids_details){
+					User u = userrepository.finUserDetail(id);
+					if(!id_repeated.contains(u.getId()))
+					{
+						String number = u.getMail();
+						id_repeated.add(u.getId());
+						//Codigo mensaje texto y correo
+					}		
+				}
+				String jsonResponse = "{\"response\":400}";
+				return ResponseEntity.status(HttpStatus.OK).body(null);
+				
+			}
+			catch(Exception e){
+				return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString());
+			}
 		}
 		
 	}

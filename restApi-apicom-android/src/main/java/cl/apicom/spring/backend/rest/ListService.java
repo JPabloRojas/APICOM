@@ -68,8 +68,7 @@ public class ListService {
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getListUser(@PathVariable("id") long id){
-		User user = userrepository.findOne(id);
-		if(user == null){
+		if(!userrepository.exists(id)){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
@@ -82,6 +81,35 @@ public class ListService {
 				String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
+		}
+	}
+	
+	@RequestMapping(value = "/inactive", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<?> inactiveList(@RequestBody RequestID resource){
+		if(!listrepository.exists(resource.getId())){
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id lista no existe\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		else{
+			Lista lista = listrepository.findOne(resource.getId());
+			try{
+				int active = lista.getActive();
+				if(active == 0){
+					lista.setActive(1);
+					listrepository.save(lista);
+					return ResponseEntity.status(HttpStatus.OK).body(null);
+				}
+				else{
+					lista.setActive(0);
+					listrepository.save(lista);
+					return ResponseEntity.status(HttpStatus.OK).body(null);
+				}
+			}
+			catch(Exception e){
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			}
+			
 		}
 	}
 	

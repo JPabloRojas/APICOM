@@ -30,12 +30,15 @@ import cl.apicom.spring.backend.auxentities.UserCreationModel;
 import cl.apicom.spring.backend.auxentities.UserModel;
 import cl.apicom.spring.backend.auxentities.UserProfileModel;
 import cl.apicom.spring.backend.auxentities.UserUpdateModel;
+import cl.apicom.spring.backend.auxentities.DetailDayModel;
 import cl.apicom.spring.backend.auxentities.Id_user_model;
 import cl.apicom.spring.backend.auxentities.Iterable_data_user;
+import cl.apicom.spring.backend.entities.Detail;
 import cl.apicom.spring.backend.entities.Lista;
 import cl.apicom.spring.backend.entities.Profile;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.ClientRepository;
+import cl.apicom.spring.backend.repository.DetailRepository;
 import cl.apicom.spring.backend.repository.ProfileRepository;
 import cl.apicom.spring.backend.repository.UserRepository;
 
@@ -52,6 +55,9 @@ public class UserService {
 	
 	@Autowired
 	private ClientRepository clientrepository;
+	
+	@Autowired
+	private DetailRepository detailrepository;
 	
 	
 	/*
@@ -380,6 +386,61 @@ public class UserService {
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(upm_list);
 		}
+	}
+	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Obtiene valores asociados a la plantilla de seguimiento de distribuidores en terreno,
+	 */
+	@RequestMapping(value = "day/format", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getAllDetailsDayFormat(){
+		
+		Iterable<User> users = userrepository.getUserActive();
+		List<DetailDayModel> ddm_list = new ArrayList<>();
+		for(User u: users){
+			DetailDayModel ddmAux = new DetailDayModel();
+			Iterable<Detail> details = detailrepository.getDetailUser((u.getId()));
+			int cartas_totales = 0;
+			int cartas_entregadas = 0;
+			int paquetes_totales = 0;
+			int paquetes_entregados = 0;
+			for(Detail d: details){
+				if(d.getManufacture().getName().equals("carta")){
+					cartas_totales++;
+					if(d.getEstate() == 1){
+						cartas_entregadas++;
+					}
+				}
+				else{
+					paquetes_totales++;
+					if(d.getEstate() == 1){
+						paquetes_entregados++;
+					}
+				}
+			}
+			ddmAux.setId(u.getId());
+			ddmAux.setNombre(u.getUser_name());
+			double latitude = u.getLast_gps_user().getLatitude();
+			double longitude = u.getLast_gps_user().getLongitude();
+			String position = "new google.maps.LatLng("+latitude+","+longitude+")";
+			ddmAux.setPosition(position);
+			//editar
+			ddmAux.setTipo("Distribuidor");
+			ddmAux.setCartas_totales(cartas_totales);
+			ddmAux.setCartas_entregadas(cartas_entregadas);
+			ddmAux.setPaquetes_totales(paquetes_totales);
+			ddmAux.setPaquetes_entregados(paquetes_entregados);
+			//editar
+			ddmAux.setDetalle("?");
+			ddmAux.setDesctipo("?");
+			ddmAux.setEstado("estado");
+			
+			ddm_list.add(ddmAux);	
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(ddm_list);
 	}
 	
 }
