@@ -60,6 +60,14 @@ public class UserService {
 	private DetailRepository detailrepository;
 	
 	
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	@ResponseBody
+	public Iterable<User> getUsers(){
+		return userrepository.findAll();
+	}
+	
+	
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
@@ -426,21 +434,25 @@ public class UserService {
 			double longitude = u.getLast_gps_user().getLongitude();
 			String position = "new google.maps.LatLng("+latitude+","+longitude+")";
 			ddmAux.setPosition(position);
-			//editar
-			ddmAux.setTipo("Distribuidor");
+			ddmAux.setTipo(u.getProfile().getDescription());
 			ddmAux.setCartas_totales(cartas_totales);
 			ddmAux.setCartas_entregadas(cartas_entregadas);
 			ddmAux.setPaquetes_totales(paquetes_totales);
 			ddmAux.setPaquetes_entregados(paquetes_entregados);
+			
 			//editar
-			ddmAux.setDetalle("?");
-			ddmAux.setDesctipo("?");
-			ddmAux.setEstado("estado");
+			//Si es motociclista
+			ddmAux.setDesctipo("camion");
+			ddmAux.setEstado("Normal");
 			
 			ddm_list.add(ddmAux);	
 		}
 		
 		return ResponseEntity.status(HttpStatus.OK).body(ddm_list);
 	}
+	
+	
+	
+	
 	
 }

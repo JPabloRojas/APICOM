@@ -60,7 +60,10 @@ public class User {
 	
 	@Column(name = "patente_vehiculo", unique = true, nullable = false)
 	private String patente_vehiculo;
-
+	
+	@Column(name = "id_ground", unique = true, nullable = false)
+	private long id_ground;
+	
 	//Relacion posible al usar en un historial, por el momento no se considera.
 	/*@OneToMany(mappedBy = "user_gps")
 	private List<Gps> gps_user;*/
@@ -215,6 +218,14 @@ public class User {
 
 	public void setProfile(Profile profile) {
 		this.profile = profile;
+	}
+
+	public long getId_ground() {
+		return id_ground;
+	}
+
+	public void setId_ground(long id_ground) {
+		this.id_ground = id_ground;
 	}
 
 	

@@ -98,12 +98,14 @@ public class ListService {
 				if(active == 0){
 					lista.setActive(1);
 					listrepository.save(lista);
-					return ResponseEntity.status(HttpStatus.OK).body(null);
+					String jsonResponse = "{\"response\":200}";
+					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 				}
 				else{
 					lista.setActive(0);
 					listrepository.save(lista);
-					return ResponseEntity.status(HttpStatus.OK).body(null);
+					String jsonResponse = "{\"response\":200}";
+					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 				}
 			}
 			catch(Exception e){

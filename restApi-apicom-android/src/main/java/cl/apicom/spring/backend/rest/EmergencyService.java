@@ -1,5 +1,6 @@
 package cl.apicom.spring.backend.rest;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,8 @@ public class EmergencyService {
 				emergency.setId_user(resource.getId_user());
 				emergency.setType(resource.getType());
 				emergency.setDescription(resource.getDescription());
-				emergency.setDate(resource.getDate());
+				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+				emergency.setDate(timestamp);
 				emergencyrepository.save(emergency);	
 				Iterable<Long> ids_details = resource.getIds_detalles();
 				List<Long> id_repeated = new ArrayList<>();
@@ -68,8 +70,8 @@ public class EmergencyService {
 						//Codigo mensaje texto y correo
 					}		
 				}
-				String jsonResponse = "{\"response\":400}";
-				return ResponseEntity.status(HttpStatus.OK).body(null);
+				String jsonResponse = "{\"response\":200}";
+				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 				
 			}
 			catch(Exception e){

@@ -40,6 +40,7 @@ public class DetailService {
 	
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	@ResponseBody
+	//Cambiar la comparacion de direcciones a comparacion de coordenadas
 	public ResponseEntity<?> getDetailUser(@RequestBody RequestID resource){
 		User user = userrepository.findOne(resource.getId());
 		if(user == null){
@@ -98,7 +99,7 @@ public class DetailService {
 			detail.setComment(resource.getComment());
 			try{
 				detailrepository.save(detail);
-				String jsonResponse = "{\"response\":400}";
+				String jsonResponse = "{\"response\":200}";
 				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 			}
 			catch(Exception e){
