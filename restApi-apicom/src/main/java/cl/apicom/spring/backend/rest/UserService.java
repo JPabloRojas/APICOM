@@ -406,7 +406,8 @@ public class UserService {
 	public ResponseEntity<?> getAllDetailsDayFormat(){
 		
 		Iterable<User> users = userrepository.getUserActive();
-		List<DetailDayModel> ddm_list = new ArrayList<>();
+		//List<DetailDayModel> ddm_list = new ArrayList<>();
+		String ddm_return = "[";
 		for(User u: users){
 			DetailDayModel ddmAux = new DetailDayModel();
 			Iterable<Detail> details = detailrepository.getDetailUser((u.getId()));
@@ -428,27 +429,25 @@ public class UserService {
 					}
 				}
 			}
-			ddmAux.setId(u.getId());
-			ddmAux.setNombre(u.getUser_name());
+			String id = "{id: \'"+u.getId()+"\',";
+			String nombre = "nombre: \'"+u.getUser_name()+"\',";
 			double latitude = u.getLast_gps_user().getLatitude();
 			double longitude = u.getLast_gps_user().getLongitude();
-			String position = "new google.maps.LatLng("+latitude+","+longitude+")";
-			ddmAux.setPosition(position);
-			ddmAux.setTipo(u.getProfile().getDescription());
-			ddmAux.setCartas_totales(cartas_totales);
-			ddmAux.setCartas_entregadas(cartas_entregadas);
-			ddmAux.setPaquetes_totales(paquetes_totales);
-			ddmAux.setPaquetes_entregados(paquetes_entregados);
+			String position = "position: new google.maps.LatLng("+latitude+","+" "+longitude+"),";
+			String tipo = "tipo: \'"+u.getProfile().getDescription()+"\',";
+			String cartas_totales_s = "cartas_totales: \'"+cartas_totales+"\',";
+			String cartas_entregadas_s = "cartas_entregadas: \'"+cartas_entregadas+"\',";
+			String paquetes_totales_s =  "paquetes_totales: \'"+paquetes_totales+"\'";
+			String paquetes_entregados_s = "paquetes_entregados: \'"+paquetes_entregados+"\',";
+			String desc_tipo = "desctipo: \'"+u.getGround().getMobility()+"\',";
+			String estado = "estado: \'"+u.getGround().getEstate()+"\'},";
 			
-			//editar
-			//Si es motociclista
-			ddmAux.setDesctipo("camion");
-			ddmAux.setEstado("Normal");
-			
-			ddm_list.add(ddmAux);	
+			id += nombre+position+tipo+cartas_totales_s+cartas_entregadas_s+paquetes_totales_s+paquetes_entregados_s+desc_tipo+estado;
+			ddm_return += id;
 		}
 		
-		return ResponseEntity.status(HttpStatus.OK).body(ddm_list);
+		String ddm_return_Aux = ddm_return.substring(0, ddm_return.length()-1)+"]";
+		return ResponseEntity.status(HttpStatus.OK).body(ddm_return_Aux);
 	}
 	
 	

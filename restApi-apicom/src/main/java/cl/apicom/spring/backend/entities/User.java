@@ -79,6 +79,11 @@ public class User {
 	@JsonIgnore
 	private Profile profile;
 	
+	@OneToOne
+	@JoinColumn(name = "id_ground", insertable = false, updatable = false)
+	@JsonIgnore
+	private Ground ground;
+	
 	public long getId() {
 		return id;
 	}
@@ -226,6 +231,14 @@ public class User {
 
 	public void setId_ground(long id_ground) {
 		this.id_ground = id_ground;
+	}
+
+	public Ground getGround() {
+		return ground;
+	}
+
+	public void setGround(Ground ground) {
+		this.ground = ground;
 	}
 
 	
