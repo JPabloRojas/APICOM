@@ -63,6 +63,9 @@ public class EmergencyService {
 				List<Long> id_repeated = new ArrayList<>();
 				for(Long id: ids_details){
 					User u = userrepository.finUserDetail(id);
+					/*
+					 * Envio de correos a usuarios a los cuales se les iba a entregar la OS en camino
+					 */
 					if(!id_repeated.contains(u.getId()))
 					{
 						String number = u.getMail();

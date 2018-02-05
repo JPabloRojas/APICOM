@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.apicom.spring.backend.auxentities.ActiveInactiveModel;
 import cl.apicom.spring.backend.auxentities.RequestID;
 import cl.apicom.spring.backend.auxentities.RequestSingleData;
 import cl.apicom.spring.backend.entities.Lista;
@@ -86,7 +87,7 @@ public class ListService {
 	
 	@RequestMapping(value = "/inactive", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<?> inactiveList(@RequestBody RequestID resource){
+	public ResponseEntity<?> inactiveList(@RequestBody ActiveInactiveModel resource){
 		if(!listrepository.exists(resource.getId())){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id lista no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
@@ -95,16 +96,20 @@ public class ListService {
 			Lista lista = listrepository.findOne(resource.getId());
 			try{
 				int active = lista.getActive();
-				if(active == 0){
+				if(resource.getActive() == 0 && active == 1){
+					lista.setActive(0);
+					listrepository.save(lista);
+					String jsonResponse = "{\"response\":200}";
+					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+				}
+				else if(resource.getActive() == 1 && active  == 0){
 					lista.setActive(1);
 					listrepository.save(lista);
 					String jsonResponse = "{\"response\":200}";
 					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 				}
 				else{
-					lista.setActive(0);
-					listrepository.save(lista);
-					String jsonResponse = "{\"response\":200}";
+					String jsonResponse = "resource.getActive() == "+resource.getActive()+"}";
 					return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
 				}
 			}

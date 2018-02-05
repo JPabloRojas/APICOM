@@ -112,6 +112,7 @@ public class UserService {
 		
 		if(userrepository.exists(resource.getId())){
 			Iterable<Detail> details = detailrepository.getDetailUser(resource.getId());
+			
 			int count = 0;
 			for(Detail d: details){count++;break;}
 			if(count == 0){

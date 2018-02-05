@@ -22,6 +22,12 @@ public class Sector {
 	@Column(name = "delimitation", unique = false, nullable = false)
 	private String delimitation;
 	
+	@Column(name = "verticeX", unique = false, nullable = false)
+	private String verticeX;
+	
+	@Column(name = "verticeY", unique = false, nullable = false)
+	private String verticeY;
+	
 	@Column(name = "active", unique = false, nullable = false)
 	private String active;
 
@@ -39,6 +45,22 @@ public class Sector {
 
 	public String getDelimitation() {
 		return delimitation;
+	}
+	
+	public String getVerticeX() {
+		return verticeX;
+	}
+
+	public void setVerticeX(String verticeX) {
+		this.verticeX = verticeX;
+	}
+
+	public String getVerticeY() {
+		return verticeY;
+	}
+
+	public void setVerticeY(String verticeY) {
+		this.verticeY = verticeY;
 	}
 
 	public void setDelimitation(String delimitation) {
