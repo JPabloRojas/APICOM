@@ -21,10 +21,10 @@ bootRun {
     addResources = true
 }
 
-jar {
+/*jar {
     baseName = 'sakila-spring-backend'
     version = '1.0'
-}
+}*/
 
 repositories {
     mavenCentral()

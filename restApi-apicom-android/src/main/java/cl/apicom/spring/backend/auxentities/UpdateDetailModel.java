@@ -5,6 +5,7 @@ public class UpdateDetailModel {
 	private long id;
 	private int state;
 	private String comment;
+	private String receptor;
 	
 	public long getId() {
 		return id;
@@ -23,5 +24,11 @@ public class UpdateDetailModel {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	public String getReceptor() {
+		return receptor;
+	}
+	public void setReceptor(String receptor) {
+		this.receptor = receptor;
 	}
 }

@@ -122,10 +122,13 @@ public class UserService {
 			else{
 				int salary = 0;
 				for(Detail d: details){
-					long id_sector = d.getId_sector();
-					long id_manuf = d.getId_manufacture();
-					Price_Manuf_Sector pms = price_manuf_sectorrepository.getPMSsectormanuf(id_sector, id_manuf);
-					salary = salary + pms.getPrice();
+					if(d.getEstate() == 1)
+					{
+						long id_sector = d.getId_sector();
+						long id_manuf = d.getId_manufacture();
+						Price_Manuf_Sector pms = price_manuf_sectorrepository.getPMSsectormanuf(id_sector, id_manuf);
+						salary = salary + pms.getPrice();
+					}
 				} 
 				String jsonResponse = "{\"salary\":"+salary+"}";
 				return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);

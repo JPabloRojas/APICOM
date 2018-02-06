@@ -97,6 +97,7 @@ public class DetailService {
 		else{
 			detail.setEstate(resource.getState());
 			detail.setComment(resource.getComment());
+			detail.setReceptor(resource.getReceptor());
 			try{
 				detailrepository.save(detail);
 				String jsonResponse = "{\"response\":200}";
