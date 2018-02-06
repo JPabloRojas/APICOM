@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 05-02-2018 a las 19:46:31
+-- Tiempo de generación: 06-02-2018 a las 14:13:24
 -- Versión del servidor: 5.7.21-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -39,11 +39,7 @@ CREATE TABLE `apicom_base` (
 --
 
 INSERT INTO `apicom_base` (`id`, `id_user`, `date`, `name`, `sales_check`) VALUES
-(1, 1, '2018-01-04 00:00:00', 'test_name', 0),
-(2, 20, '2018-01-25 00:00:00', 'basetest', 1),
-(3, 28, '2018-01-25 00:00:00', 'basetestbasetest', 0),
-(4, 1, '2018-01-26 00:00:00', 'asdas', 1),
-(5, 76, '2018-01-26 00:00:00', 'asdas', 1);
+(6, 153, '2018-02-06 00:00:00', 'BaseName', 0);
 
 -- --------------------------------------------------------
 
@@ -68,15 +64,7 @@ CREATE TABLE `apicom_client` (
 --
 
 INSERT INTO `apicom_client` (`id`, `name`, `creation_date`, `active`, `contact`, `phone`, `mail`, `rut`, `adress`) VALUES
-(1, 'testEditarCliente2Test', '2018-01-10 05:14:14', 1, 'trading test', '123123123', 'test@test.com', '11111111-1', 'test adress 546'),
-(2, 'client_2', '2018-01-10 00:00:00', 1, '8786453', '12312353', 'client@test2.cl', '19272546-0', 'direccion test'),
-(3, 'test', '2018-01-19 16:54:19', 1, 'contacttest', '+5693737', 'mail@mail.cl', '19237546-0', 'adresstest'),
-(4, 'test', '2018-01-20 22:07:10', 1, 'contacttest', '+5693737', 'mail@mail.cl', '19237546-0', 'adresstest'),
-(5, 'test12', '2018-01-20 22:07:14', 1, 'newcontact}', 'phone', 'newmail', 'newrut', 'newadress'),
-(6, 'jp', '2018-01-28 15:09:25', 1, 'contact', '123456', 'mailqmail.cl', '19237546-0', 'adress'),
-(7, 'TestCliente1', '2018-01-29 20:25:35', 1, 'TestCliente1', '123456789', 'TestCliente1@gmail.com', '17692114-5', 'TestCliente1 direccion'),
-(8, 'TestCliente2', '2018-01-29 20:26:24', 1, 'TestCliente2', '123456780', 'TestCliente1@gmail.com', '17692114-5', 'TestCliente23 direccion'),
-(9, 'TestCliente234', '2018-01-29 20:26:47', 1, 'TestCliente234', '123456789', 'TestCliente234@gmail.com', '17692114-5', 'TestCliente234 direccion');
+(10, 'Alimentos MasterDog', '2018-02-06 00:00:00', 1, 'Daniel Pedreros', '986278163', 'contacto@masterdog.cl', '15.331.553-6', 'Eliodoro Yañez 2416, Providencia, Región Metropolitana');
 
 -- --------------------------------------------------------
 
@@ -90,6 +78,13 @@ CREATE TABLE `apicom_comunas` (
   `dir` tinyint(4) NOT NULL,
   `zona` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `apicom_comunas`
+--
+
+INSERT INTO `apicom_comunas` (`id`, `comuna`, `dir`, `zona`) VALUES
+(1, 'Providencia', 1, '1');
 
 -- --------------------------------------------------------
 
@@ -122,12 +117,28 @@ CREATE TABLE `apicom_detail` (
 --
 
 INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_pair`, `estate`, `estate_date`, `despair_date`, `ingress_date`, `id_lista`, `id_base`, `iata`, `id_sector`, `id_repeat`, `adress`, `latitude`, `longitude`, `comment`, `receptor`) VALUES
-(1, 2, 123, 0, '2018-01-04 00:00:00', '2018-01-10 00:00:00', '2018-01-10 00:00:00', 2, 1, 1234, 2, 1, 'Julio Prado 1095, Providencia', -33.442729, -70.622134, '', 'José Cáceres'),
-(2, 2, 1, 0, '2018-02-01 00:00:00', '2018-02-01 00:00:00', '2018-02-01 00:00:00', 2, 2, 1234, 2, 2, 'Av. Providencia 222, Providencia', -33.436656, -70.632885, '', 'Pedro Astorga'),
-(3, 2, 1, 1, '2018-01-17 00:00:00', '2018-01-04 00:00:00', '2018-01-03 00:00:00', 3, 3, 1, 2, 3, 'Alberto Baines 1152, Ñuñoa', -33.450436, -70.619546, '', 'Pedro Palma'),
-(4, 2, 123, 1, '2018-01-15 00:00:00', '2018-01-24 00:00:00', '2018-01-21 00:00:00', 2, 4, 123123, 2, 4, 'Argomedo 349, Santiago', -33.449747, -70.636468, '', 'Aurelio González'),
-(6, 2, 8572902, 1, '2018-01-29 00:00:00', '2018-01-29 00:00:00', '2018-01-29 00:00:00', 2, 5, 1832992, 2, 4, 'Argomedo 349, Santiago', -33.449747, -70.636468, '', 'Aurelio González'),
-(7, 2, 8572902, 1, '2018-01-29 00:00:00', '2018-01-29 00:00:00', '2018-01-29 00:00:00', 2, 89132, 1832992, 2, 4, 'Argomedo 349, Santiago', -33.449747, -70.636468, '', 'Aurelio González Ramirez');
+(8, 4, 1, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 1, 'El Vergel 2282', -33.432919, -70.604002, '', 'Aurelio González'),
+(9, 5, 1, 8, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 1, 'El Vergel 2282', -33.432919, -70.604002, '', ''),
+(10, 6, 1, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 1, 'El Vergel 2282', -33.432919, -70.604002, '', ''),
+(11, 7, 1, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 2, 'Av. Ricardo Lyon 1601, Providencia, Región Metropolitana', -33.435713, -70.604729, '', ''),
+(12, 7, 1, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 3, 'Austria 2163, Santiago, Providencia, Región Metropolitana', -33.434632, -70.605437, '', ''),
+(13, 7, 2, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 4, 'California 2238, Providencia, Santiago, Región Metropolitana\r\n', -33.43625, -70.603638, '', ''),
+(14, 7, 2, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 5, 'Llewellyn Jones 1530, P4 Dp 402, Providencia, Santiago, Región Metropolitana\r\n', -33.433786, -70.600614, '', ''),
+(15, 7, 2, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 6, 'Suecia 1280, Providencia, Región Metropolitana\r\n', -33.431855, -70.603938, '', ''),
+(16, 7, 6, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 7, 'Av. Holanda 1340 Providencia, Región Metropolitana\r\n', -33.431049, -70.600266, '', 'Juan Perez'),
+(17, 7, 6, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 8, 'Kinetex Inversiones Pocuro 2462, 405, Providencia, Santiago, Región Metropolitana\r\n', -33.434106, -70.600535, '', ''),
+(18, 7, 6, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 9, 'Av. Ricardo Lyon 1261, Providencia, Santiago, Región Metropolitana\r\n', -33.432984, -70.606419, '', ''),
+(20, 6, 123123, 0, '2018-02-05 13:00:00', '2018-02-06 00:00:00', '2018-02-05 00:00:00', 15, 6, 123123, 5, 10, 'Los Zorzales 801-949 Maipú, Región Metropolitana', -33.52104, -70.777423, 'Producto fragil', ''),
+(21, 7, 123123, 1, '2018-02-06 11:00:00', '2018-02-06 07:00:00', '2018-02-05 10:00:00', 15, 6, 123123, 6, 11, 'San José 47 Maipú, Región Metropolitana', -33.514074, -70.757891, 'Producto fragil', ''),
+(22, 7, 123123, 1, '2018-02-06 00:00:00', '2018-02-06 12:21:10', '2018-02-05 00:00:00', 15, 6, 123123, 5, 12, 'Juan Antonio Ovalle 221-241 Maipú, Región Metropolitana', -33.515053, -70.754707, 'Producto pesado', ''),
+(23, 7, 123123, 0, '2018-02-06 09:00:00', '2018-02-06 13:00:00', '2018-02-05 00:00:00', 15, 6, 123123, 4, 13, 'Av. Italia 1293-1527 Providencia, Región Metropolitana', -33.448387, -70.624094, 'Producto pesado', ''),
+(24, 6, 123123, 0, '2018-02-06 00:00:00', '2018-02-06 10:00:00', '2018-02-05 11:00:00', 15, 6, 123123, 3, 14, 'Eusebio Lillo 501-573 Recoleta, Región Metropolitana', -33.428673, -70.645509, 'Producto liviano', ''),
+(25, 6, 123123, 0, '2018-02-06 00:00:00', '2018-02-06 08:00:00', '2018-02-05 05:00:00', 15, 6, 123123, 4, 15, 'La Paz 548-500 Recoleta, Región Metropolitana', -33.42493, -70.651217, 'Producto fragil', ''),
+(26, 5, 123123, 0, '2018-02-06 00:00:00', '2018-02-06 07:00:00', '2018-02-06 06:00:00', 15, 6, 123123, 4, 16, 'Arzobispo Vicuña 29-59 Providencia, Región Metropolitana', -33.438022, -70.629803, 'Producto Grande', ''),
+(27, 6, 123123, 0, '2018-02-06 10:00:00', '2018-02-06 10:00:00', '2018-02-05 00:00:00', 15, 6, 123123, 4, 17, 'Gral José Artigas 3250 Ñuñoa, Región Metropolitana', -33.447798, -70.597574, 'Producto pequeño', ''),
+(28, 8, 123123, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 123123, 5, 17, 'Gral José Artigas 3250 Ñuñoa, Región Metropolitana', -33.447798, -70.597574, 'Producto grande', ''),
+(29, 5, 123123, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 123123, 5, 18, 'Bernarda Morin 337-459 Providencia, Región Metropolitana', -33.437926, -70.627094, 'Producto grande', ''),
+(30, 6, 123123, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 123123, 4, 18, 'Bernarda Morin 337-459 Providencia, Región Metropolitana', -33.437926, -70.627094, 'Producto pequeño', '');
 
 -- --------------------------------------------------------
 
@@ -148,35 +159,7 @@ CREATE TABLE `apicom_emergency` (
 --
 
 INSERT INTO `apicom_emergency` (`id`, `id_user`, `type`, `description`, `date`) VALUES
-(8, 105, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:11:47'),
-(9, 105, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:11:48'),
-(12, 1, 'choque', 'bla', '2018-12-11 21:00:00'),
-(15, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(16, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(17, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(31, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based adssad', '1970-01-18 10:27:46'),
-(36, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(37, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(38, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:55'),
-(39, 1, 'choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:55'),
-(40, 1, 'choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:55'),
-(41, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:56'),
-(42, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:57'),
-(43, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:57'),
-(44, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:57'),
-(52, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(53, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:58'),
-(54, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(55, 1, 'Choque', 'Descripcion', '2018-01-17 14:42:45'),
-(56, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:59'),
-(57, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:28:59'),
-(58, 1, 'Choque', 'Android apps are making the rounds these days. With popularity of Android based ', '1970-01-18 10:29:00'),
-(59, 1, 'asdasd', 'Descripcion', '2018-02-01 16:08:57'),
-(60, 1, 'Choque', 'Emergenciaiaaaaa', '2018-02-01 17:47:20'),
-(61, 1, 'Choque', 'Descripcion', '2018-02-01 17:48:15'),
-(62, 1, 'Choque', 'Descripcion', '2018-02-01 17:51:55'),
-(63, 1, 'Choque', 'Emergenciaiaaaaa', '2018-02-01 17:52:01'),
-(64, 1, 'Choque', 'Descripcion', '2018-02-05 20:32:38');
+(65, 152, 'Choque', 'me cai', '2018-02-06 14:56:05');
 
 -- --------------------------------------------------------
 
@@ -190,16 +173,6 @@ CREATE TABLE `apicom_gps` (
   `longitude` double NOT NULL,
   `id_user` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `apicom_gps`
---
-
-INSERT INTO `apicom_gps` (`id`, `latitude`, `longitude`, `id_user`) VALUES
-(1, 666, 666, 1),
-(2, -756, 653, 1),
-(3, -75.656, 65.643, 1),
-(6, -75.656, 65.643, 1);
 
 -- --------------------------------------------------------
 
@@ -219,10 +192,7 @@ CREATE TABLE `apicom_gps_last` (
 --
 
 INSERT INTO `apicom_gps_last` (`id`, `latitude`, `longitude`, `id_user`) VALUES
-(1, -33.4543971, -70.5799057, 1),
-(2, -33.430857, -70.634472, 95),
-(3, -33.43513, -70.643468, 99),
-(4, -33.436656, -70.632885, 105);
+(5, -33.45451, -70.5798317, 152);
 
 -- --------------------------------------------------------
 
@@ -236,23 +206,6 @@ CREATE TABLE `apicom_ground` (
   `mobility` varchar(20) NOT NULL,
   `patente` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `apicom_ground`
---
-
-INSERT INTO `apicom_ground` (`id`, `estate`, `mobility`, `patente`) VALUES
-(1, 'Normal', 'automovil', 'AA-BB-CC'),
-(2, 'Problema', 'Caminando', ''),
-(3, 'Normal', 'motocicleta', 'BB-CC-AA'),
-(4, 'Normal', 'Caminando', ''),
-(5, 'Normal', 'Caminando', ''),
-(6, 'Normal', 'Automovil', 'QQ-XX-Z'),
-(7, 'Problema', 'Automovil', 'WW-WW-WW'),
-(8, '', '', ''),
-(9, '', '', ''),
-(10, '', '', ''),
-(11, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -273,18 +226,7 @@ CREATE TABLE `apicom_list` (
 --
 
 INSERT INTO `apicom_list` (`id`, `id_user`, `price`, `list_date`, `active`) VALUES
-(2, 1, 123123, '2018-02-05 00:00:00', 1),
-(3, 95, 0, '2018-01-15 19:12:13', 1),
-(5, 99, 0, '2018-01-15 20:24:25', 1),
-(6, 99, 0, '2018-01-15 20:24:29', 1),
-(7, 99, 0, '2018-01-15 20:24:30', 1),
-(8, 99, 0, '2018-01-15 20:24:31', 1),
-(9, 99, 0, '2018-01-15 20:24:32', 1),
-(10, 99, 0, '2018-01-15 20:24:33', 1),
-(11, 105, 0, '2018-01-15 20:25:38', 1),
-(12, 105, 0, '2018-01-15 20:26:31', 1),
-(13, 105, 0, '2018-01-17 12:39:29', 1),
-(14, 1, 20000, '2018-01-25 00:00:00', 0);
+(15, 152, 0, '2018-02-06 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -299,13 +241,6 @@ CREATE TABLE `apicom_logs` (
   `action` varchar(20) NOT NULL,
   `ip` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `apicom_logs`
---
-
-INSERT INTO `apicom_logs` (`id`, `id_user`, `date`, `action`, `ip`) VALUES
-(1, 1, '2018-01-04 00:00:00', 'test_action', '192.168.0.1');
 
 -- --------------------------------------------------------
 
@@ -325,8 +260,12 @@ CREATE TABLE `apicom_manufacture` (
 --
 
 INSERT INTO `apicom_manufacture` (`id`, `name`, `description`, `id_type`) VALUES
-(2, 'carta', 'cajatest', 1),
-(3, 'paquete', 'test', 1);
+(4, 'Comida de gato', 'Saco de 20kg, marca acuenta', 5),
+(5, 'Carta de invitacion', 'Carta 10cm x 20cm', 4),
+(6, 'Saco de comida de perro', 'Saco con 20kg de comida de perro marca acuenta', 5),
+(7, 'Lata de comida de perro', 'Lata con 300gr de comida de perro marca acuenta', 5),
+(8, 'Lata de comida de gato', 'Lata con 300gr de comida de gato marca acuenta', 5),
+(9, 'Carta de cobro', 'Carta de 10cm x 25 cm', 4);
 
 -- --------------------------------------------------------
 
@@ -342,13 +281,6 @@ CREATE TABLE `apicom_price_client_sector` (
   `price` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `apicom_price_client_sector`
---
-
-INSERT INTO `apicom_price_client_sector` (`id`, `id_cliente`, `id_manufacture`, `id_sector`, `price`, `active`) VALUES
-(2, 1, 2, 1, 56765, 1);
 
 -- --------------------------------------------------------
 
@@ -369,9 +301,30 @@ CREATE TABLE `apicom_price_manuf_sector` (
 --
 
 INSERT INTO `apicom_price_manuf_sector` (`id`, `id_sector`, `id_manufacture`, `price`, `active`) VALUES
-(1, 1, 2, 1000, 1),
-(9, 2, 2, 4000, 1),
-(10, 2, 3, 2500, 1);
+(11, 3, 4, 3990, 1),
+(12, 3, 5, 3950, 1),
+(13, 3, 6, 4100, 1),
+(14, 3, 7, 4125, 1),
+(15, 3, 8, 3870, 1),
+(16, 3, 9, 3890, 1),
+(17, 4, 4, 4270, 1),
+(18, 4, 5, 4500, 1),
+(19, 4, 6, 4750, 1),
+(20, 4, 7, 4570, 1),
+(21, 4, 8, 4503, 1),
+(22, 4, 9, 4760, 1),
+(23, 5, 4, 4670, 1),
+(24, 5, 5, 4630, 1),
+(25, 5, 6, 3790, 1),
+(26, 5, 7, 3990, 1),
+(27, 5, 8, 4550, 1),
+(28, 5, 9, 4690, 1),
+(29, 6, 4, 3790, 1),
+(30, 6, 5, 4440, 1),
+(31, 6, 6, 4850, 1),
+(32, 6, 7, 5140, 1),
+(33, 6, 8, 4750, 1),
+(34, 6, 9, 4950, 1);
 
 -- --------------------------------------------------------
 
@@ -392,7 +345,9 @@ INSERT INTO `apicom_profile` (`id`, `description`) VALUES
 (1, 'Administrativo'),
 (2, 'Distribuidor'),
 (3, 'Operario'),
-(4, 'Contador');
+(4, 'Contador'),
+(5, 'Chofer'),
+(6, 'Receptor');
 
 -- --------------------------------------------------------
 
@@ -415,8 +370,10 @@ CREATE TABLE `apicom_sector` (
 --
 
 INSERT INTO `apicom_sector` (`id`, `name`, `delimitation`, `verticeX`, `verticeY`, `active`, `id_comuna`) VALUES
-(1, 'nametest', 'description test', '', '', 1, 0),
-(2, 'sectora', 'asdas', '', '', 1, 0);
+(3, 'Ñuñoa 1', '', '', '', 1, 1),
+(4, 'Ñuñoa 2', '', '', '', 1, 1),
+(5, 'Maipú 1', '', '', '', 1, 2),
+(6, 'Maipú 2', '', '', '', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -435,9 +392,8 @@ CREATE TABLE `apicom_type_manufacture` (
 --
 
 INSERT INTO `apicom_type_manufacture` (`id`, `description`, `active`) VALUES
-(1, 'fragil', 1),
-(2, 'pesado', 1),
-(3, 'grande', 1);
+(4, 'carta', 1),
+(5, 'paquete', 1);
 
 -- --------------------------------------------------------
 
@@ -467,17 +423,8 @@ CREATE TABLE `apicom_users` (
 --
 
 INSERT INTO `apicom_users` (`id`, `user_name`, `user`, `password`, `creation_date`, `last_change_date`, `mail`, `active`, `id_client`, `id_profile`, `payment_status`, `payment_type`, `patente_vehiculo`, `id_ground`) VALUES
-(1, 'Juan Pablo Rojas', 'test_user', 'test_pass', '2018-01-17 08:20:10', NULL, 'juanpablo.14@gmail.com', 1, 1, 1, 0, '0', 'XG-FX-13', 1),
-(20, 'Juan Pablo Rojas', 'juan1234', 'pass1235', '2018-12-11 21:00:00', '2018-12-11 21:00:00', 'mailjuan@mail.mail', 1, 1, 1, 0, '5', 'npantente', 2),
-(28, 'Juan Pablo Rojas', 'juansdf1234', 'passdfs1235', '2018-12-11 21:00:00', '2018-12-11 21:00:00', 'mailjuan@mail.mail', 1, 1, 2, 0, '5', 'npantente', 3),
-(76, 'Juan Pablo Rojas', 'pass1', 'pass2', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 3, 0, '5', 'npantente', 4),
-(95, 'Juan Pablo Rojas', 'user8', 'pass8', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 3, 0, '5', 'npantente', 5),
-(99, 'Juan Pablo Rojas', 'user9', 'pass9', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 1, 0, '5', 'npantente', 6),
-(105, 'Juan Pablo Rojas', 'user10', 'pass10', '2018-12-11 21:00:00', NULL, 'asdasd', 1, 1, 1, 0, '5', 'npantente', 7),
-(148, 'SebaTest123', 'SebaTest123', 'SebaTest123', '2018-01-29 19:08:44', NULL, 'SebaTest123@dfg.cl', 1, 1, 1, 0, 'Transferencia', 'YY-99-oo', 8),
-(149, 'TestSeba1234', 'TestSeba1234', 'TestSeba1234', '2018-01-29 19:10:30', NULL, 'TestSeba1234@sdf.cl', 1, 1, 1, 0, 'Transferencia', 'yy-77-88', 9),
-(150, 'TestSeba1238', 'TestSeba1238', 'TestSeba1234', '2018-01-29 19:10:45', '2018-01-29 19:53:57', 'TestSeba12345@sdf.es', 1, 2, 1, 0, 'Transferencia', 'yy-77-79', 10),
-(151, 'TestTest123', 'TestTest123', 'TestTest123', '2018-01-29 19:48:48', NULL, 'TestTest123@sdfsdf.com', 1, 1, 1, 0, 'Transferencia', 'yy-oo-90', 11);
+(152, 'Matías Gómez', 'matias.gomeza', '123456', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 'matias.gomeza@usach.cl', 1, 10, 5, 0, '1', 'CH-KS-32', 1),
+(153, 'José Carmona', 'jose.carmona', '123456', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 'jose.carmona@gmail.com', 1, 10, 6, 0, '0', '0', 0);
 
 --
 -- Índices para tablas volcadas
@@ -510,7 +457,8 @@ ALTER TABLE `apicom_detail`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_manufacture` (`id_manufacture`),
   ADD KEY `id_lista` (`id_lista`),
-  ADD KEY `id_base` (`id_base`);
+  ADD KEY `id_base` (`id_base`),
+  ADD KEY `id_sector` (`id_sector`);
 
 --
 -- Indices de la tabla `apicom_emergency`
@@ -620,27 +568,27 @@ ALTER TABLE `apicom_users`
 -- AUTO_INCREMENT de la tabla `apicom_base`
 --
 ALTER TABLE `apicom_base`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `apicom_client`
 --
 ALTER TABLE `apicom_client`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `apicom_comunas`
 --
 ALTER TABLE `apicom_comunas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `apicom_detail`
 --
 ALTER TABLE `apicom_detail`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de la tabla `apicom_emergency`
 --
 ALTER TABLE `apicom_emergency`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 --
 -- AUTO_INCREMENT de la tabla `apicom_gps`
 --
@@ -650,7 +598,7 @@ ALTER TABLE `apicom_gps`
 -- AUTO_INCREMENT de la tabla `apicom_gps_last`
 --
 ALTER TABLE `apicom_gps_last`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `apicom_ground`
 --
@@ -660,7 +608,7 @@ ALTER TABLE `apicom_ground`
 -- AUTO_INCREMENT de la tabla `apicom_list`
 --
 ALTER TABLE `apicom_list`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `apicom_logs`
 --
@@ -670,7 +618,7 @@ ALTER TABLE `apicom_logs`
 -- AUTO_INCREMENT de la tabla `apicom_manufacture`
 --
 ALTER TABLE `apicom_manufacture`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `apicom_price_client_sector`
 --
@@ -680,27 +628,27 @@ ALTER TABLE `apicom_price_client_sector`
 -- AUTO_INCREMENT de la tabla `apicom_price_manuf_sector`
 --
 ALTER TABLE `apicom_price_manuf_sector`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT de la tabla `apicom_profile`
 --
 ALTER TABLE `apicom_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `apicom_sector`
 --
 ALTER TABLE `apicom_sector`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `apicom_type_manufacture`
 --
 ALTER TABLE `apicom_type_manufacture`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `apicom_users`
 --
 ALTER TABLE `apicom_users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 --
 -- Restricciones para tablas volcadas
 --
@@ -716,7 +664,9 @@ ALTER TABLE `apicom_base`
 --
 ALTER TABLE `apicom_detail`
   ADD CONSTRAINT `apicom_detail_ibfk_1` FOREIGN KEY (`id_lista`) REFERENCES `apicom_list` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `apicom_detail_ibfk_2` FOREIGN KEY (`id_manufacture`) REFERENCES `apicom_manufacture` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `apicom_detail_ibfk_2` FOREIGN KEY (`id_manufacture`) REFERENCES `apicom_manufacture` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `apicom_detail_ibfk_3` FOREIGN KEY (`id_sector`) REFERENCES `apicom_sector` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `apicom_detail_ibfk_4` FOREIGN KEY (`id_base`) REFERENCES `apicom_base` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `apicom_emergency`
