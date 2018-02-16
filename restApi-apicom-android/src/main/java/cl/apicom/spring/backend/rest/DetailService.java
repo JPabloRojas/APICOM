@@ -38,7 +38,7 @@ public class DetailService {
 		return detailrepository.findAll();
 	}
 	
-	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/user", method = RequestMethod.POST)
 	@ResponseBody
 	//Cambiar la comparacion de direcciones a comparacion de coordenadas
 	public ResponseEntity<?> getDetailUser(@RequestBody RequestID resource){
@@ -75,6 +75,54 @@ public class DetailService {
 					else{
 						break;
 					}
+				}
+				return ResponseEntity.status(HttpStatus.OK).body(details);
+			}
+			catch(Exception e){
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString());
+			}
+		}
+		
+	}*/
+	
+	
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	@ResponseBody
+	//Cambiar la comparacion de direcciones a comparacion de coordenadas
+	public ResponseEntity<?> getDetailUser(@RequestBody RequestID resource){
+		User user = userrepository.findOne(resource.getId());
+		if(user == null){
+			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+		else{
+			try{
+				Iterable<Detail> details = detailrepository.getDetailUser(resource.getId());
+				List<double[]> direcciones = new ArrayList<>();
+				for(Detail d: details){
+					int count = 0;
+					if(d.getId_repeat() == 0){
+						for(double[] coord: direcciones){
+							if(d.getLatitude() == coord[0] && d.getLongitude() == coord[1]){
+								d.setId_repeat(count+1);
+							}
+							else{
+								count++;
+							}
+						}
+						if(count == direcciones.size()){
+							double[] coordenadas = new double[2];
+							coordenadas[0] = d.getLatitude();
+							coordenadas[1] = d.getLongitude();
+							direcciones.add(coordenadas);
+							d.setId_repeat(count+1);
+						}
+					detailrepository.save(d);
+					}
+					else{
+						break;
+					}
+					
 				}			
 				return ResponseEntity.status(HttpStatus.OK).body(details);
 			}
@@ -84,6 +132,8 @@ public class DetailService {
 		}
 		
 	}
+	
+	
 	
 	@RequestMapping(value = "/update/state", method = RequestMethod.PUT)
 	@ResponseBody
