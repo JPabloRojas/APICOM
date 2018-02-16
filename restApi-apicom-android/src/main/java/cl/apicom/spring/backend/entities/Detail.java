@@ -72,6 +72,9 @@ public class Detail {
 	
 	@Column(name = "receptor", unique = false, nullable = false)
 	private String receptor;
+	
+	@Column(name = "destinatario", unique = false, nullable = false)
+	private String destinatario;
 
 	public long getId() {
 		return id;
@@ -211,6 +214,14 @@ public class Detail {
 
 	public void setReceptor(String receptor) {
 		this.receptor = receptor;
+	}
+
+	public String getDestinatario() {
+		return destinatario;
+	}
+
+	public void setDestinatario(String destinatario) {
+		this.destinatario = destinatario;
 	}
 
 
