@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 06-02-2018 a las 14:13:24
--- Versión del servidor: 5.7.21-0ubuntu0.16.04.1
--- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
+-- Tiempo de generación: 16-02-2018 a las 13:40:40
+-- Versión del servidor: 5.5.59-0ubuntu0.14.04.1
+-- Versión de PHP: 5.5.9-1ubuntu4.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de datos: `apicom_db`
@@ -26,13 +26,16 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `apicom_base`
 --
 
-CREATE TABLE `apicom_base` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_base` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_user` bigint(20) NOT NULL,
   `date` datetime NOT NULL,
   `name` varchar(50) NOT NULL,
-  `sales_check` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `sales_check` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_user_2` (`id_user`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `apicom_base`
@@ -47,8 +50,8 @@ INSERT INTO `apicom_base` (`id`, `id_user`, `date`, `name`, `sales_check`) VALUE
 -- Estructura de tabla para la tabla `apicom_client`
 --
 
-CREATE TABLE `apicom_client` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_client` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `creation_date` datetime NOT NULL,
   `active` tinyint(1) NOT NULL,
@@ -56,8 +59,9 @@ CREATE TABLE `apicom_client` (
   `phone` varchar(20) NOT NULL,
   `mail` varchar(100) NOT NULL,
   `rut` varchar(15) NOT NULL,
-  `adress` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `adress` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `apicom_client`
@@ -72,12 +76,13 @@ INSERT INTO `apicom_client` (`id`, `name`, `creation_date`, `active`, `contact`,
 -- Estructura de tabla para la tabla `apicom_comunas`
 --
 
-CREATE TABLE `apicom_comunas` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_comunas` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `comuna` varchar(30) NOT NULL,
   `dir` tinyint(4) NOT NULL,
-  `zona` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `zona` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `apicom_comunas`
@@ -92,8 +97,8 @@ INSERT INTO `apicom_comunas` (`id`, `comuna`, `dir`, `zona`) VALUES
 -- Estructura de tabla para la tabla `apicom_detail`
 --
 
-CREATE TABLE `apicom_detail` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_detail` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_manufacture` bigint(20) NOT NULL,
   `id_pair` bigint(20) NOT NULL,
   `estate` int(11) NOT NULL,
@@ -109,36 +114,42 @@ CREATE TABLE `apicom_detail` (
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
   `comment` text NOT NULL,
-  `receptor` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `receptor` varchar(50) NOT NULL,
+  `destinatario` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_manufacture` (`id_manufacture`),
+  KEY `id_lista` (`id_lista`),
+  KEY `id_base` (`id_base`),
+  KEY `id_sector` (`id_sector`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- Volcado de datos para la tabla `apicom_detail`
 --
 
-INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_pair`, `estate`, `estate_date`, `despair_date`, `ingress_date`, `id_lista`, `id_base`, `iata`, `id_sector`, `id_repeat`, `adress`, `latitude`, `longitude`, `comment`, `receptor`) VALUES
-(8, 4, 1, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 1, 'El Vergel 2282', -33.432919, -70.604002, '', 'Aurelio González'),
-(9, 5, 1, 8, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 1, 'El Vergel 2282', -33.432919, -70.604002, '', ''),
-(10, 6, 1, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 1, 'El Vergel 2282', -33.432919, -70.604002, '', ''),
-(11, 7, 1, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 2, 'Av. Ricardo Lyon 1601, Providencia, Región Metropolitana', -33.435713, -70.604729, '', ''),
-(12, 7, 1, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 3, 'Austria 2163, Santiago, Providencia, Región Metropolitana', -33.434632, -70.605437, '', ''),
-(13, 7, 2, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 4, 'California 2238, Providencia, Santiago, Región Metropolitana\r\n', -33.43625, -70.603638, '', ''),
-(14, 7, 2, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 5, 'Llewellyn Jones 1530, P4 Dp 402, Providencia, Santiago, Región Metropolitana\r\n', -33.433786, -70.600614, '', ''),
-(15, 7, 2, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 6, 'Suecia 1280, Providencia, Región Metropolitana\r\n', -33.431855, -70.603938, '', ''),
-(16, 7, 6, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 7, 'Av. Holanda 1340 Providencia, Región Metropolitana\r\n', -33.431049, -70.600266, '', 'Juan Perez'),
-(17, 7, 6, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 8, 'Kinetex Inversiones Pocuro 2462, 405, Providencia, Santiago, Región Metropolitana\r\n', -33.434106, -70.600535, '', ''),
-(18, 7, 6, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 9, 'Av. Ricardo Lyon 1261, Providencia, Santiago, Región Metropolitana\r\n', -33.432984, -70.606419, '', ''),
-(20, 6, 123123, 0, '2018-02-05 13:00:00', '2018-02-06 00:00:00', '2018-02-05 00:00:00', 15, 6, 123123, 5, 10, 'Los Zorzales 801-949 Maipú, Región Metropolitana', -33.52104, -70.777423, 'Producto fragil', ''),
-(21, 7, 123123, 1, '2018-02-06 11:00:00', '2018-02-06 07:00:00', '2018-02-05 10:00:00', 15, 6, 123123, 6, 11, 'San José 47 Maipú, Región Metropolitana', -33.514074, -70.757891, 'Producto fragil', ''),
-(22, 7, 123123, 1, '2018-02-06 00:00:00', '2018-02-06 12:21:10', '2018-02-05 00:00:00', 15, 6, 123123, 5, 12, 'Juan Antonio Ovalle 221-241 Maipú, Región Metropolitana', -33.515053, -70.754707, 'Producto pesado', ''),
-(23, 7, 123123, 0, '2018-02-06 09:00:00', '2018-02-06 13:00:00', '2018-02-05 00:00:00', 15, 6, 123123, 4, 13, 'Av. Italia 1293-1527 Providencia, Región Metropolitana', -33.448387, -70.624094, 'Producto pesado', ''),
-(24, 6, 123123, 0, '2018-02-06 00:00:00', '2018-02-06 10:00:00', '2018-02-05 11:00:00', 15, 6, 123123, 3, 14, 'Eusebio Lillo 501-573 Recoleta, Región Metropolitana', -33.428673, -70.645509, 'Producto liviano', ''),
-(25, 6, 123123, 0, '2018-02-06 00:00:00', '2018-02-06 08:00:00', '2018-02-05 05:00:00', 15, 6, 123123, 4, 15, 'La Paz 548-500 Recoleta, Región Metropolitana', -33.42493, -70.651217, 'Producto fragil', ''),
-(26, 5, 123123, 0, '2018-02-06 00:00:00', '2018-02-06 07:00:00', '2018-02-06 06:00:00', 15, 6, 123123, 4, 16, 'Arzobispo Vicuña 29-59 Providencia, Región Metropolitana', -33.438022, -70.629803, 'Producto Grande', ''),
-(27, 6, 123123, 0, '2018-02-06 10:00:00', '2018-02-06 10:00:00', '2018-02-05 00:00:00', 15, 6, 123123, 4, 17, 'Gral José Artigas 3250 Ñuñoa, Región Metropolitana', -33.447798, -70.597574, 'Producto pequeño', ''),
-(28, 8, 123123, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 123123, 5, 17, 'Gral José Artigas 3250 Ñuñoa, Región Metropolitana', -33.447798, -70.597574, 'Producto grande', ''),
-(29, 5, 123123, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 123123, 5, 18, 'Bernarda Morin 337-459 Providencia, Región Metropolitana', -33.437926, -70.627094, 'Producto grande', ''),
-(30, 6, 123123, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 123123, 4, 18, 'Bernarda Morin 337-459 Providencia, Región Metropolitana', -33.437926, -70.627094, 'Producto pequeño', '');
+INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_pair`, `estate`, `estate_date`, `despair_date`, `ingress_date`, `id_lista`, `id_base`, `iata`, `id_sector`, `id_repeat`, `adress`, `latitude`, `longitude`, `comment`, `receptor`, `destinatario`) VALUES
+(8, 4, 0, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 1, 'El Vergel 2282', -33.432919, -70.604002, '', 'Aurelio González', 'Jorge Gaete'),
+(9, 5, 0, 8, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 1, 'El Vergel 2282', -33.432919, -70.604002, '', '', 'Felipe Sanchez'),
+(10, 6, 0, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 1, 'El Vergel 2282', -33.432919, -70.604002, '', '', 'Marta Donoso'),
+(11, 7, 0, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 2, 'Av. Ricardo Lyon 1601, Providencia, Región Metropolitana', -33.435713, -70.604729, '', 'Juan ', 'Cristina Martinez'),
+(12, 7, 0, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 3, 'Austria 2163, Santiago, Providencia, Región Metropolitana', -33.434632, -70.605437, '', '', 'Raul Castro'),
+(13, 7, 0, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 4, 'California 2238, Providencia, Santiago, Región Metropolitana\r\n', -33.43625, -70.603638, '', '', 'Jorge Fuentes'),
+(14, 7, 0, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 5, 'Llewellyn Jones 1530, P4 Dp 402, Providencia, Santiago, Región Metropolitana\r\n', -33.433786, -70.600614, '', '', ''),
+(15, 7, 0, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 6, 'Suecia 1280, Providencia, Región Metropolitana\r\n', -33.431855, -70.603938, '', '', ''),
+(16, 7, 0, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 7, 'Av. Holanda 1340 Providencia, Región Metropolitana\r\n', -33.431049, -70.600266, '', 'Juan Perez', ''),
+(17, 7, 0, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 8, 'Kinetex Inversiones Pocuro 2462, 405, Providencia, Santiago, Región Metropolitana\r\n', -33.434106, -70.600535, '', '', ''),
+(18, 7, 0, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 23763874, 3, 9, 'Av. Ricardo Lyon 1261, Providencia, Santiago, Región Metropolitana\r\n', -33.432984, -70.606419, '', 'tom', ''),
+(20, 6, 0, 0, '2018-02-05 13:00:00', '2018-02-06 00:00:00', '2018-02-05 00:00:00', 15, 6, 123123, 5, 10, 'Los Zorzales 801-949 Maipú, Región Metropolitana', -33.52104, -70.777423, 'Producto fragil', '', ''),
+(21, 7, 0, 1, '2018-02-06 11:00:00', '2018-02-06 07:00:00', '2018-02-05 10:00:00', 15, 6, 123123, 6, 11, 'San José 47 Maipú, Región Metropolitana', -33.514074, -70.757891, 'Producto fragil', '', ''),
+(22, 7, 0, 1, '2018-02-06 00:00:00', '2018-02-06 12:21:10', '2018-02-05 00:00:00', 15, 6, 123123, 5, 12, 'Juan Antonio Ovalle 221-241 Maipú, Región Metropolitana', -33.515053, -70.754707, 'Producto pesado', '', ''),
+(23, 7, 0, 0, '2018-02-06 09:00:00', '2018-02-06 13:00:00', '2018-02-05 00:00:00', 15, 6, 123123, 4, 13, 'Av. Italia 1293-1527 Providencia, Región Metropolitana', -33.448387, -70.624094, 'Producto pesado', '', ''),
+(24, 6, 0, 0, '2018-02-06 00:00:00', '2018-02-06 10:00:00', '2018-02-05 11:00:00', 15, 6, 123123, 3, 14, 'Eusebio Lillo 501-573 Recoleta, Región Metropolitana', -33.428673, -70.645509, 'Producto liviano', '', ''),
+(25, 6, 0, 0, '2018-02-06 00:00:00', '2018-02-06 08:00:00', '2018-02-05 05:00:00', 15, 6, 123123, 4, 15, 'La Paz 548-500 Recoleta, Región Metropolitana', -33.42493, -70.651217, 'Producto fragil', '', ''),
+(26, 5, 0, 0, '2018-02-06 00:00:00', '2018-02-06 07:00:00', '2018-02-06 06:00:00', 15, 6, 123123, 4, 16, 'Arzobispo Vicuña 29-59 Providencia, Región Metropolitana', -33.438022, -70.629803, 'Producto Grande', '', ''),
+(27, 6, 0, 0, '2018-02-06 10:00:00', '2018-02-06 10:00:00', '2018-02-05 00:00:00', 15, 6, 123123, 4, 17, 'Gral José Artigas 3250 Ñuñoa, Región Metropolitana', -33.447798, -70.597574, 'Producto pequeño', '', ''),
+(28, 8, 0, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 123123, 5, 17, 'Gral José Artigas 3250 Ñuñoa, Región Metropolitana', -33.447798, -70.597574, 'Producto grande', '', ''),
+(29, 5, 0, 0, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 123123, 5, 18, 'Bernarda Morin 337-459 Providencia, Región Metropolitana', -33.437926, -70.627094, 'Producto grande', '', ''),
+(30, 6, 0, 1, '2018-02-06 00:00:00', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 15, 6, 123123, 4, 18, 'Bernarda Morin 337-459 Providencia, Región Metropolitana', -33.437926, -70.627094, 'Producto pequeño', '', '');
 
 -- --------------------------------------------------------
 
@@ -146,13 +157,15 @@ INSERT INTO `apicom_detail` (`id`, `id_manufacture`, `id_pair`, `estate`, `estat
 -- Estructura de tabla para la tabla `apicom_emergency`
 --
 
-CREATE TABLE `apicom_emergency` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_emergency` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_user` bigint(20) NOT NULL,
   `type` varchar(20) NOT NULL,
   `description` text NOT NULL,
-  `date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=66 ;
 
 --
 -- Volcado de datos para la tabla `apicom_emergency`
@@ -167,12 +180,16 @@ INSERT INTO `apicom_emergency` (`id`, `id_user`, `type`, `description`, `date`) 
 -- Estructura de tabla para la tabla `apicom_gps`
 --
 
-CREATE TABLE `apicom_gps` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_gps` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
-  `id_user` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_user` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_user_2` (`id_user`),
+  KEY `id_user_3` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -180,19 +197,21 @@ CREATE TABLE `apicom_gps` (
 -- Estructura de tabla para la tabla `apicom_gps_last`
 --
 
-CREATE TABLE `apicom_gps_last` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_gps_last` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
-  `id_user` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_user` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `apicom_gps_last`
 --
 
 INSERT INTO `apicom_gps_last` (`id`, `latitude`, `longitude`, `id_user`) VALUES
-(5, -33.45451, -70.5798317, 152);
+(5, -33.4543436, -70.57977, 152);
 
 -- --------------------------------------------------------
 
@@ -200,12 +219,13 @@ INSERT INTO `apicom_gps_last` (`id`, `latitude`, `longitude`, `id_user`) VALUES
 -- Estructura de tabla para la tabla `apicom_ground`
 --
 
-CREATE TABLE `apicom_ground` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_ground` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `estate` varchar(20) NOT NULL,
   `mobility` varchar(20) NOT NULL,
-  `patente` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `patente` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -213,20 +233,26 @@ CREATE TABLE `apicom_ground` (
 -- Estructura de tabla para la tabla `apicom_list`
 --
 
-CREATE TABLE `apicom_list` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_list` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_user` bigint(20) NOT NULL,
   `price` int(20) NOT NULL,
   `list_date` datetime NOT NULL,
-  `active` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `active` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_user_2` (`id_user`),
+  KEY `id_user_3` (`id_user`),
+  KEY `id_user_4` (`id_user`),
+  KEY `id_user_5` (`id_user`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Volcado de datos para la tabla `apicom_list`
 --
 
 INSERT INTO `apicom_list` (`id`, `id_user`, `price`, `list_date`, `active`) VALUES
-(15, 152, 0, '2018-02-06 00:00:00', 1);
+(15, 152, 0, '2018-02-16 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -234,13 +260,16 @@ INSERT INTO `apicom_list` (`id`, `id_user`, `price`, `list_date`, `active`) VALU
 -- Estructura de tabla para la tabla `apicom_logs`
 --
 
-CREATE TABLE `apicom_logs` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_logs` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_user` bigint(20) NOT NULL,
   `date` datetime NOT NULL,
   `action` varchar(20) NOT NULL,
-  `ip` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `ip` varchar(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_user_2` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -248,12 +277,14 @@ CREATE TABLE `apicom_logs` (
 -- Estructura de tabla para la tabla `apicom_manufacture`
 --
 
-CREATE TABLE `apicom_manufacture` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_manufacture` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `description` varchar(300) NOT NULL,
-  `id_type` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_type` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_type` (`id_type`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `apicom_manufacture`
@@ -273,14 +304,18 @@ INSERT INTO `apicom_manufacture` (`id`, `name`, `description`, `id_type`) VALUES
 -- Estructura de tabla para la tabla `apicom_price_client_sector`
 --
 
-CREATE TABLE `apicom_price_client_sector` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_price_client_sector` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_cliente` bigint(20) NOT NULL,
   `id_manufacture` bigint(20) NOT NULL,
   `id_sector` bigint(20) NOT NULL,
   `price` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_cliente` (`id_cliente`),
+  KEY `id_product` (`id_manufacture`),
+  KEY `id_sector` (`id_sector`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -288,13 +323,16 @@ CREATE TABLE `apicom_price_client_sector` (
 -- Estructura de tabla para la tabla `apicom_price_manuf_sector`
 --
 
-CREATE TABLE `apicom_price_manuf_sector` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_price_manuf_sector` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_sector` bigint(20) NOT NULL,
   `id_manufacture` bigint(20) NOT NULL,
   `price` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_sector` (`id_sector`),
+  KEY `id_manufacture` (`id_manufacture`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
 -- Volcado de datos para la tabla `apicom_price_manuf_sector`
@@ -332,10 +370,11 @@ INSERT INTO `apicom_price_manuf_sector` (`id`, `id_sector`, `id_manufacture`, `p
 -- Estructura de tabla para la tabla `apicom_profile`
 --
 
-CREATE TABLE `apicom_profile` (
-  `id` bigint(20) NOT NULL,
-  `description` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `apicom_profile` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `description` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `apicom_profile`
@@ -355,15 +394,16 @@ INSERT INTO `apicom_profile` (`id`, `description`) VALUES
 -- Estructura de tabla para la tabla `apicom_sector`
 --
 
-CREATE TABLE `apicom_sector` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_sector` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `delimitation` text NOT NULL,
   `verticeX` text NOT NULL,
   `verticeY` text NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `id_comuna` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_comuna` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `apicom_sector`
@@ -381,11 +421,12 @@ INSERT INTO `apicom_sector` (`id`, `name`, `delimitation`, `verticeX`, `verticeY
 -- Estructura de tabla para la tabla `apicom_type_manufacture`
 --
 
-CREATE TABLE `apicom_type_manufacture` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_type_manufacture` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `description` text NOT NULL,
-  `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `apicom_type_manufacture`
@@ -401,8 +442,8 @@ INSERT INTO `apicom_type_manufacture` (`id`, `description`, `active`) VALUES
 -- Estructura de tabla para la tabla `apicom_users`
 --
 
-CREATE TABLE `apicom_users` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `apicom_users` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(100) NOT NULL,
   `user` varchar(100) NOT NULL,
   `password` varchar(15) NOT NULL,
@@ -415,8 +456,13 @@ CREATE TABLE `apicom_users` (
   `payment_status` tinyint(1) NOT NULL,
   `payment_type` varchar(20) NOT NULL,
   `patente_vehiculo` varchar(15) NOT NULL,
-  `id_ground` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_ground` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user` (`user`),
+  KEY `id_client` (`id_client`),
+  KEY `id_client_2` (`id_client`),
+  KEY `id_profile` (`id_profile`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=154 ;
 
 --
 -- Volcado de datos para la tabla `apicom_users`
@@ -426,229 +472,6 @@ INSERT INTO `apicom_users` (`id`, `user_name`, `user`, `password`, `creation_dat
 (152, 'Matías Gómez', 'matias.gomeza', '123456', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 'matias.gomeza@usach.cl', 1, 10, 5, 0, '1', 'CH-KS-32', 1),
 (153, 'José Carmona', 'jose.carmona', '123456', '2018-02-06 00:00:00', '2018-02-06 00:00:00', 'jose.carmona@gmail.com', 1, 10, 6, 0, '0', '0', 0);
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `apicom_base`
---
-ALTER TABLE `apicom_base`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_user_2` (`id_user`);
-
---
--- Indices de la tabla `apicom_client`
---
-ALTER TABLE `apicom_client`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `apicom_comunas`
---
-ALTER TABLE `apicom_comunas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `apicom_detail`
---
-ALTER TABLE `apicom_detail`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_manufacture` (`id_manufacture`),
-  ADD KEY `id_lista` (`id_lista`),
-  ADD KEY `id_base` (`id_base`),
-  ADD KEY `id_sector` (`id_sector`);
-
---
--- Indices de la tabla `apicom_emergency`
---
-ALTER TABLE `apicom_emergency`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`);
-
---
--- Indices de la tabla `apicom_gps`
---
-ALTER TABLE `apicom_gps`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_user_2` (`id_user`),
-  ADD KEY `id_user_3` (`id_user`);
-
---
--- Indices de la tabla `apicom_gps_last`
---
-ALTER TABLE `apicom_gps_last`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`);
-
---
--- Indices de la tabla `apicom_ground`
---
-ALTER TABLE `apicom_ground`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `apicom_list`
---
-ALTER TABLE `apicom_list`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_user_2` (`id_user`),
-  ADD KEY `id_user_3` (`id_user`),
-  ADD KEY `id_user_4` (`id_user`),
-  ADD KEY `id_user_5` (`id_user`);
-
---
--- Indices de la tabla `apicom_logs`
---
-ALTER TABLE `apicom_logs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_user_2` (`id_user`);
-
---
--- Indices de la tabla `apicom_manufacture`
---
-ALTER TABLE `apicom_manufacture`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_type` (`id_type`);
-
---
--- Indices de la tabla `apicom_price_client_sector`
---
-ALTER TABLE `apicom_price_client_sector`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_cliente` (`id_cliente`),
-  ADD KEY `id_product` (`id_manufacture`),
-  ADD KEY `id_sector` (`id_sector`);
-
---
--- Indices de la tabla `apicom_price_manuf_sector`
---
-ALTER TABLE `apicom_price_manuf_sector`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_sector` (`id_sector`),
-  ADD KEY `id_manufacture` (`id_manufacture`);
-
---
--- Indices de la tabla `apicom_profile`
---
-ALTER TABLE `apicom_profile`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `apicom_sector`
---
-ALTER TABLE `apicom_sector`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `apicom_type_manufacture`
---
-ALTER TABLE `apicom_type_manufacture`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `apicom_users`
---
-ALTER TABLE `apicom_users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user` (`user`),
-  ADD KEY `id_client` (`id_client`),
-  ADD KEY `id_client_2` (`id_client`),
-  ADD KEY `id_profile` (`id_profile`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `apicom_base`
---
-ALTER TABLE `apicom_base`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT de la tabla `apicom_client`
---
-ALTER TABLE `apicom_client`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT de la tabla `apicom_comunas`
---
-ALTER TABLE `apicom_comunas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT de la tabla `apicom_detail`
---
-ALTER TABLE `apicom_detail`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
---
--- AUTO_INCREMENT de la tabla `apicom_emergency`
---
-ALTER TABLE `apicom_emergency`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
---
--- AUTO_INCREMENT de la tabla `apicom_gps`
---
-ALTER TABLE `apicom_gps`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT de la tabla `apicom_gps_last`
---
-ALTER TABLE `apicom_gps_last`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT de la tabla `apicom_ground`
---
-ALTER TABLE `apicom_ground`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT de la tabla `apicom_list`
---
-ALTER TABLE `apicom_list`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
---
--- AUTO_INCREMENT de la tabla `apicom_logs`
---
-ALTER TABLE `apicom_logs`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT de la tabla `apicom_manufacture`
---
-ALTER TABLE `apicom_manufacture`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT de la tabla `apicom_price_client_sector`
---
-ALTER TABLE `apicom_price_client_sector`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT de la tabla `apicom_price_manuf_sector`
---
-ALTER TABLE `apicom_price_manuf_sector`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
---
--- AUTO_INCREMENT de la tabla `apicom_profile`
---
-ALTER TABLE `apicom_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT de la tabla `apicom_sector`
---
-ALTER TABLE `apicom_sector`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT de la tabla `apicom_type_manufacture`
---
-ALTER TABLE `apicom_type_manufacture`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT de la tabla `apicom_users`
---
-ALTER TABLE `apicom_users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 --
 -- Restricciones para tablas volcadas
 --

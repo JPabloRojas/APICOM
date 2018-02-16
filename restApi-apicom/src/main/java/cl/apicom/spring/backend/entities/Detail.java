@@ -76,6 +76,9 @@ public class Detail {
 	
 	@Column(name = "receptor", unique = false, nullable = false)
 	private String receptor;
+	
+	@Column(name = "destinatario", unique = false, nullable = false)
+	private String destinatario;
 
 	public long getId() {
 		return id;
@@ -223,6 +226,14 @@ public class Detail {
 
 	public void setManufacture(Manufacture manufacture) {
 		this.manufacture = manufacture;
+	}
+
+	public String getDestinatario() {
+		return destinatario;
+	}
+
+	public void setDestinatario(String destinatario) {
+		this.destinatario = destinatario;
 	}
 
 
