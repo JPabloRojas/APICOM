@@ -168,6 +168,7 @@ public class UserService {
 			umAux.setPayment_status(u.getPayment_status());
 			umAux.setPayment_type(u.getPayment_type());
 			umAux.setPatente_vehiculo(u.getPatente_vehiculo());
+			umAux.setPhone(u.getPhone());
 			lu.add(umAux);
 			return ResponseEntity.status(HttpStatus.OK).body(lu);
 		}
@@ -179,9 +180,9 @@ public class UserService {
 	 * Descripcion: Registro de nuevo usuario, se inserta en la BD
 	 */
 	
-	@RequestMapping(value = "/new/{user_name}/{user}/{password}/{mail}/{id_client}/{id_profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.POST)
+	@RequestMapping(value = "/new/{user_name}/{user}/{password}/{mail}/{id_client}/{id_profile}/{payment_type}/{patente_vehiculo}/{phone}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") String id_client, @PathVariable("id_profile") String id_profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
+	public ResponseEntity<?> addUser(@PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") String id_client, @PathVariable("id_profile") String id_profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo, @PathVariable("phone") String phone){
 		
 		User u = userrepository.findbyUser(user_l);
 		if(u != null){
@@ -210,6 +211,7 @@ public class UserService {
 			user.setPayment_status(0);
 			user.setPayment_type(payment_type);
 			user.setPatente_vehiculo(patente_vehiculo);
+			user.setPhone(phone);
 			try{
 				userrepository.save(user);
 				String jsonResponse = "{\"response\":201}";
@@ -227,9 +229,9 @@ public class UserService {
 	 * Tipo: PUT
 	 * Descripcion: Actualiza los datos de un usuario
 	 */
-	@RequestMapping(value = "/update/{id}/{user_name}/{user}/{password}/{mail}/{id_client}/{id_profile}/{payment_type}/{patente_vehiculo}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update/{id}/{user_name}/{user}/{password}/{mail}/{id_client}/{id_profile}/{payment_type}/{patente_vehiculo}/{phone}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") String id_client, @PathVariable("id_profile") String id_profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo){
+	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @PathVariable("user_name") String user_name,@PathVariable("user") String user_l, @PathVariable("password") String password, @PathVariable("mail") String mail, @PathVariable("id_client") String id_client, @PathVariable("id_profile") String id_profile, @PathVariable("payment_type") String payment_type, @PathVariable("patente_vehiculo") String patente_vehiculo, @PathVariable("phone") String phone){
 		if(!userrepository.exists(id)){
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
@@ -259,6 +261,7 @@ public class UserService {
 			user.setId_profile(Long.parseLong(id_profile));
 			user.setPayment_type(payment_type);
 			user.setPatente_vehiculo(patente_vehiculo);
+			user.setPhone(phone);
 			try{
 				userrepository.save(user);
 				String jsonResponse = "{\"response\":201}";

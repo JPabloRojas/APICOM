@@ -10,6 +10,7 @@ public class UserCreationModel {
 	private int profile;
 	private String payment_type;
 	private String patente_vehiculo;
+	private String phone;
 	
 	
 	public String getUser_name() {
@@ -59,6 +60,12 @@ public class UserCreationModel {
 	}
 	public void setPatente_vehiculo(String patente_vehiculo) {
 		this.patente_vehiculo = patente_vehiculo;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 	

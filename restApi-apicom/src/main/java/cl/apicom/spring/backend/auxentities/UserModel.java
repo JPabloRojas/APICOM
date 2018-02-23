@@ -20,6 +20,7 @@ public class UserModel {
 	private int payment_status;
 	private String payment_type;
 	private String patente_vehiculo;
+	private String phone;
 	
 	
 	public long getId() {
@@ -114,6 +115,12 @@ public class UserModel {
 	}
 	public void setPatente_vehiculo(String patente_vehiculo) {
 		this.patente_vehiculo = patente_vehiculo;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 	

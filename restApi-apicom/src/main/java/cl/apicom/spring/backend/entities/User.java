@@ -64,6 +64,9 @@ public class User {
 	@Column(name = "id_ground", unique = true, nullable = false)
 	private long id_ground;
 	
+	@Column(name = "phone", unique = false, nullable = false)
+	private String phone;
+	
 	//Relacion posible al usar en un historial, por el momento no se considera.
 	/*@OneToMany(mappedBy = "user_gps")
 	private List<Gps> gps_user;*/
@@ -239,6 +242,14 @@ public class User {
 
 	public void setGround(Ground ground) {
 		this.ground = ground;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	
