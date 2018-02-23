@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
+	<classpathentry kind="lib" path="/home/juanpablo/.gradle/caches/modules-2/files-2.1/com.itextpdf/itextpdf/5.4.2/bbd2aa48c47103e4e3a381f8d565737c3cd88864/itextpdf-5.4.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -429,18 +429,18 @@ public class UserService {
 					}
 				}
 			}
-			String id = "{id: \'"+u.getId()+"\',";
-			String nombre = "nombre: \'"+u.getUser_name()+"\',";
+			String id = "{id: "+u.getId()+",";
+			String nombre = "nombre: \""+u.getUser_name()+"\",";
 			double latitude = u.getLast_gps_user().getLatitude();
 			double longitude = u.getLast_gps_user().getLongitude();
 			String position = "position: new google.maps.LatLng("+latitude+","+" "+longitude+"),";
-			String tipo = "tipo: \'"+u.getProfile().getDescription()+"\',";
-			String cartas_totales_s = "cartas_totales: \'"+cartas_totales+"\',";
-			String cartas_entregadas_s = "cartas_entregadas: \'"+cartas_entregadas+"\',";
-			String paquetes_totales_s =  "paquetes_totales: \'"+paquetes_totales+"\'";
-			String paquetes_entregados_s = "paquetes_entregados: \'"+paquetes_entregados+"\',";
-			String desc_tipo = "desctipo: \'"+u.getGround().getMobility()+"\',";
-			String estado = "estado: \'"+u.getGround().getEstate()+"\'},";
+			String tipo = "tipo: \""+u.getProfile().getDescription()+"\",";
+			String cartas_totales_s = "cartas_totales: "+cartas_totales+",";
+			String cartas_entregadas_s = "cartas_entregadas: "+cartas_entregadas+",";
+			String paquetes_totales_s =  "paquetes_totales: "+paquetes_totales+",";
+			String paquetes_entregados_s = "paquetes_entregados: "+paquetes_entregados+",";
+			String desc_tipo = "desctipo: \""+u.getGround().getMobility()+"\",";
+			String estado = "estado: \""+u.getGround().getEstate()+"\"},";
 			
 			id += nombre+position+tipo+cartas_totales_s+cartas_entregadas_s+paquetes_totales_s+paquetes_entregados_s+desc_tipo+estado;
 			ddm_return += id;

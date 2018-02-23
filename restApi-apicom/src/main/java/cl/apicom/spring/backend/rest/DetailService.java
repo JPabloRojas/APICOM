@@ -50,12 +50,12 @@ public class DetailService {
 	 * Tipo: GET
 	 * Descripcion: Obtiene todos los detalles correspondientes al dia
 	 */
-	@RequestMapping(value = "/day", method = RequestMethod.GET)
+	@RequestMapping(value = "/day/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> getAllDetailsDay(){
+	public ResponseEntity<?> getAllDetailsDay(@PathVariable long id){
 		try{
 			Iterable_data_details idd = new Iterable_data_details();
-			idd.setData(detailrepository.getDetailDay());
+			idd.setData(detailrepository.getDetailDay(id));
 			return ResponseEntity.status(HttpStatus.OK).body(idd);
 		}
 		catch(Exception e){

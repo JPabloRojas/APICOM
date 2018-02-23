@@ -12,8 +12,8 @@ import cl.apicom.spring.backend.entities.Detail;
 public interface DetailRepository extends PagingAndSortingRepository<Detail, Long>{
 	
 	
-	@Query("SELECT d FROM Detail d WHERE DATE(despair_date) = CURDATE()")
-	Iterable<Detail> getDetailDay();
+	@Query("SELECT d FROM Detail d, Lista l WHERE DATE(despair_date) = CURDATE() and d.id_lista = l.id and l.id_user = :id_user")
+	Iterable<Detail> getDetailDay(@Param("id_user") long id_user);
 	
 	@Query("SELECT d FROM Detail d, Lista l, User u WHERE DATE(d.despair_date) = CURDATE() and d.id_lista = l.id and l.id_user = u.id and u.id = :id_user")
 	Iterable<Detail> getDetailDayUser(@Param("id_user") long id_user);

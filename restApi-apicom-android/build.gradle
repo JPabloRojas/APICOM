@@ -40,5 +40,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-test")
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("com.itextpdf:itextpdf:5.4.2")
     runtime("org.springframework.boot:spring-boot-starter-tomcat")
 }
