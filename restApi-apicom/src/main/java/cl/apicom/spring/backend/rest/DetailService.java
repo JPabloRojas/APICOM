@@ -1,6 +1,7 @@
 package cl.apicom.spring.backend.rest;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.apicom.spring.backend.auxentities.DetailClientDateModel;
+import cl.apicom.spring.backend.auxentities.Iterable_data_DetailClientDateModel;
 import cl.apicom.spring.backend.auxentities.Iterable_data_details;
 import cl.apicom.spring.backend.entities.Detail;
 import cl.apicom.spring.backend.entities.User;
@@ -37,6 +40,11 @@ public class DetailService {
 	@Autowired
 	private ListRepository listrepository;
 	
+	@Autowired
+	private UserRepository userrepository;
+	
+	@Autowired
+	private BaseRepository baserepository;
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -128,7 +136,58 @@ public class DetailService {
 				Date date_i = formatter.parse(date_init);
 				Date date_e = formatter.parse(date_end);
 				Iterable<Detail> details = detailrepository.getDetailFromClientDate(date_i, date_e, id);
-				return ResponseEntity.status(HttpStatus.OK).body(details);
+				List<DetailClientDateModel> dcdm_l = new ArrayList<>();
+				for(Detail d: details){
+					DetailClientDateModel dcdmAux = new DetailClientDateModel();
+					dcdmAux.setId(d.getId());
+					dcdmAux.setOt(d.getId_base());
+					dcdmAux.setNomina("Nomina "+d.getId_lista());
+					if(d.getManufacture().getId_type() == 4){
+						dcdmAux.setTipo("CARTA");
+					}
+					else{
+						dcdmAux.setTipo("PAQUETE");
+					}
+					dcdmAux.setCliente(userrepository.findOne(d.getLista().getId_user()).getClient().getName());
+					int estate = d.getEstate();
+					switch(estate){
+					case 0:
+						dcdmAux.setEstado("PENDIENTE");
+						break;
+					case 1:
+						dcdmAux.setEstado("ENTREGADO");
+						break;
+					case 2:
+						dcdmAux.setEstado("RECHAZADO");
+						break;
+					case 3:
+						dcdmAux.setEstado("CAMBIO PERSONA");
+						break;
+					case 4:
+						dcdmAux.setEstado("CAMBIO EMPRESA");
+						break;
+					case 5:
+						dcdmAux.setEstado("NO LO CONOCEN");
+						break;
+					case 6:
+						dcdmAux.setEstado("NO HAY QUIEN RECIBA");
+						break;
+					case 7:
+						dcdmAux.setEstado("NO SE UBICA NUMERACION");
+						break;
+					case 8:
+						dcdmAux.setEstado("DESHABITADO");
+						break;		
+					}
+					
+					dcdmAux.setDestinatario(d.getDestinatario());
+					dcdmAux.setDireccion(d.getAdress());
+					dcdmAux.setIdpar(d.getId_pair());
+					dcdm_l.add(dcdmAux);
+				}
+				Iterable_data_DetailClientDateModel iddcdm = new Iterable_data_DetailClientDateModel();
+				iddcdm.setData(dcdm_l);
+				return ResponseEntity.status(HttpStatus.OK).body(iddcdm);
 			}
 		}
 		catch(Exception e){
@@ -140,19 +199,70 @@ public class DetailService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene todos los detalles correspondientes a una OS.
+	 * Descripcion: Obtiene todos los detalles correspondientes a una OT.
 	 */
 	@RequestMapping(value = "/ot/{id}", method= RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getAllOSforOT(@PathVariable("id") long id){
 		try{
-			if(!detailrepository.exists(id)){
+			if(!baserepository.exists(id)){
 				String jsonResponse = "{\"response\":400,\"desc\":\"Id de OT no existe\"}";
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 			else{
 				Iterable<Detail> details = detailrepository.getDetailFromBase(id);
-				return ResponseEntity.status(HttpStatus.OK).body(details);
+				List<DetailClientDateModel> dcdm_l = new ArrayList<>();
+				for(Detail d: details){
+					DetailClientDateModel dcdmAux = new DetailClientDateModel();
+					dcdmAux.setId(d.getId());
+					dcdmAux.setOt(d.getId_base());
+					dcdmAux.setNomina("Nomina "+d.getId_lista());
+					if(d.getManufacture().getId_type() == 4){
+						dcdmAux.setTipo("CARTA");
+					}
+					else{
+						dcdmAux.setTipo("PAQUETE");
+					}
+					dcdmAux.setCliente(userrepository.findOne(d.getLista().getId_user()).getClient().getName());
+					int estate = d.getEstate();
+					switch(estate){
+					case 0:
+						dcdmAux.setEstado("PENDIENTE");
+						break;
+					case 1:
+						dcdmAux.setEstado("ENTREGADO");
+						break;
+					case 2:
+						dcdmAux.setEstado("RECHAZADO");
+						break;
+					case 3:
+						dcdmAux.setEstado("CAMBIO PERSONA");
+						break;
+					case 4:
+						dcdmAux.setEstado("CAMBIO EMPRESA");
+						break;
+					case 5:
+						dcdmAux.setEstado("NO LO CONOCEN");
+						break;
+					case 6:
+						dcdmAux.setEstado("NO HAY QUIEN RECIBA");
+						break;
+					case 7:
+						dcdmAux.setEstado("NO SE UBICA NUMERACION");
+						break;
+					case 8:
+						dcdmAux.setEstado("DESHABITADO");
+						break;		
+					}
+					
+					dcdmAux.setDestinatario(d.getDestinatario());
+					dcdmAux.setDireccion(d.getAdress());
+					dcdmAux.setIdpar(d.getId_pair());
+					dcdm_l.add(dcdmAux);
+				}
+				Iterable_data_DetailClientDateModel iddcdm = new Iterable_data_DetailClientDateModel();
+				iddcdm.setData(dcdm_l);
+				return ResponseEntity.status(HttpStatus.OK).body(iddcdm);
 			}
 		}
 		catch(Exception e){
@@ -174,8 +284,58 @@ public class DetailService {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 			}
 			else{
-				Detail detail = detailrepository.findOne(id);
-				return ResponseEntity.status(HttpStatus.OK).body(detail);
+				Detail d = detailrepository.findOne(id);
+				List<DetailClientDateModel> dcdm_l = new ArrayList<>();
+				DetailClientDateModel dcdmAux = new DetailClientDateModel();
+				dcdmAux.setId(d.getId());
+				dcdmAux.setOt(d.getId_base());
+				dcdmAux.setNomina("Nomina "+d.getId_lista());
+				if(d.getManufacture().getId_type() == 4){
+					dcdmAux.setTipo("CARTA");
+				}
+				else{
+					dcdmAux.setTipo("PAQUETE");
+				}
+				dcdmAux.setCliente(userrepository.findOne(d.getLista().getId_user()).getClient().getName());
+				int estate = d.getEstate();
+				switch(estate){
+				case 0:
+					dcdmAux.setEstado("PENDIENTE");
+					break;
+				case 1:
+					dcdmAux.setEstado("ENTREGADO");
+					break;
+				case 2:
+					dcdmAux.setEstado("RECHAZADO");
+					break;
+				case 3:
+					dcdmAux.setEstado("CAMBIO PERSONA");
+					break;
+				case 4:
+					dcdmAux.setEstado("CAMBIO EMPRESA");
+					break;
+				case 5:
+					dcdmAux.setEstado("NO LO CONOCEN");
+					break;
+				case 6:
+					dcdmAux.setEstado("NO HAY QUIEN RECIBA");
+					break;
+				case 7:
+					dcdmAux.setEstado("NO SE UBICA NUMERACION");
+					break;
+				case 8:
+					dcdmAux.setEstado("DESHABITADO");
+					break;		
+				}
+				
+				dcdmAux.setDestinatario(d.getDestinatario());
+				dcdmAux.setDireccion(d.getAdress());
+				dcdmAux.setIdpar(d.getId_pair());
+				dcdm_l.add(dcdmAux);
+				Iterable_data_DetailClientDateModel iddcdm = new Iterable_data_DetailClientDateModel();
+				iddcdm.setData(dcdm_l);
+				return ResponseEntity.status(HttpStatus.OK).body(iddcdm);
+				
 			}
 		}
 		catch(Exception e){
@@ -192,17 +352,139 @@ public class DetailService {
 	@RequestMapping(value = "/os/nomina/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getOsNomina(@PathVariable("id") long id){
-		if(!listrepository.exists(id)){
-			String jsonResponse = "{\"response\":400,\"desc\":\"Id de nomina no existe\"}";
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		try{
+			if(!listrepository.exists(id)){
+				String jsonResponse = "{\"response\":400,\"desc\":\"Id de nomina no existe\"}";
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+			}
+			else{
+				List<Detail> details = listrepository.findOne(id).getDetail_list();
+				List<DetailClientDateModel> dcdm_l = new ArrayList<>();
+				for(Detail d: details){
+					DetailClientDateModel dcdmAux = new DetailClientDateModel();
+					dcdmAux.setId(d.getId());
+					dcdmAux.setOt(d.getId_base());
+					dcdmAux.setNomina("Nomina "+d.getId_lista());
+					if(d.getManufacture().getId_type() == 4){
+						dcdmAux.setTipo("CARTA");
+					}
+					else{
+						dcdmAux.setTipo("PAQUETE");
+					}
+					dcdmAux.setCliente(userrepository.findOne(d.getLista().getId_user()).getClient().getName());
+					int estate = d.getEstate();
+					switch(estate){
+					case 0:
+						dcdmAux.setEstado("PENDIENTE");
+						break;
+					case 1:
+						dcdmAux.setEstado("ENTREGADO");
+						break;
+					case 2:
+						dcdmAux.setEstado("RECHAZADO");
+						break;
+					case 3:
+						dcdmAux.setEstado("CAMBIO PERSONA");
+						break;
+					case 4:
+						dcdmAux.setEstado("CAMBIO EMPRESA");
+						break;
+					case 5:
+						dcdmAux.setEstado("NO LO CONOCEN");
+						break;
+					case 6:
+						dcdmAux.setEstado("NO HAY QUIEN RECIBA");
+						break;
+					case 7:
+						dcdmAux.setEstado("NO SE UBICA NUMERACION");
+						break;
+					case 8:
+						dcdmAux.setEstado("DESHABITADO");
+						break;		
+					}
+				
+					dcdmAux.setDestinatario(d.getDestinatario());
+					dcdmAux.setDireccion(d.getAdress());
+					dcdmAux.setIdpar(d.getId_pair());
+					dcdm_l.add(dcdmAux);
+				}
+				Iterable_data_DetailClientDateModel iddcdm = new Iterable_data_DetailClientDateModel();
+				iddcdm.setData(dcdm_l);
+				return ResponseEntity.status(HttpStatus.OK).body(iddcdm);
+			}
 		}
-		else{
-			List<Detail> details = listrepository.findOne(id).getDetail_list();
-			return ResponseEntity.status(HttpStatus.OK).body(details);
+		catch(Exception e){
+			String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido obtener detalle OS\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 	}
 	
-	
+	@RequestMapping(value = "/{date_init}/{date_end}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getOsDate(@PathVariable("date_init") String date_init, @PathVariable("date_end") String date_end){
+		try{
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date date_i = formatter.parse(date_init);
+			Date date_e = formatter.parse(date_end);
+			Iterable<Detail> details = detailrepository.getDetailDate(date_i, date_e);
+			List<DetailClientDateModel> dcdm_l = new ArrayList<>();
+			for(Detail d: details){
+				DetailClientDateModel dcdmAux = new DetailClientDateModel();
+				dcdmAux.setId(d.getId());
+				dcdmAux.setOt(d.getId_base());
+				dcdmAux.setNomina("Nomina "+d.getId_lista());
+				if(d.getManufacture().getId_type() == 4){
+					dcdmAux.setTipo("CARTA");
+				}
+				else{
+					dcdmAux.setTipo("PAQUETE");
+				}
+				dcdmAux.setCliente(userrepository.findOne(d.getLista().getId_user()).getClient().getName());
+				int estate = d.getEstate();
+				switch(estate){
+				case 0:
+					dcdmAux.setEstado("PENDIENTE");
+					break;
+				case 1:
+					dcdmAux.setEstado("ENTREGADO");
+					break;
+				case 2:
+					dcdmAux.setEstado("RECHAZADO");
+					break;
+				case 3:
+					dcdmAux.setEstado("CAMBIO PERSONA");
+					break;
+				case 4:
+					dcdmAux.setEstado("CAMBIO EMPRESA");
+					break;
+				case 5:
+					dcdmAux.setEstado("NO LO CONOCEN");
+					break;
+				case 6:
+					dcdmAux.setEstado("NO HAY QUIEN RECIBA");
+					break;
+				case 7:
+					dcdmAux.setEstado("NO SE UBICA NUMERACION");
+					break;
+				case 8:
+					dcdmAux.setEstado("DESHABITADO");
+					break;		
+				}
+				
+				dcdmAux.setDestinatario(d.getDestinatario());
+				dcdmAux.setDireccion(d.getAdress());
+				dcdmAux.setIdpar(d.getId_pair());
+				dcdm_l.add(dcdmAux);
+			}
+			Iterable_data_DetailClientDateModel iddcdm = new Iterable_data_DetailClientDateModel();
+			iddcdm.setData(dcdm_l);
+			return ResponseEntity.status(HttpStatus.OK).body(iddcdm);
+		}
+		catch(Exception e){
+			String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido obtener detalle OS\"}";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
+		}
+	}
 	
 	
 }
