@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.apicom.spring.backend.auxentities.DetailClientDateModel;
+import cl.apicom.spring.backend.auxentities.DetailModel;
 import cl.apicom.spring.backend.auxentities.Iterable_data_DetailClientDateModel;
+import cl.apicom.spring.backend.auxentities.Iterable_data_DetailModel;
 import cl.apicom.spring.backend.auxentities.Iterable_data_details;
 import cl.apicom.spring.backend.entities.Detail;
 import cl.apicom.spring.backend.entities.User;
@@ -62,12 +64,57 @@ public class DetailService {
 	@ResponseBody
 	public ResponseEntity<?> getAllDetailsDay(@PathVariable long id){
 		try{
-			Iterable_data_details idd = new Iterable_data_details();
-			idd.setData(detailrepository.getDetailDay(id));
+			Iterable<Detail> details = detailrepository.getDetailDayUser(id);
+			List<DetailModel> d_list = new ArrayList<>();
+			for(Detail d: details){
+				DetailModel detailmodel = new DetailModel();
+				detailmodel.setId_paquete(d.getId());
+				detailmodel.setOt(d.getId_base());
+				if(d.getManufacture().getId_type() == 4){
+					detailmodel.setTipo("CARTA");
+				}
+				else{
+					detailmodel.setTipo("PAQUETE");
+				}
+				detailmodel.setCliente(userrepository.findOne(d.getLista().getId_user()).getClient().getName());
+				int estate = d.getEstate();
+				switch(estate){
+				case 0:
+					detailmodel.setEstado("PENDIENTE");
+					break;
+				case 1:
+					detailmodel.setEstado("ENTREGADO");
+					break;
+				case 2:
+					detailmodel.setEstado("RECHAZADO");
+					break;
+				case 3:
+					detailmodel.setEstado("CAMBIO PERSONA");
+					break;
+				case 4:
+					detailmodel.setEstado("CAMBIO EMPRESA");
+					break;
+				case 5:
+					detailmodel.setEstado("NO LO CONOCEN");
+					break;
+				case 6:
+					detailmodel.setEstado("NO HAY QUIEN RECIBA");
+					break;
+				case 7:
+					detailmodel.setEstado("NO SE UBICA NUMERACION");
+					break;
+				case 8:
+					detailmodel.setEstado("DESHABITADO");
+					break;		
+				}
+			d_list.add(detailmodel);
+			}
+			Iterable_data_DetailModel idd = new Iterable_data_DetailModel();
+			idd.setData(d_list);
 			return ResponseEntity.status(HttpStatus.OK).body(idd);
 		}
 		catch(Exception e){
-			String jsonResponse = "{\"response\":400,\"desc\":\"No se ha podido obtener detalles del dia\"}";
+			String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 	}
@@ -485,6 +532,10 @@ public class DetailService {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
 	}
+	
+	/*@RequestMapping(value = "/os/{id}", method = RequestMethod.GET)
+	@ResponseBody*/
+	
 	
 	
 }

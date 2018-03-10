@@ -30,7 +30,7 @@ import cl.apicom.spring.backend.auxentities.UserCreationModel;
 import cl.apicom.spring.backend.auxentities.UserModel;
 import cl.apicom.spring.backend.auxentities.UserProfileModel;
 import cl.apicom.spring.backend.auxentities.UserUpdateModel;
-import cl.apicom.spring.backend.auxentities.DetailDayModel;
+import cl.apicom.spring.backend.auxentities.DetailModel;
 import cl.apicom.spring.backend.auxentities.Id_user_model;
 import cl.apicom.spring.backend.auxentities.Iterable_data_user;
 import cl.apicom.spring.backend.entities.Detail;
@@ -424,7 +424,7 @@ public class UserService {
 		//List<DetailDayModel> ddm_list = new ArrayList<>();
 		String ddm_return = "[";
 		for(User u: users){
-			DetailDayModel ddmAux = new DetailDayModel();
+			DetailModel ddmAux = new DetailModel();
 			Iterable<Detail> details = detailrepository.getDetailUser((u.getId()));
 			int cartas_totales = 0;
 			int cartas_entregadas = 0;
