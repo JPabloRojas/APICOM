@@ -53,17 +53,12 @@ public class UserService {
 	@Autowired
 	private Price_Manuf_SectorRepository price_manuf_sectorrepository;
 	
+
 	/*
-	 * Plataforma: Administrador/Android
+	 * Plataforma: Android
 	 * Tipo: POST
-	 * Descripcion: Login
+	 * Descripción: Servició que ejecuta funcionalidad de login.
 	 */
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<User> getAllUser(){
-		return userrepository.findAll();
-	}
-	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public  ResponseEntity<?> loginUser(@RequestBody LoginModel resource){
@@ -86,7 +81,7 @@ public class UserService {
 	}
 	
 	/*
-	 * Plataforma: Administrador/Android
+	 * Plataforma: Android
 	 * Tipo: GET
 	 * Descripcion: Obtiene los datos de un usuario
 	 */
@@ -95,8 +90,6 @@ public class UserService {
 	public ResponseEntity<?> getUser(@PathVariable("id") long id){
 		User u = userrepository.findOne(id);
 		if(u == null){
-			//response.sendError(400, "Id de usuario no encontrado");
-			//return null;
 			String jsonResponse = "{\"response\":400,\"desc\":\"Id de usuario no encontrado\"}";
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
 		}
@@ -106,6 +99,11 @@ public class UserService {
 		}
 	}
 	
+	/*
+	 * Plataforma: Android
+	 * Tipo: POST
+	 * Descripcion: Servicio que permite obtener el salario de un usuario en especifico.
+	 */
 	@RequestMapping(value = "/salary", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> getSalary(@RequestBody RequestID resource){

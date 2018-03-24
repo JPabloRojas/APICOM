@@ -21,24 +21,4 @@ public class ClientService {
 	
 	@Autowired
 	private ClientRepository clientrepository;
-	
-	
-	/*
-	 * Plataforma: Administrador
-	 * Tipo: GET
-	 * Descripcion: Obtiene todos los clientes del sistema
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<?> getAllClients(){
-		try{
-			Iterable<Client> clients = clientrepository.findAll();
-			return ResponseEntity.status(HttpStatus.OK).body(clients);
-		}
-		catch(Exception e){
-			String jsonResponse = "{\"response\":400,\"desc\":\"No se han podido obtener los clientes\"}";
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-		}
-		
-	}
 }

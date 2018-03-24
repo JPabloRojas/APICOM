@@ -1,5 +1,8 @@
 package cl.apicom.spring.backend.auxentities;
 
+/*
+ * Modelo para servicios tipo PUT que impliquen la modificacion de datos de un usuario.
+ */
 public class UserUpdateModel {
 	
 	private long id;

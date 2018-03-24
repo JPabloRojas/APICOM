@@ -2,6 +2,9 @@ package cl.apicom.spring.backend.auxentities;
 
 import java.sql.Timestamp;
 
+/*
+ * Modelo de mapeo de datos de entrada JSON para funcionalidad de emergencias
+ */
 public class EmergencyModel {
 	private long id_user;
 	private String type;

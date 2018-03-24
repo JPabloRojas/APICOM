@@ -2,6 +2,9 @@ package cl.apicom.spring.backend.auxentities;
 
 import java.util.List;
 
+/*
+ * Modelo de respuesta para plantillas.
+ */
 public class UserModel_data {
 	private List<UserModel> data;
 

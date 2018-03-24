@@ -28,8 +28,11 @@ public class ListService {
 	@Autowired
 	private ListRepository listrepository;
 	
-	@Autowired
-	private UserRepository userrepository;
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Servicio que permite obtener todas las listas que se encuentran en el sistema.
+	 */
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody

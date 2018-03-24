@@ -36,55 +36,13 @@ public class ListService {
 	@Autowired
 	private UserRepository userrepository;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Lista> getAllLists(){
-		return listrepository.findAll();
-	}
-	
-	
-	/*@RequestMapping(value = "/create", method = RequestMethod.POST)
-	@ResponseBody
-	public void addList(@RequestBody RequestSingleData resource, HttpServletResponse response) throws IOException{
-		User u = userrepository.findbyUser(resource.getData());
-		if(u == null){
-			response.sendError(400);
-		}
-		else{
-			Lista list = new Lista();
-			list.setId_user(u.getId());
-			 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			list.setList_date(timestamp);
-			list.setPrice(0);
-			try{
-				listrepository.save(list);
-				response.setStatus(201);
-			}
-			catch(DataIntegrityViolationException e){
-				response.sendError(400);
-			}
-		}
-	}*/
-	
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<?> getListUser(@PathVariable("id") long id){
-		if(!userrepository.exists(id)){
-			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-		}
-		else{
-			try{
-				Iterable<Lista> listas = listrepository.getListUser(id);
-				return ResponseEntity.status(HttpStatus.OK).body(listas);
-			}
-			catch(Exception e){
-				String jsonResponse = "{\"response\":400,\"desc\":"+e.toString()+"}";
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-			}
-		}
-	}
-	
+
+	/*
+	 * Plataforma: Android
+	 * Tipo: PUT
+	 * Descripcion: Servicio que cambia el estado de actividad de una lista especifica(id)
+	 * en la base de datos.
+	 */
 	@RequestMapping(value = "/inactive", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<?> inactiveList(@RequestBody ActiveInactiveModel resource){

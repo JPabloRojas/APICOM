@@ -17,10 +17,4 @@ public class ProfileService {
 	
 	@Autowired
 	private ProfileRepository profilerepository;
-	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Profile> getAllProfiles(){
-		return profilerepository.findAll();
-	}
 }

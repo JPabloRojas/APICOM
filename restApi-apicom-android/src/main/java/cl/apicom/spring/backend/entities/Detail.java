@@ -28,7 +28,7 @@ public class Detail {
 	@Column(name = "estate", unique = false, nullable = false)
 	private int estate;
 	
-	@Column(name = "estate_date", unique = false, nullable = true)
+	@Column(name = "estate_date", unique = false, nullable = false)
 	private Timestamp estate_date;
 	
 	@Column(name = "despair_date", unique = false, nullable = false)

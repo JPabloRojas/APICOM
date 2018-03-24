@@ -1,11 +1,18 @@
 package cl.apicom.spring.backend.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.apicom.spring.backend.auxentities.CreatePDF;
+import cl.apicom.spring.backend.auxentities.RequestID;
+import cl.apicom.spring.backend.entities.Detail;
+import cl.apicom.spring.backend.repository.DetailRepository;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -14,7 +21,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
- 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +32,14 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/pdf")
 public class PDFService {
 	
+	@Autowired
+	private DetailRepository detailrepository;
+	
+	/*
+	 * Plataforma: Android
+	 * Tipo: GET
+	 * Descripción: Servicio que permite descargar pdf resumen de detalles para un usuario en especifico.
+	 */
 	@RequestMapping(value = "/download",method = RequestMethod.GET)
 	public void downloadPDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
  
@@ -31,13 +47,13 @@ public class PDFService {
 	    final File tempDirectory = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
 	    final String temperotyFilePath = tempDirectory.getAbsolutePath();
  
-	    String fileName = "JavaHonk.pdf";
+	    String fileName = "DetalleUsuario.pdf";
 	    response.setContentType("application/pdf");
 	    response.setHeader("Content-disposition", "attachment; filename="+ fileName);
  
 	    try {
 	    	CreatePDF createpdf = new CreatePDF();
-	        createpdf.createPDF(temperotyFilePath+"\\"+fileName);
+	        createpdf.createPDF(temperotyFilePath+"\\"+fileName,"Test");
 	        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	        baos = convertPDFToByteArrayOutputStream(temperotyFilePath+"\\"+fileName);
 	        OutputStream os = response.getOutputStream();
@@ -49,6 +65,10 @@ public class PDFService {
  
 	}
 	
+	/*
+	 * Descripcion: Metodo complementario para descarga de pdf que permite convertir el archivo en un ByteArray
+	 * para permitir su salida y descarga.
+	 */
 	private ByteArrayOutputStream convertPDFToByteArrayOutputStream(String fileName) {
  
 		InputStream inputStream = null;
@@ -79,4 +99,12 @@ public class PDFService {
 		}
 		return baos;
 	}
+	
+	/*@RequestMapping(value = "/test",method = RequestMethod.POST)
+	public ResponseEntity<?> test(@RequestBody RequestID resource){
+		long id = resource.getId();
+		List<Detail> details = detailrepository.getDetailUserMonth(id);
+		return ResponseEntity.status(HttpStatus.OK).body(details);
+		
+	}*/
 }

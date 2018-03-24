@@ -2,7 +2,9 @@ package cl.apicom.spring.backend.auxentities;
 
 import java.sql.Timestamp;
 
-
+/*
+ * Modelo de respuesta para servicios tipo GET que impliquen la obtención de datos de un usuario.
+ */
 public class UserModel {
 	
 	private long id;

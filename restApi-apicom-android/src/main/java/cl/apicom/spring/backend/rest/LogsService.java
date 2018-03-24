@@ -16,10 +16,4 @@ import cl.apicom.spring.backend.repository.LogsRepository;
 public class LogsService {
 	
 	@Autowired LogsRepository logsrepository;
-	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Logs> getAllLogs(){
-		return logsrepository.findAll();		
-	}
 }

@@ -1,5 +1,9 @@
 package cl.apicom.spring.backend.auxentities;
 
+
+/*
+ * Modelo de respuesta para servicios GET que requieran el id y nombre de un respectivo cliente.
+ */
 public class Id_client_model {
 	
 	private long id;

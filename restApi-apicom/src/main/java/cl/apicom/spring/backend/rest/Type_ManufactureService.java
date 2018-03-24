@@ -18,6 +18,11 @@ public class Type_ManufactureService {
 	@Autowired
 	private Type_ManufactureRepository type_manufacturerepository;
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Servicio que permite obtener todos los tipos de producto del sistema.
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Type_Manufacture> getAlltm(){

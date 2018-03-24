@@ -1,5 +1,9 @@
 package cl.apicom.spring.backend.auxentities;
 
+
+/*
+ * Modelo de mapeo de datos JSON para servicios servicio que requiere actualicion del estado de un Detalle.
+ */
 public class UpdateDetailModel {
 	
 	private long id;

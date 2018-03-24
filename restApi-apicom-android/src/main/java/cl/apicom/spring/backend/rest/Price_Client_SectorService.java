@@ -18,9 +18,4 @@ public class Price_Client_SectorService {
 	@Autowired
 	private Price_Client_SectorRepository price_client_sectorrepository;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Price_Client_Sector> getAllpcs(){
-		return price_client_sectorrepository.findAll();
-	}
 }

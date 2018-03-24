@@ -1,5 +1,9 @@
 package cl.apicom.spring.backend.auxentities;
 
+
+/*
+ * Modelo de respuesta para servicios GET donde se requiera descripcion de detalles.
+ */
 public class DetailModel {
 	
 	private long id_paquete;

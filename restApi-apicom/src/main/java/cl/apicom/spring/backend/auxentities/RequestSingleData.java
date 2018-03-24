@@ -1,5 +1,8 @@
 package cl.apicom.spring.backend.auxentities;
 
+/*
+ * Modelo de respuesta/requerimiento de datos en donde solo se implique un dato tipo String.
+ */
 public class RequestSingleData {
 	
 	private String data;

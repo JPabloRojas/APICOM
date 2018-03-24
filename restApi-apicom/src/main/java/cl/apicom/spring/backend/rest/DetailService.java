@@ -58,7 +58,7 @@ public class DetailService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene todos los detalles correspondientes al dia
+	 * Descripcion: Servicio que obtiene todos los detalles correspondientes al dia
 	 */
 	@RequestMapping(value = "/day/{id}", method = RequestMethod.GET)
 	@ResponseBody
@@ -123,7 +123,7 @@ public class DetailService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo:GET
-	 * Descripcion: Obtiene todos los detalles correspsondientes a una fecha en especifico
+	 * Descripcion: Servicio que obtiene todos los detalles correspsondientes a una fecha en especifico
 	 */
 	@RequestMapping(value = "/date/{date}", method = RequestMethod.GET)
 	@ResponseBody

@@ -24,6 +24,11 @@ public class EmergencyService {
 	@Autowired 
 	private EmergencyRepository emergencyrepository;
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Servicio que permite obtener todas las emergencias que se registran en el sistema
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Emergency> getAllEmergencys(){

@@ -11,6 +11,9 @@ import java.nio.charset.Charset;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/*
+ * Clase auxiliar para el uso de API GoogleMaps: conversión de direccion a coordenadas.
+ */
 public class ReadGeo {
 
     public String readAll(Reader rd) throws IOException {

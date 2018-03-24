@@ -26,24 +26,4 @@ public class GpsService {
 	@Autowired
 	private GpsRepository gpsrepository;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Gps> getAllGps(){
-		return gpsrepository.findAll();
-	}
-	
-	
-	
-	/*@RequestMapping(value = "/update", method = RequestMethod.POST)
-	@ResponseBody
-	public void updateGps(@RequestBody Gps resource, HttpServletResponse response) throws IOException{
-		try{
-			gpsrepository.save(resource);
-			response.setStatus(201);
-		}
-		catch(DataIntegrityViolationException e){
-			response.sendError(400, "Id usuario no valida");
-		}
-	}*/
-	
 }

@@ -17,10 +17,4 @@ public class BaseService {
 	
 	@Autowired
 	private BaseRepository baserepository;
-	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Base> getAllBases(){
-		return baserepository.findAll();
-	}
 }

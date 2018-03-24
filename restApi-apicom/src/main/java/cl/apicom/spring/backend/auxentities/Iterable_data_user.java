@@ -4,6 +4,10 @@ import java.util.List;
 
 import cl.apicom.spring.backend.entities.User;
 
+
+/*
+ * Modelo de respuesta para plantillas.
+ */
 public class Iterable_data_user {
 	
 	private List<UserModel> data;

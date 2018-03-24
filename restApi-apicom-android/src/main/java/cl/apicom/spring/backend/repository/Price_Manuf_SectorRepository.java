@@ -8,6 +8,10 @@ import cl.apicom.spring.backend.entities.Price_Manuf_Sector;
 
 public interface Price_Manuf_SectorRepository extends PagingAndSortingRepository<Price_Manuf_Sector, Long>{
 	
+	
+	/*
+	 * Consulta MySQL que retorna el precio de un producto según un id en especifico de sector y produto
+	 */
 	@Query("SELECT pms FROM Price_Manuf_Sector pms WHERE pms.id_sector = :id_sector and pms.id_manufacture = :id_manufacture")
 	Price_Manuf_Sector getPMSsectormanuf(@Param("id_sector") long id_sector, @Param("id_manufacture") long id_manuf);
 }

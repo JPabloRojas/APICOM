@@ -27,6 +27,12 @@ public class Gps_lastService {
 	private Gps_lastRepository gpslrepository;
 	
 	
+	/*
+	 * Plataforma: Android
+	 * Tipo: GET
+	 * Descripcion: Servicio que actualiza la ubicación del usuario segun coordenadas de GPS.
+	 * Estos datos se ingresan a la tabla correspondiente en la base de datos.
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<?> updateGpsLast(@RequestBody Gps_last resource){

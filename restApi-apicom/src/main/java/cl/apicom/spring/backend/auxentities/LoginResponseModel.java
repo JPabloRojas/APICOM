@@ -1,5 +1,9 @@
 package cl.apicom.spring.backend.auxentities;
 
+/*
+ * Modelo de respuesta para servicios de tipo GET/POST que requieran id, user_name y mail de un respectivo
+ * usuario.
+ */
 public class LoginResponseModel {
 	
 	private long id;

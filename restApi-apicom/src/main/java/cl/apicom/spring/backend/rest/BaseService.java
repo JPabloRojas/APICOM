@@ -21,13 +21,22 @@ public class BaseService {
 	@Autowired
 	private BaseRepository baserepository;
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Servicio que permite obtener todas las bases del sistema.
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Base> getAllBases(){
 		return baserepository.findAll();
 	}
 	
-	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Servicio que permite obtener los datos correspondientes a una Base de id especifico.
+	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getOT(@PathVariable long id){

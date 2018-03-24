@@ -18,6 +18,11 @@ public class Price_Client_SectorService {
 	@Autowired
 	private Price_Client_SectorRepository price_client_sectorrepository;
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Servicio que permite obtener todos los precios por cliente según sector del sistema.
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Price_Client_Sector> getAllpcs(){

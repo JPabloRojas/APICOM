@@ -1,5 +1,8 @@
 package cl.apicom.spring.backend.auxentities;
 
+/*
+ * Modelo de mapeo de datos JSON para servicios que requieren uso de ID.
+ */
 public class RequestID {
 	
 	private long id;

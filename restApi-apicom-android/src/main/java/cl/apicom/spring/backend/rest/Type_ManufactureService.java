@@ -17,10 +17,4 @@ public class Type_ManufactureService {
 	
 	@Autowired
 	private Type_ManufactureRepository type_manufacturerepository;
-	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Type_Manufacture> getAlltm(){
-		return type_manufacturerepository.findAll();
-	}
 }

@@ -1,5 +1,8 @@
 package cl.apicom.spring.backend.auxentities;
 
+/*
+ * Modelo de mapeo de datos JSON para funcionalidad de login de aplicación
+ */
 public class LoginModel {
 	
 	private String user;

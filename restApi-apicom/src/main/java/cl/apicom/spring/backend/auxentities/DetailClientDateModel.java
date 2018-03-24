@@ -1,5 +1,9 @@
 package cl.apicom.spring.backend.auxentities;
 
+
+/*
+ * Modelo de respuesta para servicios tipo GET de detalles por cliente según fecha.
+ */
 public class DetailClientDateModel {
 	long id;
 	long ot;

@@ -46,7 +46,7 @@ public class ClientService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene todos los clientes del sistema
+	 * Descripcion: Servicio que obtiene todos los clientes del sistema
 	 */
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	@ResponseBody
@@ -65,7 +65,7 @@ public class ClientService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene los datos de un cliente
+	 * Descripcion: Servicio que obtiene los datos de un cliente
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
@@ -85,7 +85,7 @@ public class ClientService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene todos los usuarios relacionados con un cliente
+	 * Descripcion: Servicio que obtiene todos los usuarios relacionados con un cliente
 	 */
 	@RequestMapping(value = "/data/users/{id}", method = RequestMethod.GET)
 	@ResponseBody
@@ -127,7 +127,7 @@ public class ClientService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: Post
-	 * Descripcion: Crea un cliente, inserta en la BD
+	 * Descripcion: Servicio que crea un nuevo cliente, inserta en la BD
 	 */
 	@RequestMapping(value = "/new/{name}/{contact}/{phone}/{mail}/{rut}/{adress}", method = RequestMethod.POST)
 	@ResponseBody
@@ -159,7 +159,7 @@ public class ClientService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: PUT
-	 * Descripcion: Actualiza datos de un lciente
+	 * Descripcion: Servicio que ctualiza datos de un cliente
 	 */
 	@RequestMapping(value = "/update/{id}/{name}/{contact}/{phone}/{mail}/{rut}/{adress}", method = RequestMethod.PUT)
 	@ResponseBody
@@ -193,7 +193,7 @@ public class ClientService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: PUT
-	 * Descripcion: Activa/Desactiva un cliente
+	 * Descripcion: Servicio que activa/desactiva un cliente
 	 */
 	@RequestMapping(value = "/inactive/{id}", method = RequestMethod.PUT)
 	@ResponseBody
@@ -236,7 +236,7 @@ public class ClientService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene modelo id - nombre cliente
+	 * Descripcion: Servicio que obtiene todos los clientes con modelo id - nombre cliente
 	 */
 	@RequestMapping(value = "/IdName", method = RequestMethod.GET)
 	@ResponseBody

@@ -27,7 +27,7 @@ public class ComunasService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene todas las comunas del sistema en formato id-nombre 
+	 * Descripcion: Servicio que obtiene todas las comunas del sistema en formato id-nombre 
 	 */
 	
 	@RequestMapping(value = "/idname", method = RequestMethod.GET)

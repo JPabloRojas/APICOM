@@ -17,10 +17,4 @@ public class SectorService {
 	
 	@Autowired
 	private SectorRepository sectorrepository;
-	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Sector> getAllSectors(){
-		return sectorrepository.findAll();
-	}
 }

@@ -23,12 +23,4 @@ public class Price_Manuf_SectorService {
 	@Autowired
 	private Price_Manuf_SectorRepository price_manuf_sectorrepository;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Price_Manuf_Sector> getAllpms(){
-		return price_manuf_sectorrepository.findAll();
-	}
-	
-	
-	
 }

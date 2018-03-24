@@ -1,5 +1,8 @@
 package cl.apicom.spring.backend.auxentities;
 
+/*
+ * Modelo de ingreso de datos para servicio tipo POST que implican la creacion de un nuevo usuario.
+ */
 public class UserCreationModel {
 	
 	private String user_name;

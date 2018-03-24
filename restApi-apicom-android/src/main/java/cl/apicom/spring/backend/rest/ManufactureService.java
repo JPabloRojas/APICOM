@@ -19,17 +19,5 @@ public class ManufactureService {
 	@Autowired
 	private ManufactureRepository manufacturerepository;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Manufacture> getAllManu(){
-		return manufacturerepository.findAll();
-	}
-	
-	/*@RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Manufacture> getAllManufUser(@PathVariable("id") long id){
-		return manufacturerepository.getAllManufUser(id);
-	}*/
-	
 	
 }

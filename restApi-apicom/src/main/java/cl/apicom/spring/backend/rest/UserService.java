@@ -71,7 +71,8 @@ public class UserService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene todos los usuarios del sistema
+	 * Descripcion: Servicio que obtiene todos los usuarios del sistema  en el modelo de retorno de datos UserModel
+	 * con la respectiva plantilla de restorno de datos.
 	 */
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	@ResponseBody
@@ -114,7 +115,7 @@ public class UserService {
 	/*
 	 * Plataforma: Administrador/Android
 	 * Tipo: POST
-	 * Descripcion: Login
+	 * Descripcion: Servicio que permite ejecutar un login al sistema.
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
@@ -140,7 +141,7 @@ public class UserService {
 	/*
 	 * Plataforma: Administrador/Android
 	 * Tipo: GET
-	 * Descripcion: Obtiene los datos de un usuario
+	 * Descripcion: Servicio que obtiene los datos de un usuario, a través del modelo de datos UserModel.
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
@@ -178,7 +179,7 @@ public class UserService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: POST
-	 * Descripcion: Registro de nuevo usuario, se inserta en la BD
+	 * Descripcion: Servicio que permite el registro de nuevo usuario, se inserta en la BD
 	 */
 	
 	@RequestMapping(value = "/new/{user_name}/{user}/{password}/{mail}/{id_client}/{id_profile}/{payment_type}/{patente_vehiculo}/{phone}", method = RequestMethod.POST)
@@ -233,7 +234,7 @@ public class UserService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: PUT
-	 * Descripcion: Actualiza los datos de un usuario
+	 * Descripcion: Servicio que actualiza los datos de un usuario.
 	 */
 	@RequestMapping(value = "/update/{id}/{user_name}/{user}/{password}/{mail}/{id_client}/{id_profile}/{payment_type}/{patente_vehiculo}/{phone}", method = RequestMethod.PUT)
 	@ResponseBody
@@ -290,7 +291,7 @@ public class UserService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: PUT
-	 * Descripcion: Activa/desactiva un usuario.
+	 * Descripcion: Servicio que activa/desactiva un usuario.
 	 * 
 	 */
 	@RequestMapping(value = "/inactive/{id}", method = RequestMethod.PUT)
@@ -333,7 +334,7 @@ public class UserService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene el nombre de un distribuidor
+	 * Descripcion: Servicio que obtiene el nombre de un distribuidor.
 	 */
 	
 	@RequestMapping(value = "/name/{id}", method = RequestMethod.GET)
@@ -355,7 +356,7 @@ public class UserService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene usuarios en formato id-nombre
+	 * Descripcion: Servicio que obtiene usuarios en formato id-nombre.
 	 */
 	@RequestMapping(value = "/IdName", method = RequestMethod.GET)
 	@ResponseBody
@@ -381,7 +382,7 @@ public class UserService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene los perfiles de usuario con un indicador si el usuario pertenece a este perfil.
+	 * Descripcion: Servicio que obtiene los perfiles de usuario con un indicador si el usuario pertenece a este perfil.
 	 */
 	@RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
 	@ResponseBody
@@ -414,7 +415,7 @@ public class UserService {
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Obtiene valores asociados a la plantilla de seguimiento de distribuidores en terreno,
+	 * Descripcion: Servicio que obtiene valores asociados a la plantilla de seguimiento de distribuidores en terreno.
 	 */
 	@RequestMapping(value = "day/format", method = RequestMethod.GET)
 	@ResponseBody

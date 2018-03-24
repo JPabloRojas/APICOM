@@ -36,37 +36,11 @@ public class Gps_lastService {
 	@Autowired
 	private Gps_lastRepository gpslrepository;
 	
-	
-	@RequestMapping(value = "/update", method = RequestMethod.PUT)
-	@ResponseBody
-	public ResponseEntity<?> updateGpsLast(@RequestBody Gps_last resource){
-		Gps_last gl = null;
-		gl = gpslrepository.findGpsUser(resource.getId_user());
-		if(gl == null){
-			try{
-				gpslrepository.save(resource);
-				String jsonResponse = "{\"response\":201}";
-				return ResponseEntity.status(HttpStatus.CREATED).body(jsonResponse);
-			}
-			catch(DataIntegrityViolationException e){
-				String jsonResponse = "{\"response\":400,\"desc\":\"El id del usuario no existe\"}";
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-			}
-		}
-		else{
-			gl.setLatitude(resource.getLatitude());
-			gl.setLongitude(resource.getLongitude());
-			gpslrepository.save(gl);
-			String jsonResponse = "{\"response\":200}";
-			return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
-			
-		}
-	}
-	
 	/*
 	 * Plataforma: Administrador
 	 * Tipo: GET
-	 * Descripcion: Toma una direccion y devuelve las coordenadas
+	 * Descripcion: Servicio que a partir de una direccion y devuelve las coordenadas usando
+	 * API de google maps.
 	 */
 	
 	@RequestMapping(value = "/adress/{direccion}", method = RequestMethod.GET)

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cl.apicom.spring.backend.entities.Gps;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.GpsRepository;;
-//Solo se usara si se impleneta el historial de gps
+//Solo se usara si se implementa el historial de gps
 @CrossOrigin
 @RestController
 @RequestMapping("/gps")

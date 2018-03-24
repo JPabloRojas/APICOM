@@ -1,5 +1,9 @@
 package cl.apicom.spring.backend.auxentities;
 
+
+/*
+ * Modelo de respuesta para servicios GET de comunas con id y respectivo nombre
+ */
 public class ComunasModel {
 	
 	private long id;

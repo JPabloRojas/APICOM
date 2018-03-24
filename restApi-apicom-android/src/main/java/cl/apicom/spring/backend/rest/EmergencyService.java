@@ -34,14 +34,12 @@ public class EmergencyService {
 	@Autowired
 	private UserRepository userrepository;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Emergency> getAllEmergencys(){
-		return emergencyrepository.findAll();
-	}
-	
-	
-	
+	/*
+	 * Plataforma: Android
+	 * Tipo: POST
+	 * Descripcion: Servicio que permite ejecutar la funcionalidad de emergencias, es decir, ingresa
+	 * en la base de datos los parametros correspondientes de esta emergencia para el usuario en cuestion.
+	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> addEmergency(@RequestBody EmergencyModel resource){
@@ -62,7 +60,7 @@ public class EmergencyService {
 				Iterable<Long> ids_details = resource.getIds_detalles();
 				List<Long> id_repeated = new ArrayList<>();
 				for(Long id: ids_details){
-					User u = userrepository.finUserDetail(id);
+					User u = userrepository.findUserDetail(id);
 					/*
 					 * Envio de correos a usuarios a los cuales se les iba a entregar la OS en camino
 					 */

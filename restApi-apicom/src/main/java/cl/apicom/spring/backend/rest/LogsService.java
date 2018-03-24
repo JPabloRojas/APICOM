@@ -17,6 +17,11 @@ public class LogsService {
 	
 	@Autowired LogsRepository logsrepository;
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Servicio que permite obtener todos los logs del sistema.
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Logs> getAllLogs(){

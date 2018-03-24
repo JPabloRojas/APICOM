@@ -1,5 +1,10 @@
 package cl.apicom.spring.backend.auxentities;
 
+
+/*
+ * Modelo de respuesta para servicios tipo GET que impliquen el requerimiento de id, nombre y estado de actividad
+ * de un usuario.
+ */
 public class UserProfileModel {
 	
 	private long id;

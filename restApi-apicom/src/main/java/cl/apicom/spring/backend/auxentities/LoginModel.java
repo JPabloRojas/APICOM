@@ -1,5 +1,10 @@
 package cl.apicom.spring.backend.auxentities;
 
+
+/*
+ * Modelo de respuesta para servicios tipo GET/POST que requieran la visualizacion o requisito de datos
+ * tipo user y password de un respectivo usuario.
+ */
 public class LoginModel {
 	
 	private String user;

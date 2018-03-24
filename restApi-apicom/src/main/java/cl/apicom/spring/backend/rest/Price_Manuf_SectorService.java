@@ -18,6 +18,12 @@ public class Price_Manuf_SectorService {
 	@Autowired
 	private Price_Manuf_SectorRepository price_manuf_sectorrepository;
 	
+	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Servicio que permite obtener todos los precios según producto del sistema.
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Price_Manuf_Sector> getAllpms(){

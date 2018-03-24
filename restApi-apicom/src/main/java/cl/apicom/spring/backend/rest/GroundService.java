@@ -17,10 +17,4 @@ public class GroundService {
 	
 	@Autowired
 	private GroundRepository groundrepository;
-	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public Iterable<Ground> getAllground(){
-		return groundrepository.findAll();
-	}
 }

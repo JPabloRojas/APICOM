@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cl.apicom.spring.backend.auxentities.RequestID;
 import cl.apicom.spring.backend.auxentities.UpdateDetailModel;
 import cl.apicom.spring.backend.entities.Detail;
+import cl.apicom.spring.backend.entities.Lista;
 import cl.apicom.spring.backend.entities.User;
 import cl.apicom.spring.backend.repository.DetailRepository;
 import cl.apicom.spring.backend.repository.UserRepository;
@@ -32,63 +33,22 @@ public class DetailService {
 	@Autowired
 	private UserRepository userrepository;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/all",method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Detail> getAllDetails(){
 		return detailrepository.findAll();
 	}
 	
-	/*@RequestMapping(value = "/user", method = RequestMethod.POST)
-	@ResponseBody
-	//Cambiar la comparacion de direcciones a comparacion de coordenadas
-	public ResponseEntity<?> getDetailUser(@RequestBody RequestID resource){
-		User user = userrepository.findOne(resource.getId());
-		if(user == null){
-			String jsonResponse = "{\"response\":400,\"desc\":\"Id usuario no existe\"}";
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonResponse);
-		}
-		else{
-			try{
-				Iterable<Detail> details = detailrepository.getDetailUser(resource.getId());
-				List<String> direcciones = new ArrayList<>();
-				for(Detail d: details){
-					if(d.getId_repeat() == 0){
-						String dir = d.getAdress();
-						if(direcciones.contains(dir)){
-							int count = 1;
-							for(String dAux: direcciones){
-								if(dAux.equals(dir)){
-									d.setId_repeat(count);
-								}
-								else{
-									count++;
-								}
-							}
-						}
-						else{
-							direcciones.add(dir);
-							int length = direcciones.size();
-							d.setId_repeat(length);
-						}
-						detailrepository.save(d);
-					}
-					else{
-						break;
-					}
-				}
-				return ResponseEntity.status(HttpStatus.OK).body(details);
-			}
-			catch(Exception e){
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString());
-			}
-		}
-		
-	}*/
-	
-	
+	/*
+	 * Plataforma: Android
+	 * Tipo: POST
+	 * Descripcion: Obtiene todos los detalles de un usuario con ID especifico, si es la primera vez
+	 * que se ejecuta el metodo, se asignan los valores correspondientes idrepeat a la base de datos
+	 * que corresponden a los detalles que van hacia una misma direccion.
+	 * 
+	 */
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	@ResponseBody
-	//Cambiar la comparacion de direcciones a comparacion de coordenadas
 	public ResponseEntity<?> getDetailUser(@RequestBody RequestID resource){
 		User user = userrepository.findOne(resource.getId());
 		if(user == null){
@@ -131,10 +91,15 @@ public class DetailService {
 			}
 		}
 		
-	}
+}
 	
 	
-	
+	/*
+	 * Plataforma: Android
+	 * Tipo: PUT
+	 * Descripcion: Servicio que permite actualizar el estado de un detalle segun el mapeo de base de datos
+	 * entregado en la documentación.
+	 */
 	@RequestMapping(value = "/update/state", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<?> updateState(@RequestBody UpdateDetailModel resource){

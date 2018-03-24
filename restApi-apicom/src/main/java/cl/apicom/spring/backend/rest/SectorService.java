@@ -18,6 +18,11 @@ public class SectorService {
 	@Autowired
 	private SectorRepository sectorrepository;
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Servicio que permite obtener todos los sectores del sistema.
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Sector> getAllSectors(){

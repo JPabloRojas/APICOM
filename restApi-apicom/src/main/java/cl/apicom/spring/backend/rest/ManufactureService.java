@@ -18,6 +18,11 @@ public class ManufactureService {
 	@Autowired
 	private ManufactureRepository manufacturerepository;
 	
+	/*
+	 * Plataforma: Administrador
+	 * Tipo: GET
+	 * Descripcion: Servicio que permite obtener todos los productos del sistema.
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Iterable<Manufacture> getAllManu(){
